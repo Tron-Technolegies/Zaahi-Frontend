@@ -19,7 +19,7 @@ const FeaturedSection = () => {
             </p>
           </div>
 
-          <button className='mt-6 cursor-pointer'>View All →</button>
+          <button className='mt-6 cursor-pointer '>View All →</button>
         </div>
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10'>
