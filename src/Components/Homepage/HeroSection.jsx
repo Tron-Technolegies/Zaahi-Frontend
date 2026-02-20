@@ -33,11 +33,11 @@ export default function HeroSection() {
           <img
             src='/Hero/heroneww.png'
             alt='Hero'
-            className='w-[400px] md:w-[550px] object-contain'
+            className='w-100 md:w-137.5 object-contain'
           />
         </div>
       </div>
-      <div className='absolute bottom-0 left-0 w-full h-[300px] bg-linear-to-t from-30% from-[#ffff] to-transparent'></div>
+      <div className='absolute bottom-0 left-0 w-full h-75 bg-linear-to-t from-30% from-[#ffff] to-transparent'></div>
     </section>
   );
 }
