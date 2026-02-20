@@ -8,7 +8,6 @@ import {
   FaEnvelope,
   FaLinkedinIn,
 } from 'react-icons/fa';
-import logo from '../public/Logo/Logo.png';
 
 export default function Footer() {
   return (
@@ -16,7 +15,7 @@ export default function Footer() {
       <div className=' max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12'>
         {/* Brand Section */}
         <div className='flex flex-col items-center justify-center h-full text-center'>
-          <img src={logo} alt='Zahi Designs' className='w-30 mb-4' />
+          <img src='/Logo/Logo.png' alt='Zahi Designs' className='w-30 mb-4' />
           <p className='text-xs leading-6 text-gray-600 mb-6'>
             Celebrating the timeless beauty of Indian ethnic wear with
             handcrafted collections for the modern woman.
