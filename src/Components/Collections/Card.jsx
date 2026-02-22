@@ -5,9 +5,9 @@ import { RiShoppingBag3Line } from "react-icons/ri";
 const Card = () => {
   return (
     <div>
-      <div className="border border-[#EDEDED] p-8 relative group">
-        <button className="absolute top-5 right-5 text-[#D77C84] text-xl">
-          <PiHeartLight className="text-xl" />
+      <div className="border border-[#7B7B7B66] p-8 relative group">
+        <button className="absolute top-5 right-5 text-[#D77C84]">
+          <PiHeartLight className="text-2xl" />
         </button>
 
         <img src="/Featured/Lehanga.png" alt="" className="mx-auto h-[340px] object-contain" />
