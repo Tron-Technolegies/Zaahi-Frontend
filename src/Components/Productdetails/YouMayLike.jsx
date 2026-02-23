@@ -4,7 +4,7 @@ import Card from "../Collections/Card";
 
 const YouMayLike = () => {
   return (
-    <div className="max-w-6xl mx-auto mt-40 mb-40">
+    <div className="max-w-6xl mx-auto mt-40">
       <div className="flex justify-between">
         <h1 className="font-[Bastoni] text-3xl">You May Also Like</h1>
         <button className="font-[Inter] flex items-center text-xs">

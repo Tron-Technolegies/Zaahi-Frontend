@@ -4,6 +4,7 @@ import DetailPage from "../Components/Productdetails/DetailPage";
 import YouMayLike from "../Components/Productdetails/YoumayLike";
 import Footer from "../Components/Footer";
 import Reviews from "../Components/Product Reviews/Reviews";
+import AssuranceSection from "../Components/Homepage/Assurance";
 
 const ProductReviews = () => {
   return (
@@ -12,6 +13,7 @@ const ProductReviews = () => {
       <DetailPage />
       <Reviews />
       <YouMayLike />
+      <AssuranceSection />
       <Footer />
     </div>
   );
