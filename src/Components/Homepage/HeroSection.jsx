@@ -9,7 +9,7 @@ export default function HeroSection() {
       }}
     >
       <div className='max-w-5xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-between'>
-        <div className='md:w-1/2 text-center md:text-left mx-auto -mt-40'>
+        <div className='md:w-1/2 text-center md:text-left mx-auto md:-mt-40'>
           <h1 className='font-[Bastoni] text-[#5D3838] text-xl md:text-[50px] tracking-wider leading-tight'>
             Elegance Woven
           </h1>
