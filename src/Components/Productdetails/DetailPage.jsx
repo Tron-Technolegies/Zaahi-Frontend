@@ -3,7 +3,6 @@ import { PiHeartLight } from "react-icons/pi";
 import Picture from "./Picture";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { RiShoppingBag3Line } from "react-icons/ri";
-import AssuranceSection from "../Homepage/Assurance";
 
 const DetailPage = () => {
   return (
