@@ -5,6 +5,8 @@ import HomeLayout from "./Pages/HomeLayout";
 import Collections from "./Pages/Collections";
 import ProductDetails from "./Pages/ProductDetails";
 import ProductReviews from "./Pages/ProductReviews";
+import ShoppingBag from "./Pages/ShoppingBag";
+import Wishlist from "./Pages/Wishlist";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
   {
     path: "/product-reviews",
     element: <ProductReviews />,
+  },
+  {
+    path: "/shopping-bag",
+    element: <ShoppingBag />,
+  },
+  {
+    path: "/wishlist",
+    element: <Wishlist />,
   },
 ]);
 
