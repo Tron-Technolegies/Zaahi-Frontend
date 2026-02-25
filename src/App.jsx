@@ -7,10 +7,12 @@ import ProductDetails from "./Pages/ProductDetails";
 import ProductReviews from "./Pages/ProductReviews";
 import ShoppingBag from "./Pages/ShoppingBag";
 import Wishlist from "./Pages/Wishlist";
+import Error from "../Error";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
+    errorElement: <Error />,
     children: [{ index: true, element: <Home /> }],
   },
   {

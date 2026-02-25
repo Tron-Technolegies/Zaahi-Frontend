@@ -9,7 +9,6 @@ const AssuranceSection = () => {
   return (
     <section className="w-full py-8 mt-20">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Cards */}
         <div className="grid gap-3 md:grid-cols-4">
           <AssuranceCard
             icon={IoShieldOutline}

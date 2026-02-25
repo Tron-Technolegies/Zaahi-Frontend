@@ -1,21 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Description = () => {
+  const [active, setActive] = useState("DESCRIPTION");
+  const navigate = useNavigate();
+
   return (
-    <>
-      <div className="font-Inter max-w-6xl mx-auto mt-40 font-[Inter]">
-        <div className="flex gap-10 font-semibold border-b-2 border-[#7B7B7B66] pb-4">
-          <button>DESCRIPTION </button>
-          <button>SPECIFICATIONS </button>
-          <button>REVIEWS </button>
-        </div>
-        <p className="text-[#848484] pt-5">
-          Stunning bridal lehenga set featuring heavy zardozi and resham embroidery. Includes
-          lehenga,
-          <br /> choli, and dupatta. Crafted with love for your special day
-        </p>
+    <div className="max-w-6xl mx-auto mt-40 px-4">
+      <div className="flex gap-10 border-b border-[#DADADA]">
+        <button
+          onClick={() => setActive("DESCRIPTION")}
+          className={`pb-3 font-semibold cursor-pointer
+            ${active === "DESCRIPTION" ? "text-black border-b-2 border-black" : "text-[#777777] hover:text-black"}`}
+        >
+          DESCRIPTION
+        </button>
+
+        <button
+          onClick={() => setActive("SPECIFICATIONS")}
+          className={`pb-3 font-semibold cursor-pointer
+            ${active === "SPECIFICATIONS" ? "text-black border-b-2 border-black" : "text-[#777777] hover:text-black"}`}
+        >
+          SPECIFICATIONS
+        </button>
+
+        <button
+          onClick={() => {
+            setActive("REVIEWS");
+            navigate("/product-reviews");
+          }}
+          className={`pb-3 font-semibold cursor-pointer
+            ${active === "REVIEWS" ? "text-black border-b-2 border-black" : "text-[#777777] hover:text-black"}`}
+        >
+          REVIEWS
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 

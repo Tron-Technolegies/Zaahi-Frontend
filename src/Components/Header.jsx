@@ -1,24 +1,23 @@
 import React, { useState } from "react";
 import { FiSearch, FiShoppingBag, FiUser, FiChevronDown, FiMenu, FiX } from "react-icons/fi";
 import { TfiWorld } from "react-icons/tfi";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <nav className="flex items-center justify-between px-4 md:px-8 h-18 bg-white border-b border-gray-100 relative">
-      {/* Mobile: Hamburger Menu Button */}
       <div className="flex md:hidden flex-1">
         <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-[#615226] p-2">
           {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </button>
       </div>
 
-      {/* Desktop: Navigation Links (Hidden on Mobile) */}
       <div className="hidden md:flex flex-1 items-center space-x-8 text-sm font-medium text-[#615226] ml-10">
-        <a href="#" className="hover:opacity-70 transition-colors">
+        <Link to="/collections" className="hover:opacity-70 transition-colors">
           Collections
-        </a>
+        </Link>
         <a href="#" className="hover:opacity-70 transition-colors">
           Shop
         </a>
@@ -27,7 +26,6 @@ const Header = () => {
         </a>
       </div>
 
-      {/* Center: Logo  */}
       <div className="h-full flex items-center shrink-0 z-20">
         <img
           src="/Logo/Logo.png"
@@ -36,7 +34,6 @@ const Header = () => {
         />
       </div>
 
-      {/* Right: Utilities */}
       <div className="flex-1 flex items-center justify-end space-x-3 md:space-x-6 text-[#6B6B6B]">
         <div className="flex items-center space-x-4 md:space-x-6">
           <button className="hover:opacity-70 transition-colors">
@@ -51,7 +48,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Slide-out Menu Overlay */}
       {isMenuOpen && (
         <div className="absolute top-18 left-0 w-full bg-white border-b border-gray-200 z-50 md:hidden animate-in slide-in-from-top duration-300">
           <div className="flex flex-col p-6 space-y-4 text-[#615226] font-medium">
