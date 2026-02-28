@@ -13,7 +13,6 @@ const PaymentDetails = () => {
       <HomeCheckout />
 
       <div className="flex flex-col lg:flex-row justify-center gap-10 lg:gap-30 max-w-7xl mx-auto mt-10 px-4">
-        {/* LEFT SIDE */}
         <div className="w-full lg:w-auto">
           <Link to="/shipping">
             <button className="text-gray-400 hover:border-gray-700 text-sm cursor-pointer">
@@ -58,7 +57,6 @@ const PaymentDetails = () => {
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
         <div className="w-full lg:w-auto">
           <Summarycard />
         </div>
