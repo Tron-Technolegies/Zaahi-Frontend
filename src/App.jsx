@@ -18,6 +18,7 @@ import {
   Wishlist,
 } from "./Pages";
 import HomeLayout from "./Pages/HomeLayout";
+import OrderConfirmed from "./Pages/OrderConfirmed";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
   {
     path: "/shipping",
     element: <Shipping />,
+  },
+  {
+    path: "/order-confirmed",
+    element: <OrderConfirmed />,
   },
 ]);
 
