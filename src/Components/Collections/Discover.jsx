@@ -61,16 +61,16 @@ const Discover = () => {
 
           <section className="col-span-9 px-10">
             <div className="border-b border-[#E6E6E6]  text-[#777777] text-sm font-[Inter] py-5 flex items-center gap-3 ">
-              <button className="px-4 py-1.5 hover:bg-[#D77C84] hover:text-white hover:border-0 border border-[#E6E6E6] hover:scale duration-500 ease-in-out">
+              <button className="px-4 py-1.5 hover:bg-[#D77C84] hover:text-white hover:border-0 border border-[#E6E6E6]">
                 All Collections
               </button>
-              <button className="px-4 py-1.5 hover:bg-[#D77C84] hover:text-white hover:border-0 border border-[#E6E6E6] hover:scale-105 duration-800 ease-in-out">
+              <button className="px-4 py-1.5 hover:bg-[#D77C84] hover:text-white hover:border-0 border border-[#E6E6E6] ">
                 New Arrivals
               </button>
-              <button className="px-4 py-1.5 hover:bg-[#D77C84] hover:text-white hover:border-0 border border-[#E6E6E6] hover:scale-105 duration-800 ease-in-out">
+              <button className="px-4 py-1.5 hover:bg-[#D77C84] hover:text-white hover:border-0 border border-[#E6E6E6]">
                 Trending
               </button>
-              <button className="px-4 py-1.5 hover:bg-[#D77C84] hover:text-white hover:border-0 border border-[#E6E6E6] hover:scale-105 duration-800 ease-in-out">
+              <button className="px-4 py-1.5 hover:bg-[#D77C84] hover:text-white hover:border-0 border border-[#E6E6E6] ">
                 More
               </button>
             </div>

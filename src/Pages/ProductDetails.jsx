@@ -12,6 +12,12 @@ const ProductDetails = () => {
       <Header />
       <DetailPage />
       <Description />
+      <div className="max-w-6xl mx-auto">
+        <p className="text-[#848484] pt-5">
+          Stunning bridal lehenga set featuring heavy zardozi and resham embroidery. Includes
+          lehenga, choli, and dupatta. Crafted with love for your special day.
+        </p>
+      </div>
       <YouMayLike />
       <AssuranceSection />
       <Footer />
