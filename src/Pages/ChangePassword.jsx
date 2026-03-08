@@ -5,11 +5,12 @@ import Footer from "../Components/Footer";
 import Sidebar from "../Components/myprofile/Sidebar";
 import { CiLock } from "react-icons/ci";
 import { FaRegEyeSlash } from "react-icons/fa";
+//not responsive
 
 const ChangePassword = () => {
   return (
     <div>
-      <Header /> //not responsive//
+      <Header />
       <HeadName />
       <div className="flex flex-col lg:flex-row max-w-6xl mx-auto px-4 gap-8">
         <Sidebar />

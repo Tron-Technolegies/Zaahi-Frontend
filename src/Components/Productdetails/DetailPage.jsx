@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { PiHeartLight } from "react-icons/pi";
 import Picture from "./Picture";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { RiShoppingBag3Line } from "react-icons/ri";
 
-const DetailPage = () => {
+const DetailPage = ({ product }) => {
+  const [quantity, setQuantity] = useState(1);
+  const stock = product?.stock || 10; // Default to 10 if stock isn't provided
+
+  const handleIncrease = () => {
+    if (quantity < stock) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   return (
     <div className="mt-20 max-w-8xl">
       <div className="flex px-50 gap-3 text-sm font-[Inter]">
         <button className="text-[#848484]">Home &gt;</button>
         <button className="text-[#848484]">Collections &gt;</button>
-        <button>Raw Silk Dupatta</button>
+        <button>{product?.productName || "Raw Silk Dupatta"}</button>
       </div>
 
       <div className="flex mt-10 gap-25  justify-center">
@@ -25,7 +40,7 @@ const DetailPage = () => {
             <button className="absolute top-5 right-5 text-[#D77C84]">
               <PiHeartLight className="text-3xl" />
             </button>
-            <img src="/Featured/Lehanga.png" alt="" className="mx-auto h-[370px] object-contain" />
+            <img src={product?.image || "/Featured/Lehanga.png"} alt="" className="mx-auto h-[370px] object-contain" />
           </div>
         </div>
 
@@ -33,22 +48,30 @@ const DetailPage = () => {
           <button className="w-[70px] bg-[#F42727] text-white px-2 py-1 text-sm mb-7 font-[Inter]">
             SALE
           </button>
-          <p className="font-[Be Vietnam Pro]">Raw Silk with Net Dupatta</p>
+          <p className="font-[Be Vietnam Pro]">{product?.productName || "Raw Silk with Net Dupatta"}</p>
           <p className="text-sm text-[#777777] mb-4 font-[Inter]">
             ★★★★☆ <span className="ml-2">4.9 (127 reviews)</span>
           </p>
           <div className="flex items-center gap-3 mb-6 font-[Inter]">
-            <p className="text-2xl font-semibold">$12,500</p>
+            <p className="text-2xl font-semibold">${product?.price || "12,500"}</p>
             <p className="text-[#9A9A9A] line-through">$15,000</p>
           </div>
 
           <div className="flex items-center mt-8 gap-5 font-[Inter]">
             <div className="flex items-center  border border-[#7B7B7B66] ">
-              <button className="px-3 py-2 ">
+              <button 
+                onClick={handleDecrease}
+                className={`px-3 py-2 ${quantity <= 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}`}
+                disabled={quantity <= 1}
+              >
                 <AiOutlineMinus />
               </button>
-              <span className="px-2">1</span>
-              <button className="px-3 py-2">
+              <span className="px-4">{quantity}</span>
+              <button 
+                onClick={handleIncrease}
+                className={`px-3 py-2 ${quantity >= stock ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}`}
+                disabled={quantity >= stock}
+              >
                 <AiOutlinePlus />
               </button>
             </div>

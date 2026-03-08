@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FiSearch, FiShoppingBag, FiUser, FiChevronDown, FiMenu, FiX } from "react-icons/fi";
-import { TfiWorld } from "react-icons/tfi";
 import { Link } from "react-router-dom";
+import { FiHeart } from "react-icons/fi";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,10 +37,15 @@ const Header = () => {
       <div className="flex-1 flex items-center justify-end space-x-3 md:space-x-6 text-[#6B6B6B]">
         <div className="flex items-center space-x-4 md:space-x-6">
           <button className="hover:opacity-70 transition-colors">
-            <FiSearch size={20} className="md:size-5.5" />
+            <FiSearch className="md:size-5.5" />
           </button>
+          <Link to="/wishlist">
+            <button className="hover:opacity-70 transition-colors">
+              <FiHeart className="md:size-5.5 mt-2" />
+            </button>
+          </Link>
           <button className="hover:opacity-70 transition-colors">
-            <FiShoppingBag size={20} className="md:size-5.5" />
+            <FiShoppingBag className="md:size-5.5" />
           </button>
           <button className="hover:opacity-70 transition-colors hidden md:block">
             <FiUser size={24} />

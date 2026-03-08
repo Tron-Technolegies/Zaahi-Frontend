@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import ProductReviews from "./ProductReviews";
 import Picture from "../Components/Productdetails/Picture";
 
-const ShoppingBag = () => {
+const ShoppingBag = ({ product }) => {
+  const [quantity, setQuantity] = useState(1);
+  const stock = product?.stock || 5;
+
+  const handleIncrease = () => {
+    if (quantity < stock) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   return (
     <div className="relative min-h-screen tracking-wide">
       <div className="blur-md transition-all duration-300">
@@ -18,14 +33,26 @@ const ShoppingBag = () => {
         <div className="py-15 px-8 border-b border-[#D9D9D9] flex gap-5 font-[Inter]">
           <Picture />
           <div>
-            <p className="font-medium text-sm ">RAW SILK WITH NET DUPATTA</p>
+            <p className="font-medium text-sm ">{product?.productName?.toUpperCase() || "RAW SILK WITH NET DUPATTA"}</p>
             <p className="text-xs text-gray-500">Zahi</p>
-            <p className="font-semibold mt-1">$12,500</p>
+            <p className="font-semibold mt-1">${product?.price || "12,500"}</p>
 
-            <div className="flex items-center text-sm gap-2 mt-2 border border-[#D9D9D9] w-fit px-4">
-              <button>-</button>
-              <span>1</span>
-              <button>+</button>
+            <div className="flex items-center text-sm gap-2 mt-2 border border-[#D9D9D9] w-fit px-4 py-1">
+              <button
+                onClick={handleDecrease}
+                className={`text-lg px-2 ${quantity <= 1 ? "opacity-30 cursor-not-allowed" : "cursor-pointer font-bold"}`}
+                disabled={quantity <= 1}
+              >
+                -
+              </button>
+              <span className="px-2 font-medium">{quantity}</span>
+              <button
+                onClick={handleIncrease}
+                className={`text-lg px-2 ${quantity >= stock ? "opacity-30 cursor-not-allowed" : "cursor-pointer font-bold"}`}
+                disabled={quantity >= stock}
+              >
+                +
+              </button>
             </div>
           </div>
         </div>
