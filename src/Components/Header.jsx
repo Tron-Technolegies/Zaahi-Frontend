@@ -196,13 +196,21 @@ const Header = () => {
         />
       </div>
 
-      <div className='flex-1 flex items-center justify-end space-x-3 md:space-x-6 text-[#6B6B6B]'>
-        <div className='flex items-center space-x-4 md:space-x-6'>
-          <button className='hover:opacity-70 transition-colors'>
-            <FiSearch size={20} className='md:size-5.5' />
+      <div className="flex-1 flex items-center justify-end space-x-3 md:space-x-6 text-[#6B6B6B]">
+        <div className="flex items-center space-x-4 md:space-x-6">
+          <button className="hover:opacity-70 transition-colors">
+            <FiSearch className="md:size-5.5" />
           </button>
-          <button className='hover:opacity-70 transition-colors'>
-            <FiShoppingBag size={20} className='md:size-5.5' />
+          <Link to="/wishlist">
+            <button className="hover:opacity-70 transition-colors">
+              <FiHeart className="md:size-5.5 mt-2" />
+            </button>
+          </Link>
+          <button className="hover:opacity-70 transition-colors">
+            <FiShoppingBag className="md:size-5.5" />
+          </button>
+          <button className="hover:opacity-70 transition-colors hidden md:block">
+            <FiUser size={24} />
           </button>
 
           {user ? (
