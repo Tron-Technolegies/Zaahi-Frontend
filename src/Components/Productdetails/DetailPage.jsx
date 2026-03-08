@@ -28,24 +28,24 @@ const DetailPage = ({ product }) => {
         <button>{product?.productName || "Raw Silk Dupatta"}</button>
       </div>
 
-      <div className="flex mt-10 gap-25  justify-center">
-        <div className="flex items-center justify-center gap-6">
-          <div className="flex flex-col gap-5">
+      <div className='flex mt-10 gap-25  justify-center'>
+        <div className='flex items-center justify-center gap-6'>
+          <div className='flex flex-col gap-5'>
             <Picture />
             <Picture />
             <Picture />
             <Picture />
           </div>
-          <div className="border border-[#D9D9D9] relative p-10">
-            <button className="absolute top-5 right-5 text-[#D77C84]">
-              <PiHeartLight className="text-3xl" />
+          <div className='border border-[#D9D9D9] relative p-10'>
+            <button className='absolute top-5 right-5 text-[#D77C84]'>
+              <PiHeartLight className='text-3xl' />
             </button>
             <img src={product?.image || "/Featured/Lehanga.png"} alt="" className="mx-auto h-[370px] object-contain" />
           </div>
         </div>
 
-        <div className="flex flex-col mt-10">
-          <button className="w-[70px] bg-[#F42727] text-white px-2 py-1 text-sm mb-7 font-[Inter]">
+        <div className='flex flex-col mt-10'>
+          <button className='w-[70px] bg-[#F42727] text-white px-2 py-1 text-sm mb-7 font-[Inter]'>
             SALE
           </button>
           <p className="font-[Be Vietnam Pro]">{product?.productName || "Raw Silk with Net Dupatta"}</p>
@@ -75,14 +75,14 @@ const DetailPage = ({ product }) => {
                 <AiOutlinePlus />
               </button>
             </div>
-            <button className="w-[300px] bg-[#D77C84] font-[Inter] text-white text-xs py-2">
+            <button className='w-[300px] bg-[#D77C84] font-[Inter] text-white text-xs py-2'>
               BUY NOW
             </button>
-            <button className="w-9 h-9 border border-[#7B7B7B66] text-xs flex items-center justify-center">
-              <RiShoppingBag3Line className="text-lg text-gray-700" />
+            <button className='w-9 h-9 border border-[#7B7B7B66] text-xs flex items-center justify-center'>
+              <RiShoppingBag3Line className='text-lg text-gray-700' />
             </button>
           </div>
-          <hr className="my-10  border-px border-[#7B7B7B66]" />
+          <hr className='my-10  border-px border-[#7B7B7B66]' />
         </div>
       </div>
     </div>
