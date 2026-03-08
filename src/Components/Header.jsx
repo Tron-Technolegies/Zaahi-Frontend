@@ -1,67 +1,279 @@
-import React, { useState } from "react";
-import { FiSearch, FiShoppingBag, FiUser, FiChevronDown, FiMenu, FiX } from "react-icons/fi";
-import { TfiWorld } from "react-icons/tfi";
-import { Link } from "react-router-dom";
+// import React, { useState } from 'react';
+// import {
+//   FiSearch,
+//   FiShoppingBag,
+//   FiUser,
+//   FiChevronDown,
+//   FiMenu,
+//   FiX,
+// } from 'react-icons/fi';
+// import { TfiWorld } from 'react-icons/tfi';
+// import { Link, useNavigate } from 'react-router-dom';
+// import { useCurrentUser } from '../hooks/user/useCurrentUser';
+
+// const Header = () => {
+//   const { data: user } = useCurrentUser();
+//   const navigate = useNavigate();
+//   const [isMenuOpen, setIsMenuOpen] = useState(false);
+//   const [open, setOpen] = useState(false);
+
+//   return (
+//     <nav className='flex items-center justify-between px-4 md:px-8 h-18 bg-white border-b border-gray-100 relative'>
+//       <div className='flex md:hidden flex-1'>
+//         <button
+//           onClick={() => setIsMenuOpen(!isMenuOpen)}
+//           className='text-[#615226] p-2'
+//         >
+//           {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+//         </button>
+//       </div>
+
+//       <div className='hidden md:flex flex-1 items-center space-x-8 text-sm font-medium text-[#615226] ml-10'>
+//         <Link to='/collections' className='hover:opacity-70 transition-colors'>
+//           Collections
+//         </Link>
+//         <a href='#' className='hover:opacity-70 transition-colors'>
+//           Shop
+//         </a>
+//         <a href='#' className='hover:opacity-70 transition-colors'>
+//           New Arrivals
+//         </a>
+//       </div>
+
+//       <div className='h-full flex items-center shrink-0 z-20'>
+//         <img
+//           src='/Logo/Logo.png'
+//           alt='Zaahi Designs'
+//           className='h-16 md:h-28 w-auto object-contain transform'
+//         />
+//       </div>
+
+//       <div className='flex-1 flex items-center justify-end space-x-3 md:space-x-6 text-[#6B6B6B]'>
+//         <div className='flex items-center space-x-4 md:space-x-6'>
+//           <button className='hover:opacity-70 transition-colors'>
+//             <FiSearch size={20} className='md:size-5.5' />
+//           </button>
+//           <button className='hover:opacity-70 transition-colors'>
+//             <FiShoppingBag size={20} className='md:size-5.5' />
+//           </button>
+//           {/* {user ? (
+//             <div className='w-9 h-9 rounded-full bg-[#D47784] text-white flex items-center justify-center font-semibold'>
+//               {user.username[0].toUpperCase()}
+//             </div>
+//           ) */}
+
+//           {user ? (
+//             <div className='relative'>
+//               {/* Avatar */}
+//               <div
+//                 onClick={() => setOpen(!open)}
+//                 className='w-9 h-9 rounded-full bg-[#D47784] text-white flex items-center justify-center font-semibold cursor-pointer'
+//               >
+//                 {user.username[0].toUpperCase()}
+//               </div>
+
+//               {/* Dropdown */}
+//               {open && (
+//                 <div className='absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg border z-50'>
+//                   <Link
+//                     to='/account'
+//                     className='block px-4 py-2 hover:bg-gray-100'
+//                   >
+//                     Account
+//                   </Link>
+
+//                   <Link
+//                     to='/orders'
+//                     className='block px-4 py-2 hover:bg-gray-100'
+//                   >
+//                     Orders
+//                   </Link>
+
+//                   <button
+//                     // onClick={() => logout()}
+//                     className='w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500'
+//                   >
+//                     Logout
+//                   </button>
+//                 </div>
+//               )}
+//             </div>
+//           ) : (
+//             <button
+//               className='hover:opacity-70 transition-colors hidden md:block '
+//               onClick={() => navigate('/signin')}
+//             >
+//               <FiUser size={24} />
+//             </button>
+//           )}
+//         </div>
+//       </div>
+
+//       {isMenuOpen && (
+//         <div className='absolute top-18 left-0 w-full bg-white border-b border-gray-200 z-50 md:hidden animate-in slide-in-from-top duration-300'>
+//           <div className='flex flex-col p-6 space-y-4 text-[#615226] font-medium'>
+//             <a href='#' onClick={() => setIsMenuOpen(false)}>
+//               Collections
+//             </a>
+//             <a href='#' onClick={() => setIsMenuOpen(false)}>
+//               Shop
+//             </a>
+//             <a href='#' onClick={() => setIsMenuOpen(false)}>
+//               New Arrivals
+//             </a>
+//             <hr />
+//             <a href='#' className='text-sm flex items-center gap-2'>
+//               <FiUser /> Account
+//             </a>
+//           </div>
+//         </div>
+//       )}
+//     </nav>
+//   );
+// };
+
+// export default Header;
+
+import React, { useState } from 'react';
+import {
+  FiSearch,
+  FiShoppingBag,
+  FiUser,
+  FiChevronDown,
+  FiMenu,
+  FiX,
+} from 'react-icons/fi';
+import { TfiWorld } from 'react-icons/tfi';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCurrentUser } from '../hooks/user/useCurrentUser';
+import { Menu, MenuItem } from '@mui/material';
+import { useSignOut } from '../hooks/auth/useSignin';
 
 const Header = () => {
+  const { data: user } = useCurrentUser();
+  const { mutateAsync: logout } = useSignOut();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <nav className="flex items-center justify-between px-4 md:px-8 h-18 bg-white border-b border-gray-100 relative">
-      <div className="flex md:hidden flex-1">
-        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-[#615226] p-2">
+    <nav className='flex items-center justify-between px-4 md:px-8 h-18 bg-white border-b border-gray-100 relative'>
+      <div className='flex md:hidden flex-1'>
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className='text-[#615226] p-2'
+        >
           {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </button>
       </div>
 
-      <div className="hidden md:flex flex-1 items-center space-x-8 text-sm font-medium text-[#615226] ml-10">
-        <Link to="/collections" className="hover:opacity-70 transition-colors">
+      <div className='hidden md:flex flex-1 items-center space-x-8 text-sm font-medium text-[#615226] ml-10'>
+        <Link to='/collections' className='hover:opacity-70 transition-colors'>
           Collections
         </Link>
-        <a href="#" className="hover:opacity-70 transition-colors">
+        <a href='#' className='hover:opacity-70 transition-colors'>
           Shop
         </a>
-        <a href="#" className="hover:opacity-70 transition-colors">
+        <a href='#' className='hover:opacity-70 transition-colors'>
           New Arrivals
         </a>
       </div>
 
-      <div className="h-full flex items-center shrink-0 z-20">
+      <div className='h-full flex items-center shrink-0 z-20'>
         <img
-          src="/Logo/Logo.png"
-          alt="Zaahi Designs"
-          className="h-16 md:h-28 w-auto object-contain transform"
+          src='/Logo/Logo.png'
+          alt='Zaahi Designs'
+          className='h-16 md:h-28 w-auto object-contain transform'
         />
       </div>
 
-      <div className="flex-1 flex items-center justify-end space-x-3 md:space-x-6 text-[#6B6B6B]">
-        <div className="flex items-center space-x-4 md:space-x-6">
-          <button className="hover:opacity-70 transition-colors">
-            <FiSearch size={20} className="md:size-5.5" />
+      <div className='flex-1 flex items-center justify-end space-x-3 md:space-x-6 text-[#6B6B6B]'>
+        <div className='flex items-center space-x-4 md:space-x-6'>
+          <button className='hover:opacity-70 transition-colors'>
+            <FiSearch size={20} className='md:size-5.5' />
           </button>
-          <button className="hover:opacity-70 transition-colors">
-            <FiShoppingBag size={20} className="md:size-5.5" />
+          <button className='hover:opacity-70 transition-colors'>
+            <FiShoppingBag size={20} className='md:size-5.5' />
           </button>
-          <button className="hover:opacity-70 transition-colors hidden md:block">
-            <FiUser size={24} />
-          </button>
+
+          {user ? (
+            <div className='relative'>
+              {/* Avatar */}
+              <div
+                onClick={handleMenuOpen}
+                className='w-9 h-9 rounded-full bg-[#D47784] text-white flex items-center justify-center font-semibold cursor-pointer'
+              >
+                {user.username[0].toUpperCase()}
+              </div>
+
+              {/* MUI Menu */}
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+              >
+                <MenuItem
+                  onClick={() => {
+                    handleMenuClose();
+                    navigate('/account');
+                  }}
+                >
+                  Account
+                </MenuItem>
+
+                <MenuItem
+                  onClick={() => {
+                    handleMenuClose();
+                    navigate('/orders');
+                  }}
+                >
+                  Orders
+                </MenuItem>
+
+                <MenuItem
+                  onClick={() => {
+                    handleMenuClose();
+                    logout();
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <button
+              className='hover:opacity-70 transition-colors hidden md:block '
+              onClick={() => navigate('/signin')}
+            >
+              <FiUser size={24} />
+            </button>
+          )}
         </div>
       </div>
 
       {isMenuOpen && (
-        <div className="absolute top-18 left-0 w-full bg-white border-b border-gray-200 z-50 md:hidden animate-in slide-in-from-top duration-300">
-          <div className="flex flex-col p-6 space-y-4 text-[#615226] font-medium">
-            <a href="#" onClick={() => setIsMenuOpen(false)}>
+        <div className='absolute top-18 left-0 w-full bg-white border-b border-gray-200 z-50 md:hidden animate-in slide-in-from-top duration-300'>
+          <div className='flex flex-col p-6 space-y-4 text-[#615226] font-medium'>
+            <a href='#' onClick={() => setIsMenuOpen(false)}>
               Collections
             </a>
-            <a href="#" onClick={() => setIsMenuOpen(false)}>
+            <a href='#' onClick={() => setIsMenuOpen(false)}>
               Shop
             </a>
-            <a href="#" onClick={() => setIsMenuOpen(false)}>
+            <a href='#' onClick={() => setIsMenuOpen(false)}>
               New Arrivals
             </a>
             <hr />
-            <a href="#" className="text-sm flex items-center gap-2">
+            <a href='#' className='text-sm flex items-center gap-2'>
               <FiUser /> Account
             </a>
           </div>
