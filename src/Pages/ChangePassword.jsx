@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../Components/Header";
 import HeadName from "../Components/myprofile/HeadName";
 import Footer from "../Components/Footer";

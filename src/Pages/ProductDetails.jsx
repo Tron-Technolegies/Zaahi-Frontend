@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../Components/Header";
 import DetailPage from "../Components/Productdetails/DetailPage";
 import Description from "../Components/Productdetails/Description";

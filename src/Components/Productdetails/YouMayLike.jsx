@@ -1,18 +1,11 @@
 import React from "react";
 import { FiArrowRight } from "react-icons/fi";
 import Card from "../Collections/Card";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useYouMayLikeProducts } from "../../hooks/productdetail/useYouMayLike.js";
 
 const YouMayLike = () => {
-  const { data: products, isLoading } = useQuery({
-    queryKey: ["you-may-like"],
-    queryFn: async () => {
-      // Recommend products, standard list for now
-      const response = await axios.get("http://localhost:3000/api/v1/product");
-      return response.data.products;
-    },
-  });
+  const { data, isLoading } = useYouMayLikeProducts();
+  const products = data || [];
 
   return (
     <div className="max-w-6xl mx-auto mt-40 px-4 sm:px-6 lg:px-0">

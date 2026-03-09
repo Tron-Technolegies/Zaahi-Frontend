@@ -1,4 +1,3 @@
-import React from "react";
 import { IoShieldOutline } from "react-icons/io5";
 import { RiLoopLeftFill } from "react-icons/ri";
 import { PiMedal } from "react-icons/pi";

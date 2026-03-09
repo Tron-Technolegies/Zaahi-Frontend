@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../Components/Header";
 import HomeCheckout from "../Components/shipping/HomeCheckout";
 import Summarycard from "../Components/shipping/Summarycard";
