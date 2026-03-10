@@ -1,43 +1,38 @@
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import WishlistCard from "../Components/wishlist/WishlistCard";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getWishlist, clearWishlist } from "../api/wishlist";
-import toast from "react-hot-toast";
+import { useGetWishlist, useClearWishlist } from "../hooks/wishlist/useWishlist";
 
 const Wishlist = () => {
-  const queryClient = useQueryClient();
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["wishlist"],
-    queryFn: getWishlist,
-  });
-
-  const clearMutation = useMutation({
-    mutationFn: clearWishlist,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
-      toast.success("Wishlist cleared");
-    },
-    onError: () => toast.error("Error clearing wishlist"),
-  });
-
+  const { data, isLoading } = useGetWishlist();
   const wishlistItems = data?.wishlist || [];
+  const { isPending: isClearing, mutateAsync: clearAsync } = useClearWishlist();
+
+  const handleClear = async () => {
+    try {
+      await clearAsync();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
       <Header />
       <div className="flex justify-between items-center mt-10 px-4 md:px-12 lg:px-24">
         <div className="flex gap-3 text-sm font-[Inter]">
-          <button className="text-[#848484]">Home &gt;</button>
-          <button>Wishlist</button>
+          <a href="/">
+            <button className="text-[#848484] cursor-pointer">Home &gt; &nbsp;</button>
+            <button>Wishlist</button>
+          </a>
         </div>
         {wishlistItems.length > 0 && (
           <button
-            onClick={() => clearMutation.mutate()}
+            onClick={handleClear}
             className="bg-[#D77C84] text-white px-4 py-2 text-sm hover:opacity-90 transition rounded-md font-[Inter]"
+            disabled={isClearing}
           >
-            Clear All
+            {isClearing ? "Clearing..." : "Clear All"}
           </button>
         )}
       </div>
@@ -46,9 +41,7 @@ const Wishlist = () => {
         {isLoading ? (
           <p className="text-center font-[Inter] text-gray-500">Loading wishlist...</p>
         ) : wishlistItems.length > 0 ? (
-          wishlistItems.map((item, idx) => (
-            <WishlistCard key={idx} item={item} mockId={item?._id} />
-          ))
+          wishlistItems.map((item, idx) => <WishlistCard key={idx} item={item} />)
         ) : (
           <p className="text-center font-[Inter] text-gray-400">Your wishlist is empty.</p>
         )}

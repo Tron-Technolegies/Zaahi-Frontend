@@ -1,4 +1,3 @@
-import React from "react";
 import Card from "../Collections/Card";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -29,16 +28,19 @@ const NewArrivalsSection = () => {
             </p>
           </div>
 
-          <Link to="/collections?filter=new-arrivals" className="mt-6 text-sm cursor-pointer hover:underline text-[#D77C84]">View All →</Link>
+          <Link
+            to="/collections?filter=new-arrivals"
+            className="mt-6 text-sm cursor-pointer hover:underline text-[#D77C84]"
+          >
+            View All →
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {isLoading ? (
             <p className="col-span-3 text-center text-gray-400">Loading new arrivals...</p>
           ) : products && products.length > 0 ? (
-            products.slice(0, 3).map((product) => (
-              <Card key={product._id} product={product} />
-            ))
+            products.slice(0, 3).map((product) => <Card key={product._id} product={product} />)
           ) : (
             <p className="col-span-3 text-center text-gray-400">No new arrivals found.</p>
           )}

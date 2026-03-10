@@ -1,73 +1,20 @@
 import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { RiEqualizerFill } from "react-icons/ri";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useSearchParams } from "react-router-dom";
-
+import { useDiscover } from "../../hooks/collections/useDiscover.js";
 import Card from "./Card";
 
 const Discover = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentFilter = searchParams.get("filter") || "all";
-  const currentSort = searchParams.get("sort") || "";
-  const currentSearch = searchParams.get("search") || "";
-
-  const { data: products, isLoading } = useQuery({
-    queryKey: ["products"],
-    queryFn: async () => {
-      const response = await axios.get("http://localhost:3000/api/v1/product");
-      return response.data.products;
-    },
-  });
-
-  const handleFilterClick = (filter) => {
-    const params = new URLSearchParams(searchParams);
-    if (filter === "all") {
-      params.delete("filter");
-      params.delete("sort");
-      params.delete("search");
-    } else {
-      params.set("filter", filter);
-    }
-    setSearchParams(params);
-  };
-
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    const params = new URLSearchParams(searchParams);
-    if (value) {
-      params.set("search", value);
-    } else {
-      params.delete("search");
-    }
-    setSearchParams(params);
-  };
-
-  const handleSortClick = (sortType) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("sort", sortType);
-    setSearchParams(params);
-  };
-
-  let displayProducts = products ? [...products] : [];
-  if (currentFilter === "new-arrivals" && displayProducts.length > 0) {
-    displayProducts.reverse();
-  } else if (currentFilter === "featured" && displayProducts.length > 0) {
-    displayProducts.sort((a, b) => a.productName.localeCompare(b.productName));
-  }
-
-  if (currentSort === "low") {
-    displayProducts.sort((a, b) => Number(a.price) - Number(b.price));
-  } else if (currentSort === "high") {
-    displayProducts.sort((a, b) => Number(b.price) - Number(a.price));
-  }
-
-  if (currentSearch) {
-    displayProducts = displayProducts.filter((product) =>
-      product.productName?.toLowerCase().includes(currentSearch.toLowerCase())
-    );
-  }
+  const {
+    currentFilter,
+    currentSort,
+    currentSearch,
+    isLoading,
+    displayProducts,
+    handleFilterClick,
+    handleSearchChange,
+    handleSortClick,
+  } = useDiscover();
 
   return (
     <>
@@ -86,7 +33,12 @@ const Discover = () => {
               <h2 className="text-xl font-[Inter] text-[#181817]  tracking-wide font-medium">
                 FILTERS
               </h2>
-              <button onClick={() => handleFilterClick("all")} className="text-sm font-[Inter] text-[#777777] hover:underline cursor-pointer">Reset</button>
+              <button
+                onClick={() => handleFilterClick("all")}
+                className="text-sm font-[Inter] text-[#777777] hover:underline cursor-pointer"
+              >
+                Reset
+              </button>
             </div>
 
             <div className="border-t border-[#E6E6E6]">

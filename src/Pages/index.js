@@ -13,3 +13,4 @@ export { default as SavedAddress } from "./SavedAddress";
 export { default as Shipping } from "./Shipping";
 export { default as ShoppingBag } from "./ShoppingBag";
 export { default as Wishlist } from "./Wishlist";
+export { default as Error } from "./Error";
