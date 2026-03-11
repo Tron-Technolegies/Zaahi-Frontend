@@ -1,11 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getWishlist, addToWishlist, removeFromWishlist } from "../../api/wishlist";
+import { api } from "../../services/api";
 import toast from "react-hot-toast";
 
 export const useCardGetWishlist = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["wishlist"],
-    queryFn: getWishlist,
+    queryFn: async () => {
+      const { data } = await api.get(`/wishlist`);
+      return data;
+    },
   });
   return { data, isLoading, isError, error };
 };
@@ -13,7 +16,10 @@ export const useCardGetWishlist = () => {
 export const useCardAddToWishlist = () => {
   const queryClient = useQueryClient();
   const { isPending, mutateAsync } = useMutation({
-    mutationFn: addToWishlist,
+    mutationFn: async (productData) => {
+      const productId = typeof productData === "object" ? productData._id : productData;
+      await api.patch(`/wishlist/add`, { productId });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["wishlist"] });
       toast.success("Added to wishlist");
@@ -28,7 +34,9 @@ export const useCardAddToWishlist = () => {
 export const useCardRemoveWishlist = () => {
   const queryClient = useQueryClient();
   const { isPending, mutateAsync } = useMutation({
-    mutationFn: removeFromWishlist,
+    mutationFn: async (productId) => {
+      await api.patch(`/wishlist/remove`, { productId });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["wishlist"] });
       toast.success("Removed from wishlist");

@@ -1,12 +1,13 @@
 import React from "react";
 
-const Picture = ({ image }) => {
+const Picture = ({ product }) => {
+  const productId = product?._id;
   return (
     <div>
       <div className="border border-[#D9D9D9] p-2 ">
         <img
-          src={image || "/Featured/Lehanga.png"}
-          alt=""
+          src={product?.image}
+          alt={product?.productName}
           className="h-[80px] relative object-contain"
         />
       </div>
