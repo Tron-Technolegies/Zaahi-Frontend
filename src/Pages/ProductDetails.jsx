@@ -22,7 +22,7 @@ const ProductDetails = () => {
   if (isError || !product) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-xl text-red-600">Failed to load product details.</p>
+        <p className="text-x">Failed to load product details.</p>
       </div>
     );
   }

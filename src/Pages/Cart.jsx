@@ -40,7 +40,7 @@ const Cart = () => {
               <button
                 onClick={() => clearCart()}
                 disabled={isClearing}
-                className="text-sm font-[Inter] text-red-500 hover:text-red-700 font-medium"
+                className="text-sm font-[Inter] text-red-500 hover:text-red-700 font-medium cursor-pointer"
               >
                 {isClearing ? "Clearing..." : "Clear All"}
               </button>
@@ -64,7 +64,7 @@ const Cart = () => {
 
         {cartItems.length > 0 && (
           <div className="w-full lg:w-1/3 mt-8 lg:mt-0">
-            <div className="border border-[#E8E8E8] rounded-2xl p-6 md:p-8 sticky top-24 shadow-sm">
+            <div className="border border-[#E8E8E8] rounded-2xl p-6 md:p-8 sticky top-24 ">
               <h3 className="text-xl font-medium font-[Bastoni] mb-6">Order Summary</h3>
 
               <div className="flex justify-between mb-4 font-[Inter] text-[#777777]">
@@ -82,8 +82,8 @@ const Cart = () => {
                 <p>${subtotal}</p>
               </div>
 
-              <a href="/checkout" className="block w-full">
-                <button className="w-full bg-[#D77C84] text-white hover:bg-[#b05f66] py-4 font-[Inter] text-sm font-medium transition duration-300">
+              <a href="/shipping" className="block w-full">
+                <button className="w-full bg-[#D77C84] text-white cursor-pointer hover:bg-[#b05f66] py-4 font-[Inter] text-sm font-medium transition duration-300">
                   PROCEED TO CHECKOUT
                 </button>
               </a>

@@ -41,7 +41,7 @@ const Wishlist = () => {
         {isLoading ? (
           <p className="text-center font-[Inter] text-gray-500">Loading wishlist...</p>
         ) : wishlistItems.length > 0 ? (
-          wishlistItems.map((item, idx) => <WishlistCard key={idx} item={item} />)
+          wishlistItems.map((item) => <WishlistCard key={item._id} item={item} />)
         ) : (
           <p className="text-center font-[Inter] text-gray-400">Your wishlist is empty.</p>
         )}
