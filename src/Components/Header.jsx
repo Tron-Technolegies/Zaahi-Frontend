@@ -33,8 +33,8 @@ const Header = () => {
         <Link to="/collections" className="hover:opacity-70 transition-colors">
           Collections
         </Link>
-        <a href="#" className="hover:opacity-70 transition-colors">
-          Shop
+        <a href="/categories" className="hover:opacity-70 transition-colors">
+          Categories
         </a>
         <a href="/collections?filter=new-arrivals" className="hover:opacity-70 transition-colors">
           New Arrivals
@@ -42,28 +42,32 @@ const Header = () => {
       </div>
 
       <div className="h-full flex items-center shrink-0 z-20">
-        <img
-          src="/Logo/Logo.png"
-          alt="Zaahi Designs"
-          className="h-16 md:h-28 w-auto object-contain transform"
-        />
+        <Link to="/">
+          <img
+            src="/Logo/Logo.png"
+            alt="Zaahi Designs"
+            className="h-16 md:h-28 w-auto object-contain transform"
+          />
+        </Link>
       </div>
 
       <div className="flex-1 flex items-center justify-end space-x-3 md:space-x-6 text-[#6B6B6B]">
         <div className="flex items-center space-x-4 md:space-x-6">
           <button className="hover:opacity-70 transition-colors">
-            <FiSearch className="md:size-5.5" />
+            <FiSearch className="md:size-5.5 cursor-pointer" />
           </button>
           <Link to="/wishlist">
             <button className="hover:opacity-70 transition-colors">
-              <FiHeart className="md:size-5.5 mt-2" />
+              <FiHeart className="md:size-5.5 mt-2 cursor-pointer" />
             </button>
           </Link>
-          <button className="hover:opacity-70 transition-colors">
-            <FiShoppingBag className="md:size-5.5" />
-          </button>
+          <Link to="/cart">
+            <button className="hover:opacity-70 transition-colors">
+              <FiShoppingBag className="md:size-5.5 mt-2 cursor-pointer" />
+            </button>
+          </Link>
           <button className="hover:opacity-70 transition-colors hidden md:block">
-            <FiUser size={24} />
+            <FiUser size={24} className="cursor-pointer" />
           </button>
 
           {user ? (

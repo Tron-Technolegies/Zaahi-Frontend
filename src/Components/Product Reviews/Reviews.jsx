@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Reviews = () => {
+  const { id } = useParams();
   const [active, setActive] = useState("REVIEWS");
   const navigate = useNavigate();
   return (
@@ -12,7 +13,7 @@ const Reviews = () => {
             <button
               onClick={() => {
                 setActive("DESCRIPTION");
-                navigate("/product-details");
+                navigate(`/product-details/${id}`);
               }}
               className={`pb-3 font-semibold cursor-pointer
             ${active === "DESCRIPTION" ? "text-black border-b-2 border-black" : "text-[#777777] hover:text-black"}`}

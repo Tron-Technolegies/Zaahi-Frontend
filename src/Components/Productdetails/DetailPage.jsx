@@ -1,12 +1,22 @@
 import React from "react";
 import { useDetailPageQuantity } from "../../hooks/productdetail/useDetailPage.js";
-import { PiHeartLight } from "react-icons/pi";
+import { useAddToCart, useGetCart } from "../../hooks/cart/useCart.js";
 import Picture from "./Picture";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { RiShoppingBag3Line } from "react-icons/ri";
+import { RiShoppingBag3Line, RiCheckLine } from "react-icons/ri";
 
 const DetailPage = ({ product }) => {
+  const productId = product?._id;
   const { quantity, handleIncrease, handleDecrease } = useDetailPageQuantity(product?.stock);
+  const { isPending, mutateAsync } = useAddToCart();
+
+  const { data: cartData } = useGetCart();
+  const cartItems = cartData?.cart || [];
+
+  const cartItem = cartItems.find(
+    (item) => item.product?._id === productId || item.product === productId
+  );
+  const isInCart = cartItem ? true : false;
 
   return (
     <div className="mt-20 max-w-8xl">
@@ -14,23 +24,26 @@ const DetailPage = ({ product }) => {
         <a href="/">
           <button className="text-[#848484] cursor-pointer">Home &gt;</button>
         </a>
-        <button className="text-[#848484]">Collections &gt;</button>
+        <a href="/collections">
+          <button className="text-[#848484] cursor-pointer">Collections &gt;</button>
+        </a>
         <button>{product?.productName}</button>
       </div>
 
       <div className="flex mt-10 gap-25  justify-center">
         <div className="flex items-center justify-center gap-6">
           <div className="flex flex-col gap-5">
-            <Picture />
-            <Picture />
-            <Picture />
-            <Picture />
+            <Picture product={product} />
+            <Picture product={product} />
+            <Picture product={product} />
+            <Picture product={product} />
           </div>
-          <div className="border border-[#D9D9D9] relative p-10">
-            <button className="absolute top-5 right-5 text-[#D77C84]">
-              <PiHeartLight className="text-3xl" />
-            </button>
-            <img src={product?.image} alt="" className="mx-auto h-[370px] object-contain" />
+          <div className="border border-[#D9D9D9] p-10">
+            <img
+              src={product?.image}
+              alt={product?.productName}
+              className="mx-auto h-[370px] object-contain"
+            />
           </div>
         </div>
 
@@ -67,17 +80,17 @@ const DetailPage = ({ product }) => {
                 <AiOutlinePlus />
               </button>
             </div>
-            <button className="w-[300px] bg-[#D77C84] font-[Inter] text-white text-xs py-2">
-              BUY NOW
+            <button onClick={() => !isInCart && mutateAsync({ productId, qty: quantity })} disabled={isPending || isInCart} className="w-[300px] bg-[#D77C84] font-[Inter] cursor-pointer text-white text-xs py-2">
+              {isPending ? "ADDING..." : isInCart ? "ADDED TO CART" : "BUY NOW"}
             </button>
-            <button className="w-9 h-9 border border-[#7B7B7B66] text-xs flex items-center justify-center">
-              <RiShoppingBag3Line className="text-lg text-gray-700" />
+            <button onClick={() => !isInCart && mutateAsync({ productId, qty: quantity })} disabled={isPending || isInCart} className="w-9 h-9 border border-[#7B7B7B66] text-xs flex cursor-pointer items-center justify-center">
+              {isInCart ? <RiCheckLine className="text-lg text-green-600" /> : <RiShoppingBag3Line className="text-lg text-gray-700" />}
             </button>
           </div>
           <hr className="my-10  border-px border-[#7B7B7B66]" />
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

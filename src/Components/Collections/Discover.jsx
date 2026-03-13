@@ -104,9 +104,6 @@ const Discover = () => {
               >
                 Featured
               </button>
-              <button className="px-4 py-1.5 hover:bg-[#D77C84] hover:text-white hover:border-0 border border-[#E6E6E6] ">
-                More
-              </button>
             </div>
 
             <div className="flex justify-end items-center gap-3 mt-6 text-sm">
@@ -137,11 +134,6 @@ const Discover = () => {
               )}
             </div>
           </section>
-        </div>
-        <div className="flex justify-center mt-20 mb-20">
-          <button className=" bg-[#D77C84] text-xs text-white px-5 py-3 hover:scale transition">
-            LOAD MORE
-          </button>
         </div>
       </div>
     </>

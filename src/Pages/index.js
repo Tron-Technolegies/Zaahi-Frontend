@@ -14,3 +14,5 @@ export { default as Shipping } from "./Shipping";
 export { default as ShoppingBag } from "./ShoppingBag";
 export { default as Wishlist } from "./Wishlist";
 export { default as Error } from "./Error";
+export { default as Cart } from "./Cart";
+export { default as Categories } from "./Categories";

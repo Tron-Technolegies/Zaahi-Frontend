@@ -1,6 +1,7 @@
 import React, { Children } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
+  Categories,
   ChangePassword,
   Collections,
   Home,
@@ -17,6 +18,7 @@ import {
   SignUp,
   Wishlist,
   Error,
+  Cart,
 } from "./Pages";
 import HomeLayout from "./Pages/HomeLayout";
 import OrderConfirmed from "./Pages/OrderConfirmed";
@@ -49,6 +51,10 @@ const router = createBrowserRouter([
     path: "/collections",
     element: <Collections />,
   },
+  {
+    path: "/categories",
+    element: <Categories />,
+  },
 
   {
     path: "/shopping-bag",
@@ -57,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: "/wishlist",
     element: <Wishlist />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
   },
   {
     path: "/change-password",
@@ -75,11 +85,11 @@ const router = createBrowserRouter([
     element: <PaymentDetails />,
   },
   {
-    path: "/product-details",
+    path: "/product-details/:id",
     element: <ProductDetails />,
   },
   {
-    path: "/product-reviews",
+    path: "/product-reviews/:id",
     element: <ProductReviews />,
   },
   {
