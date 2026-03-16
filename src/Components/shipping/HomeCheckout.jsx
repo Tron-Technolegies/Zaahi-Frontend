@@ -1,40 +1,26 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+
+const steps = ["Shipping", "Payment", "Review"];
 
 const HomeCheckout = () => {
   return (
     <div>
       <div className="flex items-center max-w-7xl mx-auto px-4 gap-3 text-sm font-[Inter] mt-15">
-        <a href="/">
+        <Link to="/">
           <button className="text-[#848484] cursor-pointer">Home &gt;</button>
-        </a>
+        </Link>
         <button>Checkout</button>
       </div>
       <div className="px-20 py-10 max-w-7xl mx-auto">
         <p className="font-[Bastoni] mb-8 text-xl">Secure Checkout</p>
-        <div className="flex items-center gap-6 ">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#D47784] text-white font-medium">
-              1
-            </div>
-            <span className="text-gray-800 font-medium">Shipping</span>
-          </div>
-
-          <div className="w-18 h-px bg-gray-300"></div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-medium">
-              2
-            </div>
-            <span className="text-gray-400">Payment</span>
-          </div>
-          <div className="w-18 h-px bg-gray-300"></div>
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-medium">
-              3
-            </div>
-            <span className="text-gray-400">Review</span>
-          </div>
-        </div>
       </div>
     </div>
   );
