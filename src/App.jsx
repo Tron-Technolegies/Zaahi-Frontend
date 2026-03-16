@@ -1,7 +1,6 @@
 import React, { Children } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
-  ChangePassword,
   Collections,
   Home,
   MyOrder,
@@ -10,7 +9,6 @@ import {
   ProductDetails,
   ProductReviews,
   Review,
-  SavedAddress,
   Shipping,
   ShoppingBag,
   SignIn,
@@ -22,6 +20,9 @@ import OrderConfirmed from './Pages/OrderConfirmed';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ToastContainer } from 'react-toastify';
+
+import AddressPage from './Pages/addressPage';
+import ChangePassword from './Components/Password/ChangePassword';
 
 const client = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 3 } },
@@ -84,8 +85,8 @@ const router = createBrowserRouter([
     element: <Review />,
   },
   {
-    path: '/saved-address',
-    element: <SavedAddress />,
+    path: '/address',
+    element: <AddressPage />,
   },
   {
     path: '/shipping',
