@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { FiSearch, FiShoppingBag, FiUser, FiMenu, FiX, FiHeart } from "react-icons/fi";
+import {
+  FiSearch,
+  FiShoppingBag,
+  FiUser,
+  FiMenu,
+  FiX,
+  FiHeart,
+} from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../hooks/user/useCurrentUser";
 import { Menu, MenuItem } from "@mui/material";
@@ -24,7 +31,10 @@ const Header = () => {
   return (
     <nav className="flex items-center justify-between px-4 md:px-8 h-18 bg-white border-b border-gray-100 relative">
       <div className="flex md:hidden flex-1">
-        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-[#615226] p-2">
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="text-[#615226] p-2"
+        >
           {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </button>
       </div>
@@ -36,7 +46,10 @@ const Header = () => {
         <a href="/categories" className="hover:opacity-70 transition-colors">
           Categories
         </a>
-        <a href="/collections?filter=new-arrivals" className="hover:opacity-70 transition-colors">
+        <a
+          href="/collections?filter=new-arrivals"
+          className="hover:opacity-70 transition-colors"
+        >
           New Arrivals
         </a>
       </div>
@@ -66,9 +79,6 @@ const Header = () => {
               <FiShoppingBag className="md:size-5.5 mt-2 cursor-pointer" />
             </button>
           </Link>
-          <button className="hover:opacity-70 transition-colors hidden md:block">
-            <FiUser size={24} className="cursor-pointer" />
-          </button>
 
           {user ? (
             <div className="relative">
@@ -81,7 +91,11 @@ const Header = () => {
               </div>
 
               {/* MUI Menu */}
-              <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+              >
                 <MenuItem
                   onClick={() => {
                     handleMenuClose();

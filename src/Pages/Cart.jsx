@@ -4,6 +4,7 @@ import Footer from "../Components/Footer";
 import YouMayLike from "../Components/Productdetails/YoumayLike";
 import CartCard from "../Components/cart/CartCard";
 import { useGetCart, useClearCart } from "../hooks/cart/useCart.js";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { data, isLoading } = useGetCart();
@@ -16,7 +17,11 @@ const Cart = () => {
   );
 
   if (isLoading)
-    return <div className="h-screen flex items-center justify-center">Loading cart...</div>;
+    return (
+      <div className="h-screen flex items-center justify-center">
+        Loading cart...
+      </div>
+    );
 
   return (
     <div>
@@ -24,7 +29,9 @@ const Cart = () => {
       <div className="flex justify-between items-center mt-10 px-4 md:px-12 lg:px-24">
         <div className="flex gap-3 text-sm font-[Inter]">
           <a href="/">
-            <button className="text-[#848484] cursor-pointer">Home &gt; &nbsp;</button>
+            <button className="text-[#848484] cursor-pointer">
+              Home &gt; &nbsp;
+            </button>
           </a>
           <button>Cart</button>
         </div>
@@ -51,7 +58,9 @@ const Cart = () => {
             cartItems.map((item) => <CartCard key={item._id} item={item} />)
           ) : (
             <div className="py-20 text-center border border-dashed border-gray-300 rounded-xl">
-              <p className="text-gray-500 font-[Inter] mb-4">Your cart is currently empty.</p>
+              <p className="text-gray-500 font-[Inter] mb-4">
+                Your cart is currently empty.
+              </p>
               <a
                 href="/collections"
                 className="bg-[#D77C84] text-white px-8 py-3 font-[Inter] text-sm hover:opacity-90"
@@ -65,7 +74,9 @@ const Cart = () => {
         {cartItems.length > 0 && (
           <div className="w-full lg:w-1/3 mt-8 lg:mt-0">
             <div className="border border-[#E8E8E8] rounded-2xl p-6 md:p-8 sticky top-24 ">
-              <h3 className="text-xl font-medium font-[Bastoni] mb-6">Order Summary</h3>
+              <h3 className="text-xl font-medium font-[Bastoni] mb-6">
+                Order Summary
+              </h3>
 
               <div className="flex justify-between mb-4 font-[Inter] text-[#777777]">
                 <p>Subtotal</p>
@@ -82,11 +93,11 @@ const Cart = () => {
                 <p>${subtotal}</p>
               </div>
 
-              <a href="/shipping" className="block w-full">
+              <Link to="/shipping" className="block w-full">
                 <button className="w-full bg-[#D77C84] text-white cursor-pointer hover:bg-[#b05f66] py-4 font-[Inter] text-sm font-medium transition duration-300">
                   PROCEED TO CHECKOUT
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
         )}
