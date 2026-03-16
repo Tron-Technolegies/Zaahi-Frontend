@@ -82,10 +82,7 @@ const router = createBrowserRouter([
     path: "/myprofile",
     element: <MyProfile />,
   },
-  {
-    path: "/payment-details",
-    element: <PaymentDetails />,
-  },
+
   {
     path: "/product-details/:id",
     element: <ProductDetails />,
