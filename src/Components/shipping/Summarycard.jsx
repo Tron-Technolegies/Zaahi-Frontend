@@ -1,7 +1,7 @@
 import React from "react";
 import Picture from "../Productdetails/Picture";
 
-const Summarycard = () => {
+const Summarycard = ({ product }) => {
   return (
     <div className="w-full flex justify-center lg:block">
       <div className="border border-gray-400 py-7 px-5 bg-gray-200 w-full max-w-sm lg:w-80">
@@ -9,13 +9,13 @@ const Summarycard = () => {
 
         <div className="flex gap-5 border-b border-gray-500 pb-6 mt-6">
           <div className="w-16 h-20 border border-gray-300 bg-gray-100 flex items-center justify-center">
-            <img src="/Featured/Lehanga.png" alt="product" className="object-contain h-full" />
+            <img src={product?.image || "/Featured/Lehanga.png"} alt="product" className="object-contain h-full" />
           </div>
 
           <div className="flex flex-col text-sm font-[Inter]">
-            <p className="tracking-widest font-[Be Vietnam Pro]">Raw Silk Dupatta</p>
+            <p className="tracking-widest font-[Be Vietnam Pro]">{product?.productName || "Raw Silk Dupatta"}</p>
             <p className="text-gray-400">Qty:1</p>
-            <p>$12,500</p>
+            <p>${product?.price || "12,500"}</p>
           </div>
         </div>
 

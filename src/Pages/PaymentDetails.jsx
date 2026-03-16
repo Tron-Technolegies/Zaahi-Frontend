@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../Components/Header";
 import HomeCheckout from "../Components/shipping/HomeCheckout";
 import Footer from "../Components/Footer";
@@ -50,10 +49,11 @@ const PaymentDetails = () => {
                 className="w-full sm:w-1/2 bg-gray-200 p-3 outline-none"
               />
             </div>
-
-            <button className="w-full bg-[#D47784] text-white py-3 mt-6 tracking-wide hover:bg-[#cd6472] transition">
-              REVIEW ORDER
-            </button>
+            <Link to="/review">
+              <button className="w-full cursor-pointer bg-[#D47784] text-white py-3 mt-6 tracking-wide hover:bg-[#cd6472] transition">
+                REVIEW ORDER
+              </button>
+            </Link>
           </div>
         </div>
 

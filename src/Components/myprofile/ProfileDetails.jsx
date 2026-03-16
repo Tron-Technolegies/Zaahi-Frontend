@@ -86,44 +86,30 @@ const ProfileDetails = () => {
       <Sidebar />
 
       <div className='flex-1 px-20 mt-10'>
-        <div
-          className='relative w-20 h-20 rounded-full overflow-hidden border border-gray-300 mb-8 cursor-pointer'
-          onClick={handleAvatarClick}
-        >
-          {avatarPreview ? (
-            <img
-              src={avatarPreview}
-              alt='profile'
-              className='w-full h-full object-cover'
-            />
-          ) : (
-            <div className='w-full h-full bg-[#D47784] text-white flex items-center justify-center text-xl font-semibold'>
-              {user?.username?.[0]?.toUpperCase()}
-            </div>
-          )}
-
-          <div className='absolute bottom-0 right-0 bg-white rounded-full p-1 shadow'>
-            <FaCamera size={25} />
-          </div>
+        <div className='w-20 h-20 rounded-full overflow-hidden border border-gray-300 mb-8'>
+          <img
+            src='https://i.pravatar.cc/40'
+            alt='profile'
+            className='w-full h-full object-cover'
+          />
         </div>
-
-        <input
-          type='file'
-          ref={fileInputRef}
-          className='hidden'
-          accept='image/*'
-          onChange={handleAvatarChange}
-        />
 
         <div className='space-y-6 max-w-3xl'>
           <div className='grid grid-cols-2 gap-6'>
             <label className='flex flex-col text-sm'>
-              Name
+              First Name
               <input
                 type='text'
-                name='username'
-                value={form.username}
-                onChange={handleChange}
+                placeholder='Ex. John'
+                className='border border-[#E8E8E8] p-3 mt-2 outline-none'
+              />
+            </label>
+
+            <label className='flex flex-col text-sm'>
+              Last Name
+              <input
+                type='text'
+                placeholder='Ex. Doe'
                 className='border border-[#E8E8E8] p-3 mt-2 outline-none'
               />
             </label>
@@ -133,10 +119,8 @@ const ProfileDetails = () => {
             Email
             <input
               type='text'
-              name='email'
-              value={form.email}
-              disabled
-              className='border border-[#E8E8E8] p-3 mt-2 outline-none bg-gray-50'
+              placeholder='Email Address'
+              className='border border-[#E8E8E8] p-3 mt-2 outline-none'
             />
           </label>
 
@@ -144,19 +128,13 @@ const ProfileDetails = () => {
             Mobile
             <input
               type='text'
-              name='phoneNumber'
-              value={form.phoneNumber}
-              onChange={handleChange}
+              placeholder='+91 9876543213'
               className='border border-[#E8E8E8] p-3 mt-2 outline-none'
             />
           </label>
 
-          <button
-            disabled={isSaving}
-            onClick={handleSave}
-            className='bg-[#D47784] text-white px-12 py-3 mt-2 cursor-pointer hover:bg-[#cd6472] transition'
-          >
-            {isSaving ? 'Saving...' : 'Save'}
+          <button className='bg-[#D47784] text-white px-12 py-3 mt-2 hover:bg-[#cd6472] transition'>
+            Save
           </button>
         </div>
       </div>

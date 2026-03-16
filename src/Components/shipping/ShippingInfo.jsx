@@ -1,6 +1,7 @@
 import React from "react";
 import { MdOutlineLocalShipping } from "react-icons/md";
 import Summarycard from "./Summarycard";
+import { Link } from "react-router-dom";
 
 const ShippingInfo = () => {
   return (
@@ -55,10 +56,11 @@ const ShippingInfo = () => {
             placeholder="Phone Number"
             className="w-full bg-gray-200 p-3 outline-none"
           />
-
-          <button className="w-full bg-[#D47784] text-white py-3 mt-6 tracking-wide hover:bg-[#cd6472] transition">
-            CONTINUE TO PAYMENT
-          </button>
+          <Link to="/payment-details">
+            <button className="w-full bg-[#D47784] text-white py-3 mt-6 tracking-wide hover:bg-[#cd6472] transition cursor-pointer">
+              CONTINUE TO PAYMENT
+            </button>
+          </Link>
         </div>
       </div>
 
