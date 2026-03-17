@@ -4,7 +4,6 @@ import {
   Categories,
   Collections,
   Home,
-  MyOrder,
   MyProfile,
   PaymentDetails,
   ProductDetails,
@@ -17,7 +16,6 @@ import {
   Wishlist,
   Error,
   Cart,
-  SavedAddress,
 } from "./Pages";
 import HomeLayout from "./Pages/HomeLayout";
 import OrderConfirmed from "./Pages/OrderConfirmed";
@@ -28,7 +26,6 @@ import { Toaster } from "react-hot-toast";
 // import { ToastContainer } from 'react-toastify';
 
 import AddressPage from "./Pages/addressPage";
-import ChangePassword from "./Components/Password/ChangePassword";
 
 const client = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 3 } },
@@ -39,7 +36,50 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomeLayout />,
     errorElement: <Error />,
-    children: [{ index: true, element: <Home /> }],
+    children: [
+      { index: true, element: <Home /> },
+      {
+        path: "/collections",
+        element: <Collections />,
+      },
+      {
+        path: "/categories",
+        element: <Categories />,
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/myprofile",
+        element: <MyProfile />,
+      },
+      {
+        path: "/product-details/:id",
+        element: <ProductDetails />,
+      },
+      {
+        path: "/product-reviews/:id",
+        element: <ProductReviews />,
+      },
+      {
+        path: "/review",
+        element: <Review />,
+      },
+
+      {
+        path: "/shipping",
+        element: <Shipping />,
+      },
+      {
+        path: "/order-confirmed",
+        element: <OrderConfirmed />,
+      },
+    ],
   },
   {
     path: "/signup",
@@ -49,63 +89,10 @@ const router = createBrowserRouter([
     path: "/signin",
     element: <SignIn />,
   },
-  {
-    path: "/collections",
-    element: <Collections />,
-  },
-  {
-    path: "/categories",
-    element: <Categories />,
-  },
 
   {
     path: "/shopping-bag",
     element: <ShoppingBag />,
-  },
-  {
-    path: "/wishlist",
-    element: <Wishlist />,
-  },
-  {
-    path: "/cart",
-    element: <Cart />,
-  },
-  {
-    path: "/change-password",
-    element: <ChangePassword />,
-  },
-  {
-    path: "/myorder",
-    element: <MyOrder />,
-  },
-  {
-    path: "/myprofile",
-    element: <MyProfile />,
-  },
-
-  {
-    path: "/product-details/:id",
-    element: <ProductDetails />,
-  },
-  {
-    path: "/product-reviews/:id",
-    element: <ProductReviews />,
-  },
-  {
-    path: "/review",
-    element: <Review />,
-  },
-  {
-    path: "/saved-address",
-    element: <SavedAddress />,
-  },
-  {
-    path: "/shipping",
-    element: <Shipping />,
-  },
-  {
-    path: "/order-confirmed",
-    element: <OrderConfirmed />,
   },
 ]);
 

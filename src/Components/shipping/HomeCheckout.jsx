@@ -30,13 +30,8 @@ const HomeCheckout = ({ active }) => {
             </div>
             <span className="text-gray-400">Payment</span>
           </div>
-          <div className="w-18 h-px bg-gray-300"></div>
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-medium">
-              3
-            </div>
-            <span className="text-gray-400">Review</span>
-          </div>
+         
+          
         </div>
       </div>
     </div>

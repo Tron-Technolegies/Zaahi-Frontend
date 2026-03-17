@@ -21,15 +21,11 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
         price: item.product?.price,
       };
     });
-    const totalPrice = cartData.cart.reduce(
-      (sum, item) => sum + item.product.price * item.qty,
-      0,
-    );
     const reqBody = {
       items: JSON.stringify(itemsData),
       address: JSON.stringify(addressData),
       currency: "aed",
-      totalPrice,
+     
     };
     const { data } = await api.post(`/payment/payment-intent`, reqBody);
     setClientSecret(data.clientSecret);

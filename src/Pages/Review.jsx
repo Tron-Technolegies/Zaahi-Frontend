@@ -9,7 +9,6 @@ import { IoLockClosedOutline } from "react-icons/io5";
 const Review = () => {
   return (
     <div>
-      <Header />
       <HomeCheckout />
       <div className="flex flex-col lg:flex-row justify-center gap-10 lg:gap-30 max-w-7xl mx-auto mt-10 px-4">
         <div className="w-full lg:w-auto">
@@ -24,7 +23,7 @@ const Review = () => {
             Shipping to:
           </p>
 
-          <div className=" w-full lg:w-[600px] ">
+          <div className=" w-full lg:w-150 ">
             <input
               type="text"
               placeholder="Address Details"
@@ -41,8 +40,6 @@ const Review = () => {
           <Summarycard />
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };

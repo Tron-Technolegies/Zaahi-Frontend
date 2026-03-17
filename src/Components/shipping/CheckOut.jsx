@@ -17,7 +17,7 @@ export default function CheckOut() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "https://yourdomain.com/order-success",
+        return_url: "http://localhost:5173/order-confirmed",
       },
     });
 
@@ -27,9 +27,9 @@ export default function CheckOut() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className=" w-full lg:w-150">
       <PaymentElement />
-      <button>Pay Now</button>
+      <button className="px-2 py-2 cursor-pointer text-white bg-[#D47784] w-full mt-3">Pay Now</button>
     </form>
   );
 }

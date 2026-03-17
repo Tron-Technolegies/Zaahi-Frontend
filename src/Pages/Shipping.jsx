@@ -13,7 +13,6 @@ const Shipping = () => {
   const [clientSecret, setClientSecret] = useState("");
   return (
     <div>
-      <Header />
       <HomeCheckout active={active} />
       <div className="flex flex-col lg:flex-row justify-center gap-10 lg:gap-30 max-w-7xl mx-auto mt-10 px-4">
         {active === "shipping" && (
@@ -31,8 +30,6 @@ const Shipping = () => {
           <Summarycard />
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };

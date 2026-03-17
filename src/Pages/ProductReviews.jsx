@@ -28,12 +28,10 @@ const ProductReviews = () => {
   }
   return (
     <div>
-      <Header />
       <DetailPage product={product} />
       <Reviews />
       <YouMayLike />
       <AssuranceSection />
-      <Footer />
     </div>
   );
 };
