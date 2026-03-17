@@ -24,7 +24,7 @@ const PaymentDetails = () => {
             Payment Details
           </p>
 
-          <div className="space-y-3 w-full lg:w-[600px]">
+          <div className="space-y-3 w-full lg:w-150">
             <input
               type="text"
               placeholder="Name on Card"

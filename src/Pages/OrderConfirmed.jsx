@@ -1,22 +1,25 @@
-import Review from "./Review";
+import Backdrop from '@mui/material/Backdrop';
+import { useState } from 'react';
 
 const OrderConfirmed = () => {
+   const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
   return (
     <>
-      <div className=" relative min-h-screen">
-        <div className="blur-md">
-          <Review />
+      <Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+        onClick={handleClose}
+      >
+        <div className='md:w-2/3 w-11/12 p-5 shadow-md'>
+          <p>Hii</p>
         </div>
-        <div className="absolute inset-0 flex justify-center pt-60">
-          <div className="bg-gray-700 text-white p-5 h-[120px]">
-            <p className=" font-medium pb-4">Order Confirmed</p>
-            <h1 className="text-xs font-extralight">
-              Thank you for your purchase.
-              <br /> You will recieve a confirmation email shortly.
-            </h1>
-          </div>
-        </div>
-      </div>
+      </Backdrop>
     </>
   );
 };

@@ -18,7 +18,7 @@ const Wishlist = () => {
 
   return (
     <div>
-      <Header />
+      
       <div className="flex justify-between items-center mt-10 px-4 md:px-12 lg:px-24">
         <div className="flex gap-3 text-sm font-[Inter]">
           <a href="/">
@@ -47,7 +47,7 @@ const Wishlist = () => {
         )}
       </div>
 
-      <Footer />
+  
     </div>
   );
 };

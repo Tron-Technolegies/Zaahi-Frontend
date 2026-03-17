@@ -5,9 +5,7 @@ import Footer from "../Components/Footer";
 const Collections = () => {
   return (
     <div>
-      <Header />
       <Discover />
-      <Footer />
     </div>
   );
 };

@@ -1,72 +1,104 @@
 import React from "react";
 import { MdOutlineLocalShipping } from "react-icons/md";
-import Summarycard from "./Summarycard";
+
 import { Link } from "react-router-dom";
+import { useGetCart } from "../../hooks/cart/useCart";
+import Loading from "../Loading";
+import { useCreatePayment } from "../../hooks/payment/useCreatePaymentIntent";
+import { api } from "../../services/api";
 
-const ShippingInfo = () => {
-  return (
-    <div className="flex flex-col lg:flex-row justify-center gap-10 lg:gap-30 max-w-7xl mx-auto mt-10 px-4">
-      <div className="w-full lg:w-auto">
-        <p className="flex items-center gap-3 mb-5">
-          <MdOutlineLocalShipping className="text-2xl" />
-          Shipping Information
-        </p>
+const ShippingInfo = ({ setActive, setClientSecret }) => {
+  const { isLoading, data: cartData } = useGetCart();
 
-        <div className="space-y-3 w-full lg:w-[600px]">
-          <div className="flex flex-col sm:flex-row gap-2">
-            <input
-              type="text"
-              placeholder="First Name"
-              className="w-full sm:w-1/2 bg-gray-200 p-3 outline-none"
-            />
-            <input
-              type="text"
-              placeholder="Last Name"
-              className="w-full sm:w-1/2 bg-gray-200 p-3 outline-none"
-            />
-          </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formdata = new FormData(e.target);
+    const addressData = Object.fromEntries(formdata);
+    const itemsData = cartData.cart?.map((item) => {
+      return {
+        product: item.product?._id,
+        qty: item.qty,
+        price: item.product?.price,
+      };
+    });
+    const reqBody = {
+      items: JSON.stringify(itemsData),
+      address: JSON.stringify(addressData),
+      currency: "aed",
+     
+    };
+    const { data } = await api.post(`/payment/payment-intent`, reqBody);
+    setClientSecret(data.clientSecret);
+    setActive("checkout");
+  };
 
+  return isLoading ? (
+    <Loading />
+  ) : (
+    <div className="w-full lg:w-auto">
+      <p className="flex items-center gap-3 mb-5">
+        <MdOutlineLocalShipping className="text-2xl" />
+        Shipping Information
+      </p>
+
+      <form className="space-y-3 w-full lg:w-150" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder=" Name"
+          name="name"
+          className="w-full bg-gray-200 p-3 outline-none"
+          required
+        />
+
+        <input
+          type="text"
+          placeholder="Address Line 1"
+          name="street"
+          className="w-full bg-gray-200 p-3 outline-none"
+          required
+        />
+
+        <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
-            placeholder="Email Address"
-            className="w-full bg-gray-200 p-3 outline-none"
+            name="state"
+            placeholder="State"
+            className="w-full sm:w-1/3 bg-gray-200 p-3 outline-none"
+            required
           />
-
-          <div className="flex flex-col sm:flex-row gap-2">
-            <input
-              type="text"
-              placeholder="City"
-              className="w-full sm:w-1/3 bg-gray-200 p-3 outline-none"
-            />
-            <input
-              type="text"
-              placeholder="Postal Code"
-              className="w-full sm:w-1/3 bg-gray-200 p-3 outline-none"
-            />
-            <select className="w-full sm:w-1/3 bg-gray-200 p-3 outline-none">
-              <option>Country</option>
-              <option>India</option>
-              <option>UAE</option>
-              <option>Qatar</option>
-            </select>
-          </div>
-
           <input
             type="text"
-            placeholder="Phone Number"
-            className="w-full bg-gray-200 p-3 outline-none"
+            name="pin"
+            placeholder="Postal Code"
+            className="w-full sm:w-1/3 bg-gray-200 p-3 outline-none"
+            required
           />
-          <Link to="/payment-details">
-            <button className="w-full bg-[#D47784] text-white py-3 mt-6 tracking-wide hover:bg-[#cd6472] transition cursor-pointer">
-              CONTINUE TO PAYMENT
-            </button>
-          </Link>
+          <select
+            className="w-full sm:w-1/3 bg-gray-200 p-3 outline-none"
+            required
+            name="country"
+          >
+            <option value={"India"}>India</option>
+            <option value={"UAE"}>UAE</option>
+            <option value={"Qatar"}>Qatar</option>
+          </select>
         </div>
-      </div>
 
-      <div className="w-full lg:w-auto">
-        <Summarycard />
-      </div>
+        <input
+          type="text"
+          name="phone"
+          placeholder="Phone Number"
+          required
+          className="w-full bg-gray-200 p-3 outline-none"
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-[#D47784] text-white py-3 mt-6 tracking-wide hover:bg-[#cd6472] transition cursor-pointer"
+        >
+          CONTINUE TO PAYMENT
+        </button>
+      </form>
     </div>
   );
 };

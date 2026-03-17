@@ -25,7 +25,6 @@ const Cart = () => {
 
   return (
     <div>
-      <Header />
       <div className="flex justify-between items-center mt-10 px-4 md:px-12 lg:px-24">
         <div className="flex gap-3 text-sm font-[Inter]">
           <a href="/">
@@ -38,8 +37,8 @@ const Cart = () => {
       </div>
 
       <div className="mt-10 md:mt-20 px-4 md:px-12 lg:px-24 max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 lg:gap-12 min-h-[40vh]">
-        <div className="w-full lg:w-2/3 flex flex-col gap-6">
-          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
+        <div className="w-full lg:w-2/3 flex flex-col mx-auto items-center gap-6">
+          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg w-full">
             <h2 className="text-xl font-medium font-[Bastoni]">
               Your Cart ({cartItems.length} items)
             </h2>
@@ -57,7 +56,7 @@ const Cart = () => {
           {cartItems.length > 0 ? (
             cartItems.map((item) => <CartCard key={item._id} item={item} />)
           ) : (
-            <div className="py-20 text-center border border-dashed border-gray-300 rounded-xl">
+            <div className="py-20 text-center border border-dashed border-gray-300 rounded-xl w-full">
               <p className="text-gray-500 font-[Inter] mb-4">
                 Your cart is currently empty.
               </p>
@@ -103,7 +102,6 @@ const Cart = () => {
         )}
       </div>
       <YouMayLike />
-      <Footer />
     </div>
   );
 };

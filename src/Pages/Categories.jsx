@@ -9,7 +9,7 @@ const Categories = () => {
   const { isError, isLoading, error, data } = useGetCategories();
   return (
     <div>
-      <Header />
+      
       <OurCategories />
       <div className="max-w-7xl mx-auto px-4 py-10 mt-10 mb-20">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -24,7 +24,7 @@ const Categories = () => {
           )}
         </div>
       </div>
-      <Footer />
+    
     </div>
   );
 };
