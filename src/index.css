@@ -10,14 +10,18 @@
   font-display: swap;
 }
 .bayon-regular {
-  font-family: 'Bayon', sans-serif;
+  font-family: "Bayon", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
 .font-abhaya {
-  font-family: 'Abhaya Libre', serif;
+  font-family: "Abhaya Libre", serif;
 }
 @theme {
   --font-sans: "Inter", sans-serif;
+}
+
+button {
+  cursor: pointer;
 }

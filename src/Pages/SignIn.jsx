@@ -9,14 +9,15 @@ const SignIn = () => {
           <img src="/Logo/Logo.png" alt="logo" className="h-16" />
         </div>
 
-        <h2 className="text-2xl font-semibold text-center text-[#D47784] mb-6">SignIn</h2>
+        <h2 className="text-2xl font-semibold text-center text-[#D47784] mb-6">
+          SignIn
+        </h2>
         <form
           onSubmit={async (e) => {
             e.preventDefault();
             const formdata = new FormData(e.target);
             const data = Object.fromEntries(formdata);
             await mutateAsync(data);
-            npm;
           }}
         >
           <input

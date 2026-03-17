@@ -25,7 +25,7 @@ import { Toaster } from "react-hot-toast";
 
 // import { ToastContainer } from 'react-toastify';
 
-import AddressPage from "./Pages/addressPage";
+import AccountSettings from "./Pages/AccountSettings";
 
 const client = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 3 } },
@@ -55,10 +55,6 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: "/myprofile",
-        element: <MyProfile />,
-      },
-      {
         path: "/product-details/:id",
         element: <ProductDetails />,
       },
@@ -78,6 +74,14 @@ const router = createBrowserRouter([
       {
         path: "/order-confirmed",
         element: <OrderConfirmed />,
+      },
+      {
+        path: "account",
+        element: <AccountSettings />,
+        children: [
+          { index: true, element: <MyProfile /> },
+          { path: "profile", element: <MyProfile /> },
+        ],
       },
     ],
   },
