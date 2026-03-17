@@ -1,5 +1,5 @@
-import React, { Children } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React, { Children } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   Categories,
   Collections,
@@ -18,17 +18,18 @@ import {
   Error,
   Cart,
   SavedAddress,
-} from "./Pages";
-import HomeLayout from "./Pages/HomeLayout";
-import OrderConfirmed from "./Pages/OrderConfirmed";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Toaster } from "react-hot-toast";
+} from './Pages';
+import HomeLayout from './Pages/HomeLayout';
+import OrderConfirmed from './Pages/OrderConfirmed';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from 'react-hot-toast';
 
 // import { ToastContainer } from 'react-toastify';
 
-import AddressPage from "./Pages/addressPage";
-import ChangePassword from "./Components/Password/ChangePassword";
+import AddressPage from './Pages/addressPage';
+import ChangePassword from './Components/Password/ChangePassword';
+import AddressDetails from './Components/savedAddress/AddressDetails';
 
 const client = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 3 } },
@@ -36,78 +37,78 @@ const client = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <HomeLayout />,
     errorElement: <Error />,
     children: [{ index: true, element: <Home /> }],
   },
   {
-    path: "/signup",
+    path: '/signup',
     element: <SignUp />,
   },
   {
-    path: "/signin",
+    path: '/signin',
     element: <SignIn />,
   },
   {
-    path: "/collections",
+    path: '/collections',
     element: <Collections />,
   },
   {
-    path: "/categories",
+    path: '/categories',
     element: <Categories />,
   },
 
   {
-    path: "/shopping-bag",
+    path: '/shopping-bag',
     element: <ShoppingBag />,
   },
   {
-    path: "/wishlist",
+    path: '/wishlist',
     element: <Wishlist />,
   },
   {
-    path: "/cart",
+    path: '/cart',
     element: <Cart />,
   },
   {
-    path: "/change-password",
+    path: '/change-password',
     element: <ChangePassword />,
   },
   {
-    path: "/myorder",
+    path: '/myorder',
     element: <MyOrder />,
   },
   {
-    path: "/myprofile",
+    path: '/myprofile',
     element: <MyProfile />,
   },
   {
-    path: "/payment-details",
+    path: '/payment-details',
     element: <PaymentDetails />,
   },
   {
-    path: "/product-details/:id",
+    path: '/product-details/:id',
     element: <ProductDetails />,
   },
   {
-    path: "/product-reviews/:id",
+    path: '/product-reviews/:id',
     element: <ProductReviews />,
   },
   {
-    path: "/review",
+    path: '/review',
     element: <Review />,
   },
   {
-    path: "/saved-address",
-    element: <SavedAddress />,
+    path: '/saved-address',
+    element: <AddressDetails />,
   },
   {
-    path: "/shipping",
+    path: '/shipping',
     element: <Shipping />,
   },
   {
-    path: "/order-confirmed",
+    path: '/order-confirmed',
     element: <OrderConfirmed />,
   },
 ]);
@@ -115,7 +116,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <QueryClientProvider client={client}>
-      <Toaster position="top-right" theme="dark" />
+      <Toaster position='top-right' theme='dark' />
       <ReactQueryDevtools initialIsOpen />
       <RouterProvider router={router} />
     </QueryClientProvider>

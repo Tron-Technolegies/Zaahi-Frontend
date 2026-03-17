@@ -6,7 +6,15 @@ export const useAddresses = () => {
     queryKey: ['addresses'],
     queryFn: async () => {
       const { data } = await api.get('/address');
-      return data;
+
+      const { addresses, defaultAddress } = data;
+
+      const formatted = addresses.map((addr) => ({
+        ...addr,
+        isDefault: defaultAddress && addr._id === defaultAddress._id,
+      }));
+
+      return formatted;
     },
   });
 };

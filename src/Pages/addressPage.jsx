@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useAddresses } from '../hooks/address/useAddress';
 import { useAddressActions } from '../hooks/address/useAddressActions';
-import AddressCard from '../Components/Address/AddessCard';
-import AddressForm from '../Components/Address/AddressForm';
+import AddressCard from '../Components/savedAddress/AddessCard';
+import AddressDetails from '../Components/savedAddress/AddressDetails';
 
 const AddressPage = () => {
   const { data, isLoading } = useAddresses();
@@ -81,7 +81,7 @@ const AddressPage = () => {
 
       {(open || editing) && (
         <div className='fixed inset-0 flex items-center justify-center bg-black/40'>
-          <AddressForm
+          <AddressDetails
             initialData={editing}
             onSubmit={editing ? handleUpdate : handleAdd}
             onClose={() => {

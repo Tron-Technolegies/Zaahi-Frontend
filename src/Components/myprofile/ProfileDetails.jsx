@@ -10,7 +10,6 @@ const ProfileDetails = () => {
   const [isSaving, setIsSaving] = useState(false);
   const queryClient = useQueryClient();
   const { data: user } = useCurrentUser();
-  console.log(user);
 
   const [form, setForm] = useState({
     username: '',
@@ -28,15 +27,11 @@ const ProfileDetails = () => {
         email: user.email || '',
         phoneNumber: user.phoneNumber || '',
       });
-
-      setAvatarPreview(user.avatar || null);
     }
   }, [user]);
 
   const handleAvatarClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    fileInputRef.current?.click();
   };
 
   const handleAvatarChange = (e) => {
@@ -58,8 +53,8 @@ const ProfileDetails = () => {
   const handleSave = async () => {
     try {
       setIsSaving(true);
-      const data = new FormData();
 
+      const data = new FormData();
       data.append('username', form.username);
       data.append('phoneNumber', form.phoneNumber);
 
@@ -70,11 +65,13 @@ const ProfileDetails = () => {
       await api.put('/myprofile/update-profile', data);
 
       await queryClient.invalidateQueries({ queryKey: ['currentUser'] });
+      await queryClient.refetchQueries({ queryKey: ['currentUser'] });
 
       toast.success('Profile Updated');
+
+      setAvatarPreview(null);
     } catch (error) {
       console.error(error);
-
       toast.error(error?.response?.data?.error || 'Failed to update profile');
     } finally {
       setIsSaving(false);
@@ -86,41 +83,57 @@ const ProfileDetails = () => {
       <Sidebar />
 
       <div className='flex-1 px-20 mt-10'>
-        <div className='w-20 h-20 rounded-full overflow-hidden border border-gray-300 mb-8'>
-          <img
-            src='https://i.pravatar.cc/40'
-            alt='profile'
-            className='w-full h-full object-cover'
+        <div className='relative w-24 h-24 mb-8'>
+          <div className='w-24 h-24 rounded-full bg-[#D47784]  flex items-center justify-center overflow-hidden'>
+            {avatarPreview || user?.avatar ? (
+              <img
+                src={avatarPreview || user?.avatar}
+                alt='profile'
+                className='w-full h-full object-cover'
+              />
+            ) : (
+              <span className='bg-[#D47784] text-white flex items-center justify-center text-3xl font-bold cursor-pointer'>
+                {user?.username?.[0]?.toUpperCase() || 'U'}
+              </span>
+            )}
+          </div>
+
+          <button
+            onClick={handleAvatarClick}
+            className='absolute bottom-0 right-0 bg-black p-2 rounded-full text-white cursor-pointer'
+          >
+            <FaCamera size={14} />
+          </button>
+
+          <input
+            type='file'
+            ref={fileInputRef}
+            onChange={handleAvatarChange}
+            className='hidden'
+            accept='image/*'
           />
         </div>
 
         <div className='space-y-6 max-w-3xl'>
-          <div className='grid grid-cols-2 gap-6'>
-            <label className='flex flex-col text-sm'>
-              First Name
-              <input
-                type='text'
-                placeholder='Ex. John'
-                className='border border-[#E8E8E8] p-3 mt-2 outline-none'
-              />
-            </label>
-
-            <label className='flex flex-col text-sm'>
-              Last Name
-              <input
-                type='text'
-                placeholder='Ex. Doe'
-                className='border border-[#E8E8E8] p-3 mt-2 outline-none'
-              />
-            </label>
-          </div>
+          <label className='flex flex-col text-sm'>
+            Username
+            <input
+              type='text'
+              name='username'
+              value={form.username}
+              onChange={handleChange}
+              className='border border-[#E8E8E8] p-3 mt-2 outline-none'
+            />
+          </label>
 
           <label className='flex flex-col text-sm'>
             Email
             <input
               type='text'
-              placeholder='Email Address'
-              className='border border-[#E8E8E8] p-3 mt-2 outline-none'
+              name='email'
+              value={form.email}
+              disabled
+              className='border border-[#E8E8E8] p-3 mt-2 outline-none bg-gray-100'
             />
           </label>
 
@@ -128,13 +141,19 @@ const ProfileDetails = () => {
             Mobile
             <input
               type='text'
-              placeholder='+91 9876543213'
+              name='phoneNumber'
+              value={form.phoneNumber}
+              onChange={handleChange}
               className='border border-[#E8E8E8] p-3 mt-2 outline-none'
             />
           </label>
 
-          <button className='bg-[#D47784] text-white px-12 py-3 mt-2 hover:bg-[#cd6472] transition'>
-            Save
+          <button
+            onClick={handleSave}
+            disabled={isSaving}
+            className='bg-[#D47784] text-white px-12 py-3 mt-2 hover:bg-[#cd6472] transition cursor-pointer'
+          >
+            {isSaving ? 'Saving...' : 'Save'}
           </button>
         </div>
       </div>
