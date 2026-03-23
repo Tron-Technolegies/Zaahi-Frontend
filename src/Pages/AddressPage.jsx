@@ -8,7 +8,7 @@ export default function AddressPage() {
   const { isError, isLoading, data, error } = useGetAddresses();
   const [openForm, setOpenForm] = useState(false);
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-5">
       <h3 className="text-xl my-5">My Addresses</h3>
       <button
         onClick={() => setOpenForm(true)}
@@ -16,7 +16,7 @@ export default function AddressPage() {
       >
         Add New
       </button>
-      <div>
+      <div className="flex flex-col gap-2">
         {isLoading ? (
           <Loading />
         ) : isError ? (

@@ -24,7 +24,7 @@ export const useAddAddress = () => {
       toast.success("Added");
     },
     onError: (error) => {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message || error.response.data.error);
     },
   });
   return { isPending, mutateAsync };
@@ -41,7 +41,7 @@ export const useUpdateAddress = () => {
       toast.success("Updated");
     },
     onError: (error) => {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message || error.response.data.error);
     },
   });
   return { isPending, mutateAsync };
@@ -58,7 +58,7 @@ export const useRemoveAddress = () => {
       toast.success("Removed");
     },
     onError: (error) => {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message || error.response.data.error);
     },
   });
   return { isPending, mutateAsync };
@@ -75,7 +75,7 @@ export const useMakeDefault = () => {
       toast.success("Updated");
     },
     onError: (error) => {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message || error.response.data.error);
     },
   });
   return { isPending, mutateAsync };

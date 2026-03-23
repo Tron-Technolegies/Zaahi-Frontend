@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdOutlineLocalShipping } from "react-icons/md";
 
 import { Link } from "react-router-dom";
@@ -6,9 +6,11 @@ import { useGetCart } from "../../hooks/cart/useCart";
 import Loading from "../Loading";
 import { useCreatePayment } from "../../hooks/payment/useCreatePaymentIntent";
 import { api } from "../../services/api";
+import AddressInfo from "./AddressInfo";
 
 const ShippingInfo = ({ setActive, setClientSecret }) => {
   const { isLoading, data: cartData } = useGetCart();
+  const [defaultAddress, setDefaultAddress] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +27,6 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
       items: JSON.stringify(itemsData),
       address: JSON.stringify(addressData),
       currency: "aed",
-     
     };
     const { data } = await api.post(`/payment/payment-intent`, reqBody);
     setClientSecret(data.clientSecret);
@@ -36,7 +37,8 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
     <Loading />
   ) : (
     <div className="w-full lg:w-auto">
-      <p className="flex items-center gap-3 mb-5">
+      <AddressInfo setDefault={setDefaultAddress} />
+      <p className="flex items-center gap-3 my-5">
         <MdOutlineLocalShipping className="text-2xl" />
         Shipping Information
       </p>
@@ -46,6 +48,7 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
           type="text"
           placeholder=" Name"
           name="name"
+          defaultValue={defaultAddress?.name}
           className="w-full bg-gray-200 p-3 outline-none"
           required
         />
@@ -54,6 +57,7 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
           type="text"
           placeholder="Address Line 1"
           name="street"
+          defaultValue={defaultAddress?.street}
           className="w-full bg-gray-200 p-3 outline-none"
           required
         />
@@ -62,6 +66,7 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
           <input
             type="text"
             name="state"
+            defaultValue={defaultAddress?.state}
             placeholder="State"
             className="w-full sm:w-1/3 bg-gray-200 p-3 outline-none"
             required
@@ -69,24 +74,25 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
           <input
             type="text"
             name="pin"
+            defaultValue={defaultAddress?.pin}
             placeholder="Postal Code"
             className="w-full sm:w-1/3 bg-gray-200 p-3 outline-none"
             required
           />
-          <select
+          <input
             className="w-full sm:w-1/3 bg-gray-200 p-3 outline-none"
             required
+            type="text"
             name="country"
-          >
-            <option value={"India"}>India</option>
-            <option value={"UAE"}>UAE</option>
-            <option value={"Qatar"}>Qatar</option>
-          </select>
+            placeholder="Country"
+            defaultValue={defaultAddress?.country}
+          />
         </div>
 
         <input
           type="text"
           name="phone"
+          defaultValue={defaultAddress?.phone}
           placeholder="Phone Number"
           required
           className="w-full bg-gray-200 p-3 outline-none"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FiSearch,
   FiShoppingBag,
@@ -11,9 +11,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../hooks/user/useCurrentUser";
 import { Menu, MenuItem } from "@mui/material";
 import { useSignOut } from "../hooks/auth/useSignin";
+import { UserContext } from "../UserContext";
 
 const Header = () => {
-  const { data: user } = useCurrentUser();
+  const { isError, isLoading, error, data: user } = useCurrentUser();
+  const { currentUser } = useContext(UserContext);
   const { mutateAsync: logout } = useSignOut();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -83,12 +85,12 @@ const Header = () => {
             </button>
           </Link>
 
-          {user ? (
+          {currentUser ? (
             <div className="relative">
               {/* Avatar */}
-              {user?.avatar ? (
+              {currentUser?.avatar ? (
                 <img
-                  src={user.avatar}
+                  src={currentUser.avatar}
                   onClick={handleMenuOpen}
                   className="w-9 h-9 rounded-full object-cover cursor-pointer"
                   alt="avatar"
@@ -98,7 +100,7 @@ const Header = () => {
                   onClick={handleMenuOpen}
                   className="w-9 h-9 rounded-full bg-[#D47784] text-white flex items-center justify-center font-semibold cursor-pointer"
                 >
-                  {user?.username?.[0]?.toUpperCase()}
+                  {currentUser?.username?.[0]?.toUpperCase()}
                 </div>
               )}
 
@@ -127,9 +129,9 @@ const Header = () => {
                 </MenuItem>
 
                 <MenuItem
-                  onClick={() => {
+                  onClick={async () => {
                     handleMenuClose();
-                    logout();
+                    await logout();
                   }}
                 >
                   Logout

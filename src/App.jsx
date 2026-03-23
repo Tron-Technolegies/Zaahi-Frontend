@@ -28,6 +28,8 @@ import { Toaster } from "react-hot-toast";
 import AccountSettings from "./Pages/AccountSettings";
 import MyOrders from "./Pages/MyOrders";
 import AddressPage from "./Pages/AddressPage";
+import ChangePassword from "./Pages/ChangePassword";
+import UserContextProvider from "./UserContext";
 
 const client = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 3 } },
@@ -85,6 +87,7 @@ const router = createBrowserRouter([
           { path: "profile", element: <MyProfile /> },
           { path: "orders", element: <MyOrders /> },
           { path: "address", element: <AddressPage /> },
+          { path: "password", element: <ChangePassword /> },
         ],
       },
     ],
@@ -109,7 +112,9 @@ const App = () => {
     <QueryClientProvider client={client}>
       <Toaster position="top-right" theme="dark" />
       <ReactQueryDevtools initialIsOpen />
-      <RouterProvider router={router} />
+      <UserContextProvider>
+        <RouterProvider router={router} />
+      </UserContextProvider>
     </QueryClientProvider>
   );
 };

@@ -3,7 +3,7 @@ import React from "react";
 const AddressDetails = () => {
   return (
     <div className="mt-8">
-      <p className="font-medium">Add New Address</p>
+      <p className="font-medium mb-2">Add New Address</p>
       <div className="mt-8">
         <div className="space-y-6 max-w-3xl ">
           <div className="grid grid-cols-2 gap-6">

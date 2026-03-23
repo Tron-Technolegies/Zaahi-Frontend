@@ -62,7 +62,7 @@ export default function OrderCard({ order }) {
           </div>
         </div>
       </div>
-      <FaChevronRight />
+      {/* <FaChevronRight /> */}
     </div>
   );
 }

@@ -1,12 +1,24 @@
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import WishlistCard from "../Components/wishlist/WishlistCard";
-import { useGetWishlist, useClearWishlist } from "../hooks/wishlist/useWishlist";
+import {
+  useGetWishlist,
+  useClearWishlist,
+} from "../hooks/wishlist/useWishlist";
+import { useContext } from "react";
+import { UserContext } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Wishlist = () => {
   const { data, isLoading } = useGetWishlist();
   const wishlistItems = data?.wishlist || [];
   const { isPending: isClearing, mutateAsync: clearAsync } = useClearWishlist();
+  const { currentUser } = useContext(UserContext);
+
+  if (!currentUser) {
+    const navigate = useNavigate();
+    navigate("/signin");
+  }
 
   const handleClear = async () => {
     try {
@@ -18,11 +30,12 @@ const Wishlist = () => {
 
   return (
     <div>
-      
       <div className="flex justify-between items-center mt-10 px-4 md:px-12 lg:px-24">
         <div className="flex gap-3 text-sm font-[Inter]">
           <a href="/">
-            <button className="text-[#848484] cursor-pointer">Home &gt; &nbsp;</button>
+            <button className="text-[#848484] cursor-pointer">
+              Home &gt; &nbsp;
+            </button>
             <button>Wishlist</button>
           </a>
         </div>
@@ -39,15 +52,19 @@ const Wishlist = () => {
 
       <div className="mt-10 md:mt-20 px-4 md:px-12 lg:px-24 max-w-7xl mx-auto flex flex-col gap-6 md:gap-8 min-h-[40vh]">
         {isLoading ? (
-          <p className="text-center font-[Inter] text-gray-500">Loading wishlist...</p>
+          <p className="text-center font-[Inter] text-gray-500">
+            Loading wishlist...
+          </p>
         ) : wishlistItems.length > 0 ? (
-          wishlistItems.map((item) => <WishlistCard key={item._id} item={item} />)
+          wishlistItems.map((item) => (
+            <WishlistCard key={item._id} item={item} />
+          ))
         ) : (
-          <p className="text-center font-[Inter] text-gray-400">Your wishlist is empty.</p>
+          <p className="text-center font-[Inter] text-gray-400">
+            Your wishlist is empty.
+          </p>
         )}
       </div>
-
-  
     </div>
   );
 };

@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import YouMayLike from "../Components/Productdetails/YoumayLike";
 import CartCard from "../Components/cart/CartCard";
 import { useGetCart, useClearCart } from "../hooks/cart/useCart.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext.jsx";
 
 const Cart = () => {
   const { data, isLoading } = useGetCart();
   const { isPending: isClearing, mutateAsync: clearCart } = useClearCart();
+  const { currentUser } = useContext(UserContext);
 
   const cartItems = data?.cart || [];
   const subtotal = cartItems.reduce(
     (acc, item) => acc + (item?.product?.price * item?.qty || 0),
     0,
   );
+
+  if (!currentUser) {
+    const navigate = useNavigate();
+    navigate("/signin");
+  }
 
   if (isLoading)
     return (
