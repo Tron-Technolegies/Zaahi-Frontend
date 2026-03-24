@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDetailPageQuantity } from "../../hooks/productdetail/useDetailPage.js";
 import { useAddToCart, useGetCart } from "../../hooks/cart/useCart.js";
 import Picture from "./Picture";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { RiShoppingBag3Line, RiCheckLine } from "react-icons/ri";
+import { UserContext } from "../../UserContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 const DetailPage = ({ product }) => {
   const productId = product?._id;
-  const { quantity, handleIncrease, handleDecrease } = useDetailPageQuantity(product?.stock);
+  const { quantity, handleIncrease, handleDecrease } = useDetailPageQuantity(
+    product?.stock,
+  );
   const { isPending, mutateAsync } = useAddToCart();
+  const { currentUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const { data: cartData } = useGetCart();
   const cartItems = cartData?.cart || [];
 
   const cartItem = cartItems.find(
-    (item) => item.product?._id === productId || item.product === productId
+    (item) => item.product?._id === productId || item.product === productId,
   );
   const isInCart = cartItem ? true : false;
 
@@ -25,7 +31,9 @@ const DetailPage = ({ product }) => {
           <button className="text-[#848484] cursor-pointer">Home &gt;</button>
         </a>
         <a href="/collections">
-          <button className="text-[#848484] cursor-pointer">Collections &gt;</button>
+          <button className="text-[#848484] cursor-pointer">
+            Collections &gt;
+          </button>
         </a>
         <button>{product?.productName}</button>
       </div>
@@ -42,13 +50,13 @@ const DetailPage = ({ product }) => {
             <img
               src={product?.image}
               alt={product?.productName}
-              className="mx-auto h-[370px] object-contain"
+              className="mx-auto h-92.5 object-contain"
             />
           </div>
         </div>
 
         <div className="flex flex-col mt-10">
-          <button className="w-[70px] bg-[#F42727] text-white px-2 py-1 text-sm mb-7 font-[Inter]">
+          <button className="w-17.5 bg-[#F42727] text-white px-2 py-1 text-sm mb-7 font-[Inter]">
             SALE
           </button>
           <p className="font-[Be Vietnam Pro]">{product?.productName}</p>
@@ -80,17 +88,46 @@ const DetailPage = ({ product }) => {
                 <AiOutlinePlus />
               </button>
             </div>
-            <button onClick={() => !isInCart && mutateAsync({ productId, qty: quantity })} disabled={isPending || isInCart} className="w-[300px] bg-[#D77C84] font-[Inter] cursor-pointer text-white text-xs py-2">
+            <button
+              onClick={async () => {
+                if (!currentUser) {
+                  navigate("/signin");
+                  return;
+                }
+                if (!isInCart) {
+                  await mutateAsync({ productId, qty: quantity });
+                }
+                navigate("/cart");
+              }}
+              disabled={isPending || isInCart}
+              className="w-75 bg-[#D77C84] font-[Inter] cursor-pointer text-white text-xs py-2"
+            >
               {isPending ? "ADDING..." : isInCart ? "ADDED TO CART" : "BUY NOW"}
             </button>
-            <button onClick={() => !isInCart && mutateAsync({ productId, qty: quantity })} disabled={isPending || isInCart} className="w-9 h-9 border border-[#7B7B7B66] text-xs flex cursor-pointer items-center justify-center">
-              {isInCart ? <RiCheckLine className="text-lg text-green-600" /> : <RiShoppingBag3Line className="text-lg text-gray-700" />}
+            <button
+              onClick={() => {
+                if (!currentUser) {
+                  navigate("/signin");
+                  return;
+                }
+                if (!isInCart) {
+                  mutateAsync({ productId, qty: quantity });
+                }
+              }}
+              disabled={isPending || isInCart}
+              className="w-9 h-9 border border-[#7B7B7B66] text-xs flex cursor-pointer items-center justify-center"
+            >
+              {isInCart ? (
+                <RiCheckLine className="text-lg text-green-600" />
+              ) : (
+                <RiShoppingBag3Line className="text-lg text-gray-700" />
+              )}
             </button>
           </div>
           <hr className="my-10  border-px border-[#7B7B7B66]" />
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
