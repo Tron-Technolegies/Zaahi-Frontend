@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useDetailPageQuantity } from "../../hooks/productdetail/useDetailPage.js";
 import { useAddToCart, useGetCart } from "../../hooks/cart/useCart.js";
 import Picture from "./Picture";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { RiShoppingBag3Line, RiCheckLine } from "react-icons/ri";
 import { UserContext } from "../../UserContext.jsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const DetailPage = ({ product }) => {
   const productId = product?._id;
@@ -15,6 +15,7 @@ const DetailPage = ({ product }) => {
   const { isPending, mutateAsync } = useAddToCart();
   const { currentUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const [selected, setSelected] = useState(product?.image);
 
   const { data: cartData } = useGetCart();
   const cartItems = cartData?.cart || [];
@@ -25,37 +26,40 @@ const DetailPage = ({ product }) => {
   const isInCart = cartItem ? true : false;
 
   return (
-    <div className="mt-20 max-w-8xl">
-      <div className="flex px-50 gap-3 text-sm font-[Inter]">
-        <a href="/">
+    <div className="mt-20 max-w-8xl md:px-30 px-5">
+      <div className="flex  gap-3 text-sm font-[Inter]">
+        <Link to="/">
           <button className="text-[#848484] cursor-pointer">Home &gt;</button>
-        </a>
-        <a href="/collections">
+        </Link>
+        <Link to="/collections">
           <button className="text-[#848484] cursor-pointer">
             Collections &gt;
           </button>
-        </a>
+        </Link>
         <button>{product?.productName}</button>
       </div>
 
-      <div className="flex mt-10 gap-25  justify-center">
-        <div className="flex items-center justify-center gap-6">
-          <div className="flex flex-col gap-5">
-            <Picture product={product} />
-            <Picture product={product} />
-            <Picture product={product} />
-            <Picture product={product} />
+      <div className="flex md:flex-row flex-col mt-10 justify-between">
+        <div className="flex items-start justify-center gap-6 md:w-2/3">
+          <div className="flex flex-col max-h-125 overflow-y-scroll gap-5 ">
+            {[product?.image, ...product?.extraImages].map((item) => (
+              <Picture
+                key={item.publicId}
+                product={item}
+                setSelected={setSelected}
+              />
+            ))}
           </div>
           <div className="border border-[#D9D9D9] p-10">
             <img
-              src={product?.image}
-              alt={product?.productName}
-              className="mx-auto h-92.5 object-contain"
+              src={selected?.url}
+              alt={selected?.publicId}
+              className="mx-auto max-h-125 object-cover"
             />
           </div>
         </div>
 
-        <div className="flex flex-col mt-10">
+        <div className="flex flex-col md:w-1/3 mt-10">
           <button className="w-17.5 bg-[#F42727] text-white px-2 py-1 text-sm mb-7 font-[Inter]">
             SALE
           </button>
@@ -64,10 +68,10 @@ const DetailPage = ({ product }) => {
             ★★★★☆ <span className="ml-2">4.9 (127 reviews)</span>
           </p>
           <div className="flex items-center gap-3 mb-6 font-[Inter]">
-            <p className="text-2xl font-semibold">${product?.price}</p>
-            <p className="text-[#9A9A9A] line-through">
+            <p className="text-2xl font-semibold">${product?.basePrice}</p>
+            {/* <p className="text-[#9A9A9A] line-through">
               ${product?.price ? Number(product.price) + 2500 : ""}
-            </p>
+            </p> */}
           </div>
 
           <div className="flex items-center mt-8 gap-5 font-[Inter]">

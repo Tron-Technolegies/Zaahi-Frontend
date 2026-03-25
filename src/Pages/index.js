@@ -5,7 +5,6 @@ export { default as Collections } from "./Collections";
 export { default as MyProfile } from "./MyProfile";
 export { default as PaymentDetails } from "./PaymentDetails";
 export { default as ProductDetails } from "./ProductDetails";
-export { default as ProductReviews } from "./ProductReviews";
 export { default as Review } from "./Review";
 export { default as Shipping } from "./Shipping";
 export { default as ShoppingBag } from "./ShoppingBag";

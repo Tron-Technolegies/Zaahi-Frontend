@@ -7,7 +7,6 @@ import {
   MyProfile,
   PaymentDetails,
   ProductDetails,
-  ProductReviews,
   Review,
   Shipping,
   ShoppingBag,
@@ -62,10 +61,7 @@ const router = createBrowserRouter([
         path: "/product-details/:id",
         element: <ProductDetails />,
       },
-      {
-        path: "/product-reviews/:id",
-        element: <ProductReviews />,
-      },
+
       {
         path: "/review",
         element: <Review />,

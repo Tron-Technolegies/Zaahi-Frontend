@@ -6,9 +6,11 @@ import Footer from "../Components/Footer";
 import AssuranceSection from "../Components/Homepage/Assurance";
 import { useParams } from "react-router-dom";
 import { useGetSingleProduct } from "../hooks/productdetail/useDetailPage";
+import { useState } from "react";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const [current, setCurrent] = useState("description");
   const { data: product, isLoading, isError } = useGetSingleProduct(id);
 
   if (isLoading) {
@@ -30,14 +32,22 @@ const ProductDetails = () => {
   return (
     <div>
       <DetailPage product={product} />
-      <Description />
-      <div className="max-w-6xl mx-auto">
-        <p className="text-[#848484] pt-5">
-          Stunning bridal lehenga set featuring heavy zardozi and resham
-          embroidery. Includes lehenga, choli, and dupatta. Crafted with love
-          for your special day.
-        </p>
-      </div>
+      <Description current={current} setCurrent={setCurrent} />
+      {current === "description" && (
+        <div className="max-w-6xl mx-auto px-4">
+          <p className="text-[#848484] pt-5">{product.description}</p>
+        </div>
+      )}
+      {current === "specs" && (
+        <div className="max-w-6xl mx-auto px-4">
+          <p className="text-[#848484] pt-5">{"specs"}</p>
+        </div>
+      )}{" "}
+      {current === "review" && (
+        <div className="max-w-6xl mx-auto px-4">
+          <p className="text-[#848484] pt-5">{"Reviews"}</p>
+        </div>
+      )}
       <YouMayLike />
       <AssuranceSection />
     </div>

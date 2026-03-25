@@ -65,7 +65,7 @@ const Card = ({ product }) => {
         <div className="transition-transform duration-500 hover:scale-102">
           <Link to={`/product-details/${product?._id}`}>
             <img
-              src={product?.image}
+              src={product?.image?.url}
               alt={product?.productName}
               className="mx-auto h-[340px] object-contain "
             />
