@@ -44,7 +44,7 @@ const CartCard = ({ item }) => {
         <div className="flex items-center gap-4 w-full md:w-auto md:flex-1 min-w-0">
           <img
             src={item?.image}
-            className="h-24 w-20 object-cover rounded-md flex-shrink-0"
+            className="h-24 w-20 object-cover rounded-md shrink-0"
             alt={item?.productName || "Product"}
           />
           <div className="flex flex-col flex-1 min-w-0">

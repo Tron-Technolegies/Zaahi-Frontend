@@ -6,13 +6,18 @@ import Footer from "../Components/Footer";
 import AssuranceSection from "../Components/Homepage/Assurance";
 import { useParams } from "react-router-dom";
 import { useGetSingleProduct } from "../hooks/productdetail/useDetailPage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductSpecs from "../Components/Productdetails/ProductSpecs";
+import ReviewSection from "../Components/Productdetails/ReviewSection";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [current, setCurrent] = useState("description");
   const { data: product, isLoading, isError } = useGetSingleProduct(id);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (isLoading) {
     return (
@@ -41,14 +46,16 @@ const ProductDetails = () => {
       )}
       {current === "specs" && (
         <div className="max-w-6xl mx-auto px-4">
-          <p className="text-[#848484] pt-5">
+          <div className="text-[#848484] pt-5">
             <ProductSpecs specs={product.specification} />
-          </p>
+          </div>
         </div>
       )}{" "}
       {current === "review" && (
         <div className="max-w-6xl mx-auto px-4">
-          <p className="text-[#848484] pt-5">{"Reviews"}</p>
+          <div className="text-[#848484] pt-5">
+            <ReviewSection product={product} />
+          </div>
         </div>
       )}
       <YouMayLike />

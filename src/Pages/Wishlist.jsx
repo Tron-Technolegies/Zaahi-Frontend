@@ -7,7 +7,7 @@ import {
 } from "../hooks/wishlist/useWishlist";
 import { useContext } from "react";
 import { UserContext } from "../UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Wishlist = () => {
   const { data, isLoading } = useGetWishlist();
@@ -15,10 +15,10 @@ const Wishlist = () => {
   const { isPending: isClearing, mutateAsync: clearAsync } = useClearWishlist();
   const { currentUser } = useContext(UserContext);
 
-  if (!currentUser) {
-    const navigate = useNavigate();
-    navigate("/signin");
-  }
+  // if (!currentUser) {
+  //   const navigate = useNavigate();
+  //   navigate("/signin");
+  // }
 
   const handleClear = async () => {
     try {
@@ -32,12 +32,12 @@ const Wishlist = () => {
     <div>
       <div className="flex justify-between items-center mt-10 px-4 md:px-12 lg:px-24">
         <div className="flex gap-3 text-sm font-[Inter]">
-          <a href="/">
+          <Link to="/">
             <button className="text-[#848484] cursor-pointer">
               Home &gt; &nbsp;
             </button>
             <button>Wishlist</button>
-          </a>
+          </Link>
         </div>
         {wishlistItems.length > 0 && (
           <button

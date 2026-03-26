@@ -49,12 +49,9 @@ const Header = () => {
         <Link to="/categories" className="hover:opacity-70 transition-colors">
           Categories
         </Link>
-        <Link
-          to="/collections?filter=new-arrivals"
-          className="hover:opacity-70 transition-colors"
-        >
+        {/* <Link to="/collections" className="hover:opacity-70 transition-colors">
           New Arrivals
-        </Link>
+        </Link> */}
       </div>
 
       {/* Logo */}
@@ -71,9 +68,6 @@ const Header = () => {
       {/* Right Section */}
       <div className="flex-1 flex items-center justify-end space-x-3 md:space-x-6 text-[#6B6B6B]">
         <div className="flex items-center space-x-4 md:space-x-6">
-          <button className="hover:opacity-70 transition-colors">
-            <FiSearch className="md:size-5.5 cursor-pointer" />
-          </button>
           <Link to="/wishlist">
             <button className="hover:opacity-70 transition-colors">
               <FiHeart className="md:size-5.5 mt-2 cursor-pointer" />

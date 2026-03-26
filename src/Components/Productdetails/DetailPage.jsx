@@ -7,6 +7,7 @@ import { RiShoppingBag3Line, RiCheckLine } from "react-icons/ri";
 import { UserContext } from "../../UserContext.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { FaStar } from "react-icons/fa";
 
 const DetailPage = ({ product }) => {
   const productId = product?._id;
@@ -64,9 +65,31 @@ const DetailPage = ({ product }) => {
           </button>
           <p className="font-[Be Vietnam Pro]">{product?.productName}</p>
           <p className="text-sm text-gray-400">{product?.category}</p>
-          {/* <p className="text-sm text-[#777777] mb-4 font-[Inter]">
-            ★★★★☆ <span className="ml-2">4.9 (127 reviews)</span>
-          </p> */}
+          {product.totalReviews > 0 && (
+            <div className="text-sm text-[#FFB800] mb-4 flex items-center font-[Inter]">
+              <div className="flex gap-1">
+                {Array.from({ length: Math.round(product?.rating) }).map(
+                  (_, index) => (
+                    <p key={index} className="text-[#FFB800]">
+                      <FaStar />
+                    </p>
+                  ),
+                )}
+                {product?.rating < 5 &&
+                  Array.from({ length: 5 - Math.round(product?.rating) }).map(
+                    (_, index) => (
+                      <p key={index} className="text-[#DADADA]">
+                        <FaStar />
+                      </p>
+                    ),
+                  )}
+              </div>
+              <span className="ml-2">
+                {product.rating?.toFixed(1)} ({product.totalReviews} reviews)
+              </span>
+            </div>
+          )}
+
           <div className="flex items-center gap-3 mb-6 font-[Inter]">
             <p className="text-2xl font-semibold">
               ${selectedSize ? selectedSize.price : product?.basePrice}

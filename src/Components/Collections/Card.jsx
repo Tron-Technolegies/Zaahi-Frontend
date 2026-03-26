@@ -115,7 +115,7 @@ const Card = ({ product }) => {
         {product?.productName}
       </p>
       <p className="mt-1 text-center text-[#777777] text-sm font-semibold font-[Be Vietnam Pro]">
-        ${product?.price}
+        ${product?.basePrice}
       </p>
     </div>
   );

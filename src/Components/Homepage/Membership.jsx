@@ -1,10 +1,12 @@
 const Membership = () => {
   return (
     <div className="flex flex-col gap-2 items-center mb-8">
-      <p className="font-sans text-red-500 text-center text-[12px]">EXCLUSIVE MEMBERSHIP</p>
-      <p className="font-[Bastoni] text-4xl">Join the Circle of</p>
-      <p className="font-[Bastoni] text-4xl"> Distinguished Collectors</p>
-      <p className="font-sans text-sm text-[#848484]">
+      <p className="font-sans text-red-500 text-center text-[12px]">
+        EXCLUSIVE MEMBERSHIP
+      </p>
+      <p className="font-[Bastoni] md:text-4xl">Join the Circle of</p>
+      <p className="font-[Bastoni] md:text-4xl"> Distinguished Collectors</p>
+      <p className="font-sans text-sm text-center text-[#848484]">
         Gain access to private viewings, first looks at rare acquisitions, and
       </p>
       <p className="font-sans text-sm text-[#848484]">

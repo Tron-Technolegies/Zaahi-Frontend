@@ -7,31 +7,40 @@ import Loading from "../Loading";
 import { useCreatePayment } from "../../hooks/payment/useCreatePaymentIntent";
 import { api } from "../../services/api";
 import AddressInfo from "./AddressInfo";
+import toast from "react-hot-toast";
 
 const ShippingInfo = ({ setActive, setClientSecret }) => {
   const { isLoading, data: cartData } = useGetCart();
   const [defaultAddress, setDefaultAddress] = useState(null);
+  const [paymentLoading, setPaymentLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formdata = new FormData(e.target);
-    const addressData = Object.fromEntries(formdata);
-    const itemsData = cartData.cart?.map((item) => {
-      return {
-        product: item.productId,
-        size: item.size,
-        qty: item.qty,
-        price: item?.price,
+    setPaymentLoading(true);
+    try {
+      e.preventDefault();
+      const formdata = new FormData(e.target);
+      const addressData = Object.fromEntries(formdata);
+      const itemsData = cartData.cart?.map((item) => {
+        return {
+          product: item.productId,
+          size: item.size,
+          qty: item.qty,
+          price: item?.price,
+        };
+      });
+      const reqBody = {
+        items: JSON.stringify(itemsData),
+        address: JSON.stringify(addressData),
+        currency: "aed",
       };
-    });
-    const reqBody = {
-      items: JSON.stringify(itemsData),
-      address: JSON.stringify(addressData),
-      currency: "aed",
-    };
-    const { data } = await api.post(`/payment/payment-intent`, reqBody);
-    setClientSecret(data.clientSecret);
-    setActive("checkout");
+      const { data } = await api.post(`/payment/payment-intent`, reqBody);
+      setClientSecret(data.clientSecret);
+      setActive("checkout");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setPaymentLoading(false);
+    }
   };
 
   return isLoading ? (
@@ -101,9 +110,10 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
 
         <button
           type="submit"
+          disabled={paymentLoading}
           className="w-full bg-[#D47784] text-white py-3 mt-6 tracking-wide hover:bg-[#cd6472] transition cursor-pointer"
         >
-          CONTINUE TO PAYMENT
+          {paymentLoading ? "...." : "CONTINUE TO PAYMENT"}
         </button>
       </form>
     </div>
