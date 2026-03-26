@@ -1,22 +1,21 @@
 import React, { useContext, useState } from "react";
-import { useDetailPageQuantity } from "../../hooks/productdetail/useDetailPage.js";
+
 import { useAddToCart, useGetCart } from "../../hooks/cart/useCart.js";
 import Picture from "./Picture";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { RiShoppingBag3Line, RiCheckLine } from "react-icons/ri";
 import { UserContext } from "../../UserContext.jsx";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const DetailPage = ({ product }) => {
   const productId = product?._id;
-  const { quantity, handleIncrease, handleDecrease } = useDetailPageQuantity(
-    product?.stock,
-  );
+
   const { isPending, mutateAsync } = useAddToCart();
   const { currentUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [selected, setSelected] = useState(product?.image);
-
+  const [selectedSize, setSelectedSize] = useState(null);
   const { data: cartData } = useGetCart();
   const cartItems = cartData?.cart || [];
 
@@ -64,18 +63,32 @@ const DetailPage = ({ product }) => {
             SALE
           </button>
           <p className="font-[Be Vietnam Pro]">{product?.productName}</p>
-          <p className="text-sm text-[#777777] mb-4 font-[Inter]">
+          <p className="text-sm text-gray-400">{product?.category}</p>
+          {/* <p className="text-sm text-[#777777] mb-4 font-[Inter]">
             ★★★★☆ <span className="ml-2">4.9 (127 reviews)</span>
-          </p>
+          </p> */}
           <div className="flex items-center gap-3 mb-6 font-[Inter]">
-            <p className="text-2xl font-semibold">${product?.basePrice}</p>
+            <p className="text-2xl font-semibold">
+              ${selectedSize ? selectedSize.price : product?.basePrice}
+            </p>
             {/* <p className="text-[#9A9A9A] line-through">
               ${product?.price ? Number(product.price) + 2500 : ""}
             </p> */}
           </div>
+          <p className="text-sm text-gray-400">{product?.description}</p>
+          <div className="flex flex-wrap gap-3 my-3">
+            {product?.variants?.map((item) => (
+              <button
+                className={`p-2 border text-sm hover:bg-gray-500 border-gray-300 ${selectedSize?.size === item.size && "bg-gray-500"}`}
+                onClick={() => setSelectedSize(item)}
+              >
+                {item.size}
+              </button>
+            ))}
+          </div>
 
           <div className="flex items-center mt-8 gap-5 font-[Inter]">
-            <div className="flex items-center  border border-[#7B7B7B66] ">
+            {/* <div className="flex items-center  border border-[#7B7B7B66] ">
               <button
                 onClick={handleDecrease}
                 className={`px-3 py-2 ${quantity <= 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}`}
@@ -91,15 +104,19 @@ const DetailPage = ({ product }) => {
               >
                 <AiOutlinePlus />
               </button>
-            </div>
+            </div> */}
             <button
               onClick={async () => {
                 if (!currentUser) {
                   navigate("/signin");
                   return;
                 }
+                if (!selectedSize) {
+                  toast.error("Please select a size");
+                  return;
+                }
                 if (!isInCart) {
-                  await mutateAsync({ productId, qty: quantity });
+                  await mutateAsync({ productId, size: selectedSize?.size });
                 }
                 navigate("/cart");
               }}
@@ -114,8 +131,12 @@ const DetailPage = ({ product }) => {
                   navigate("/signin");
                   return;
                 }
+                if (!selectedSize) {
+                  toast.error("please select a size");
+                  return;
+                }
                 if (!isInCart) {
-                  mutateAsync({ productId, qty: quantity });
+                  mutateAsync({ productId, size: selectedSize?.size });
                 }
               }}
               disabled={isPending || isInCart}

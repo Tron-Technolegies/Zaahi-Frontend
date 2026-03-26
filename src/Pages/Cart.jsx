@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import YouMayLike from "../Components/Productdetails/YoumayLike";
@@ -6,39 +6,39 @@ import CartCard from "../Components/cart/CartCard";
 import { useGetCart, useClearCart } from "../hooks/cart/useCart.js";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext.jsx";
+import Loading from "../Components/Loading.jsx";
 
 const Cart = () => {
   const { data, isLoading } = useGetCart();
   const { isPending: isClearing, mutateAsync: clearCart } = useClearCart();
   const { currentUser } = useContext(UserContext);
-
-  const cartItems = data?.cart || [];
-  const subtotal = cartItems.reduce(
-    (acc, item) => acc + (item?.product?.price * item?.qty || 0),
-    0,
-  );
+  const [subTotal, setSubTotal] = useState(0);
+  const navigate = useNavigate();
 
   if (!currentUser) {
-    const navigate = useNavigate();
     navigate("/signin");
   }
 
-  if (isLoading)
-    return (
-      <div className="h-screen flex items-center justify-center">
-        Loading cart...
-      </div>
-    );
-
-  return (
+  useEffect(() => {
+    if (data) {
+      const total = data.cart.reduce(
+        (sum, item) => sum + item.qty * item.price,
+        0,
+      );
+      setSubTotal(total);
+    }
+  }, [data]);
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div>
       <div className="flex justify-between items-center mt-10 px-4 md:px-12 lg:px-24">
         <div className="flex gap-3 text-sm font-[Inter]">
-          <a href="/">
+          <Link to="/">
             <button className="text-[#848484] cursor-pointer">
               Home &gt; &nbsp;
             </button>
-          </a>
+          </Link>
           <button>Cart</button>
         </div>
       </div>
@@ -47,9 +47,9 @@ const Cart = () => {
         <div className="w-full lg:w-2/3 flex flex-col mx-auto items-center gap-6">
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg w-full">
             <h2 className="text-xl font-medium font-[Bastoni]">
-              Your Cart ({cartItems.length} items)
+              Your Cart ({data.totalItems} items)
             </h2>
-            {cartItems.length > 0 && (
+            {data.cart?.length > 0 && (
               <button
                 onClick={() => clearCart()}
                 disabled={isClearing}
@@ -60,8 +60,8 @@ const Cart = () => {
             )}
           </div>
 
-          {cartItems.length > 0 ? (
-            cartItems.map((item) => <CartCard key={item._id} item={item} />)
+          {data.cart?.length > 0 ? (
+            data.cart?.map((item) => <CartCard key={item._id} item={item} />)
           ) : (
             <div className="py-20 text-center border border-dashed border-gray-300 rounded-xl w-full">
               <p className="text-gray-500 font-[Inter] mb-4">
@@ -77,7 +77,7 @@ const Cart = () => {
           )}
         </div>
 
-        {cartItems.length > 0 && (
+        {data.cart?.length > 0 && (
           <div className="w-full lg:w-1/3 mt-8 lg:mt-0">
             <div className="border border-[#E8E8E8] rounded-2xl p-6 md:p-8 sticky top-24 ">
               <h3 className="text-xl font-medium font-[Bastoni] mb-6">
@@ -86,7 +86,7 @@ const Cart = () => {
 
               <div className="flex justify-between mb-4 font-[Inter] text-[#777777]">
                 <p>Subtotal</p>
-                <p className="font-semibold text-black">${subtotal}</p>
+                <p className="font-semibold text-black">${subTotal}</p>
               </div>
 
               <div className="flex justify-between mb-6 font-[Inter] text-[#777777] pb-6 border-b border-gray-100">
@@ -96,7 +96,7 @@ const Cart = () => {
 
               <div className="flex justify-between mb-8 font-[Inter] text-lg font-bold">
                 <p>Total</p>
-                <p>${subtotal}</p>
+                <p>${subTotal}</p>
               </div>
 
               <Link to="/shipping" className="block w-full">

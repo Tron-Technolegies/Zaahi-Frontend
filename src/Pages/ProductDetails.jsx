@@ -7,6 +7,7 @@ import AssuranceSection from "../Components/Homepage/Assurance";
 import { useParams } from "react-router-dom";
 import { useGetSingleProduct } from "../hooks/productdetail/useDetailPage";
 import { useState } from "react";
+import ProductSpecs from "../Components/Productdetails/ProductSpecs";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -40,7 +41,9 @@ const ProductDetails = () => {
       )}
       {current === "specs" && (
         <div className="max-w-6xl mx-auto px-4">
-          <p className="text-[#848484] pt-5">{"specs"}</p>
+          <p className="text-[#848484] pt-5">
+            <ProductSpecs specs={product.specification} />
+          </p>
         </div>
       )}{" "}
       {current === "review" && (

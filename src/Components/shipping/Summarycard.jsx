@@ -13,25 +13,22 @@ const Summarycard = () => {
     <div className="w-full flex justify-center lg:block">
       <div className="border border-gray-400 py-7 px-5 bg-gray-200 w-full max-w-sm lg:w-80">
         <p className="font-[Bastoni] text-sm">Order Summary</p>
-        {data.cart?.map((product) => (
+        {data.cart?.map((item) => (
           <div
             className="flex gap-5 border-b border-gray-500 pb-6 mt-6"
-            key={product._id}
+            key={item._id}
           >
             <div className="w-16 h-20 border border-gray-300 bg-gray-100 flex items-center justify-center">
-              <img
-                src={product.product?.image}
-                alt="product"
-                className="object-contain h-full"
-              />
+              <img src={item?.image} alt="product" className="object-cover" />
             </div>
 
             <div className="flex flex-col text-sm font-[Inter]">
               <p className="tracking-widest font-[Be Vietnam Pro]">
-                {product?.product?.productName}
+                {item?.productName}
               </p>
-              <p className="text-gray-400">Qty: {product?.qty}</p>
-              <p>${product?.product?.price}</p>
+              <p className="text-gray-400 text-sm">Size: {item?.size}</p>
+              <p className="text-gray-400 text-sm">Qty: {item?.qty}</p>
+              <p>${item?.price}</p>
             </div>
           </div>
         ))}
@@ -41,10 +38,7 @@ const Summarycard = () => {
             <span>Subtotal</span>
             <span>
               ${" "}
-              {data.cart.reduce(
-                (sum, item) => sum + item.product.price * item.qty,
-                0,
-              )}
+              {data.cart.reduce((sum, item) => sum + item.price * item.qty, 0)}
             </span>
           </div>
 
@@ -57,11 +51,7 @@ const Summarycard = () => {
         <div className="flex justify-between text-sm font-semibold mt-4">
           <span>Total</span>
           <span>
-            ${" "}
-            {data.cart.reduce(
-              (sum, item) => sum + item.product.price * item.qty,
-              0,
-            )}
+            $ {data.cart.reduce((sum, item) => sum + item.price * item.qty, 0)}
           </span>
         </div>
       </div>

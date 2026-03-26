@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaChevronRight } from "react-icons/fa6";
+import SingleOrderDetails from "./SingleOrderDetails";
 
 export default function OrderCard({ order }) {
+  const [showDetails, setShowDetails] = useState(false);
   const statusColour =
     order.status === "Pending"
       ? "bg-yellow-200 text-yellow-600"
@@ -31,9 +33,9 @@ export default function OrderCard({ order }) {
           |<p>{new Date(order.createdAt).toLocaleString()}</p>
         </div>
         <div className="flex gap-3 items-center">
-          <div className="relative w-fit">
+          <div className="relative w-fit overflow-hidden">
             <img
-              src={order.orderItems?.[0].product.image}
+              src={order.orderItems?.[0].image}
               alt="product image"
               className="w-20  object-cover rounded-xl"
             />
@@ -62,7 +64,14 @@ export default function OrderCard({ order }) {
           </div>
         </div>
       </div>
-      {/* <FaChevronRight /> */}
+      <button onClick={() => setShowDetails(true)}>
+        <FaChevronRight />
+      </button>
+      <SingleOrderDetails
+        open={showDetails}
+        handleClose={() => setShowDetails(false)}
+        order={order}
+      />
     </div>
   );
 }

@@ -18,9 +18,10 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
     const addressData = Object.fromEntries(formdata);
     const itemsData = cartData.cart?.map((item) => {
       return {
-        product: item.product?._id,
+        product: item.productId,
+        size: item.size,
         qty: item.qty,
-        price: item.product?.price,
+        price: item?.price,
       };
     });
     const reqBody = {

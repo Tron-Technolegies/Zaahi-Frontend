@@ -79,10 +79,15 @@ const Header = () => {
               <FiHeart className="md:size-5.5 mt-2 cursor-pointer" />
             </button>
           </Link>
-          <Link to="/cart">
+          <Link to="/cart" className="relative">
             <button className="hover:opacity-70 transition-colors">
               <FiShoppingBag className="md:size-5.5 mt-2 cursor-pointer" />
             </button>
+            {currentUser && (
+              <p className="w-7 h-7 text-white flex justify-center items-center text-sm -top-3 -right-3 absolute rounded-full bg-[#D47784]">
+                {currentUser.cart?.length || 0}
+              </p>
+            )}
           </Link>
 
           {currentUser ? (
