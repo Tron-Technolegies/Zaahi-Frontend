@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-import YouMayLike from "../Components/Productdetails/YoumayLike";
+
 import CartCard from "../Components/cart/CartCard";
 import { useGetCart, useClearCart } from "../hooks/cart/useCart.js";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext.jsx";
 import Loading from "../Components/Loading.jsx";
+import YouMayLike from "../Components/Productdetails/YoumayLike.jsx";
 
 const Cart = () => {
   const { data, isLoading } = useGetCart();
