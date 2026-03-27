@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HeroSection() {
   return (
     <section
@@ -17,18 +19,28 @@ export default function HeroSection() {
           </h1>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <button className="bg-transparent border border-[#D47784] text-[#D47784] px-6 py-3  font-medium hover:bg-[#D47784] hover:text-white transition duration-300">
+            <Link
+              to={"/collections"}
+              className="bg-transparent border border-[#D47784] text-[#D47784] px-6 py-3  font-medium hover:bg-[#D47784] hover:text-white transition duration-300"
+            >
               Explore Collection
-            </button>
+            </Link>
 
-            <button className="border border-[#D47784] text-[#D47784] px-6 py-3  font-medium hover:bg-[#D47784] hover:text-white transition duration-300">
+            <Link
+              to={"/collections"}
+              className="border border-[#D47784] text-[#D47784] px-6 py-3  font-medium hover:bg-[#D47784] hover:text-white transition duration-300"
+            >
               Shop Now
-            </button>
+            </Link>
           </div>
         </div>
 
         <div className="md:w-1/2 flex justify-center mt-10 md:mt-0">
-          <img src="/Hero/heroneww.png" alt="Hero" className="w-100 md:w-137.5 object-contain" />
+          <img
+            src="/Hero/heroneww.png"
+            alt="Hero"
+            className="w-100 md:w-137.5 object-contain"
+          />
         </div>
       </div>
       <div className="absolute bottom-0 left-0 w-full h-75 bg-linear-to-t from-30% from-[#ffff] to-transparent"></div>

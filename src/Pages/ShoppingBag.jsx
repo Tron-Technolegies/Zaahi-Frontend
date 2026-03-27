@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ProductReviews from "./ProductReviews";
 import Picture from "../Components/Productdetails/Picture";
 
 const ShoppingBag = ({ product }) => {
@@ -33,7 +32,10 @@ const ShoppingBag = ({ product }) => {
         <div className="py-15 px-8 border-b border-[#D9D9D9] flex gap-5 font-[Inter]">
           <Picture />
           <div>
-            <p className="font-medium text-sm ">{product?.productName?.toUpperCase() || "RAW SILK WITH NET DUPATTA"}</p>
+            <p className="font-medium text-sm ">
+              {product?.productName?.toUpperCase() ||
+                "RAW SILK WITH NET DUPATTA"}
+            </p>
             <p className="text-xs text-gray-500">Zahi</p>
             <p className="font-semibold mt-1">${product?.price || "12,500"}</p>
 
@@ -63,13 +65,17 @@ const ShoppingBag = ({ product }) => {
             <p className="font-semibold">$12,500</p>
           </div>
 
-          <p className="text-sm text-[#777777] mb-4">Taxes and shipping calculated at checkout</p>
+          <p className="text-sm text-[#777777] mb-4">
+            Taxes and shipping calculated at checkout
+          </p>
 
           <button className="w-full bg-[#D77C84]  text-white py-2 text-sm mb-2">
             PROCEED TO CHECKOUT
           </button>
 
-          <p className="text-center text-sm hover:underline cursor-pointer">Continue Shopping</p>
+          <p className="text-center text-sm hover:underline cursor-pointer">
+            Continue Shopping
+          </p>
         </div>
       </div>
     </div>

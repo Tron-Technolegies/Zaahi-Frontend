@@ -7,7 +7,6 @@ import {
   MyProfile,
   PaymentDetails,
   ProductDetails,
-  ProductReviews,
   Review,
   Shipping,
   ShoppingBag,
@@ -25,7 +24,11 @@ import { Toaster } from "react-hot-toast";
 
 // import { ToastContainer } from 'react-toastify';
 
-import AddressPage from "./Pages/addressPage";
+import AccountSettings from "./Pages/AccountSettings";
+import MyOrders from "./Pages/MyOrders";
+import AddressPage from "./Pages/AddressPage";
+import ChangePassword from "./Pages/ChangePassword";
+import UserContextProvider from "./UserContext";
 
 const client = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 3 } },
@@ -55,17 +58,10 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: "/myprofile",
-        element: <MyProfile />,
-      },
-      {
         path: "/product-details/:id",
         element: <ProductDetails />,
       },
-      {
-        path: "/product-reviews/:id",
-        element: <ProductReviews />,
-      },
+
       {
         path: "/review",
         element: <Review />,
@@ -78,6 +74,17 @@ const router = createBrowserRouter([
       {
         path: "/order-confirmed",
         element: <OrderConfirmed />,
+      },
+      {
+        path: "account",
+        element: <AccountSettings />,
+        children: [
+          { index: true, element: <MyProfile /> },
+          { path: "profile", element: <MyProfile /> },
+          { path: "orders", element: <MyOrders /> },
+          { path: "address", element: <AddressPage /> },
+          { path: "password", element: <ChangePassword /> },
+        ],
       },
     ],
   },
@@ -101,7 +108,9 @@ const App = () => {
     <QueryClientProvider client={client}>
       <Toaster position="top-right" theme="dark" />
       <ReactQueryDevtools initialIsOpen />
-      <RouterProvider router={router} />
+      <UserContextProvider>
+        <RouterProvider router={router} />
+      </UserContextProvider>
     </QueryClientProvider>
   );
 };

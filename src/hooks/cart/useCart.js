@@ -16,15 +16,19 @@ export const useGetCart = () => {
 export const useAddToCart = () => {
   const queryClient = useQueryClient();
   const { isPending, mutateAsync } = useMutation({
-    mutationFn: async ({ productId, qty = 1 }) => {
-      await api.patch(`/cart/add`, { productId, qty });
+    mutationFn: async ({ productId, size }) => {
+      await api.patch(`/cart/add`, { productId, size });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
       toast.success("Added to cart");
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.error || error?.response?.data?.message || "Error adding to cart");
+      toast.error(
+        error?.response?.data?.error ||
+          error?.response?.data?.message ||
+          "Error adding to cart",
+      );
     },
   });
   return { isPending, mutateAsync };
@@ -41,7 +45,11 @@ export const useRemoveFromCart = () => {
       toast.success("Removed from cart");
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.error || error?.response?.data?.message || "Error removing item");
+      toast.error(
+        error?.response?.data?.error ||
+          error?.response?.data?.message ||
+          "Error removing item",
+      );
     },
   });
   return { isPending, mutateAsync };
@@ -57,7 +65,11 @@ export const useUpdateCart = () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.error || error?.response?.data?.message || "Error updating cart");
+      toast.error(
+        error?.response?.data?.error ||
+          error?.response?.data?.message ||
+          "Error updating cart",
+      );
     },
   });
   return { isPending, mutateAsync };
@@ -74,7 +86,11 @@ export const useClearCart = () => {
       toast.success("Cart cleared");
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.error || error?.response?.data?.message || "Error clearing cart");
+      toast.error(
+        error?.response?.data?.error ||
+          error?.response?.data?.message ||
+          "Error clearing cart",
+      );
     },
   });
   return { isPending, mutateAsync };

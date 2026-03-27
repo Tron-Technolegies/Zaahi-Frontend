@@ -2,6 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { toast } from "react-hot-toast";
+import { useContext } from "react";
+import { UserContext } from "../../UserContext";
 
 export const useSignin = () => {
   const queryClient = useQueryClient();
@@ -16,7 +18,11 @@ export const useSignin = () => {
       toast.success("Success");
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.error || error?.response?.data?.message || error.message);
+      toast.error(
+        error?.response?.data?.error ||
+          error?.response?.data?.message ||
+          error.message,
+      );
     },
   });
   return { isPending, mutateAsync };
@@ -33,7 +39,11 @@ export const useSignUp = () => {
       navigate("/signin");
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.error || error?.response?.data?.message || error.message);
+      toast.error(
+        error?.response?.data?.error ||
+          error?.response?.data?.message ||
+          error.message,
+      );
     },
   });
   return { isPending, mutateAsync };
@@ -42,18 +52,23 @@ export const useSignUp = () => {
 export const useSignOut = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
+  const { setCurrentUser } = useContext(UserContext);
   const { isPending, mutateAsync } = useMutation({
     mutationFn: async () => {
       await api.post("/auth/logout");
     },
     onSuccess: () => {
-      queryClient.removeQueries(["currentUser"]);
+      queryClient.invalidateQueries({ queryKey: ["currentUser"] });
       navigate("/");
+      setCurrentUser(null);
       toast.success("Logged Out Successfully");
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.error || error?.response?.data?.message || error.message);
+      toast.error(
+        error?.response?.data?.error ||
+          error?.response?.data?.message ||
+          error.message,
+      );
     },
   });
   return { isPending, mutateAsync };

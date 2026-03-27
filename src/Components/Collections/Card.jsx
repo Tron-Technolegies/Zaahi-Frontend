@@ -1,34 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import { PiHeartLight, PiHeartFill } from "react-icons/pi";
 import { RiShoppingBag3Line, RiCheckLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useCardGetWishlist,
   useCardAddToWishlist,
   useCardRemoveWishlist,
 } from "../../hooks/collections/useCard.js";
 import { useAddToCart, useGetCart } from "../../hooks/cart/useCart.js";
+import { UserContext } from "../../UserContext.jsx";
 
 const Card = ({ product }) => {
   const productId = product?._id;
+  const navigate = useNavigate();
 
   const { data } = useCardGetWishlist();
   const wishlistItems = data?.wishlist || [];
+  const { currentUser } = useContext(UserContext);
 
   const wishlistedItem = wishlistItems.find(
-    (item) => item === productId || item._id === productId
+    (item) => item === productId || item._id === productId,
   );
   const isWishlisted = wishlistedItem ? true : false;
 
   const { isPending: isAdding, mutateAsync: addAsync } = useCardAddToWishlist();
-  const { isPending: isRemoving, mutateAsync: removeAsync } = useCardRemoveWishlist();
-  const { isPending: isAddingToCart, mutateAsync: addToCartAsync } = useAddToCart();
+  const { isPending: isRemoving, mutateAsync: removeAsync } =
+    useCardRemoveWishlist();
+  const { isPending: isAddingToCart, mutateAsync: addToCartAsync } =
+    useAddToCart();
 
   const { data: cartData } = useGetCart();
   const cartItems = cartData?.cart || [];
 
   const cartItem = cartItems.find(
-    (item) => item.product?._id === productId || item.product === productId
+    (item) => item.product?._id === productId || item.product === productId,
   );
   const isInCart = cartItem ? true : false;
 
@@ -60,14 +65,23 @@ const Card = ({ product }) => {
         <div className="transition-transform duration-500 hover:scale-102">
           <Link to={`/product-details/${product?._id}`}>
             <img
-              src={product?.image}
+              src={product?.image?.url}
               alt={product?.productName}
               className="mx-auto h-[340px] object-contain "
             />
           </Link>
           <div className="mt-6 grid grid-cols-[200px_36px] place-content-center gap-3 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100">
             <button
-              onClick={() => addToCartAsync({ productId })}
+              onClick={async () => {
+                if (!currentUser) {
+                  navigate("/signin");
+                  return;
+                }
+                if (!isInCart) {
+                  await addToCartAsync({ productId });
+                }
+                navigate("/cart");
+              }}
               disabled={isAddingToCart}
               className="w-[200px] bg-[#D77C84] font-[Inter] text-white text-xs py-2 cursor-pointer"
             >
@@ -75,19 +89,33 @@ const Card = ({ product }) => {
             </button>
 
             <button
-              onClick={() => !isInCart && addToCartAsync({ productId })}
+              onClick={() => {
+                if (!currentUser) {
+                  navigate("/signin");
+                  return;
+                }
+                if (!isInCart) {
+                  addToCartAsync({ productId });
+                }
+              }}
               disabled={isAddingToCart || isInCart}
               className="w-9 h-9 border border-[#E6E6E6] bg-[#EAEAEA] text-xs flex items-center justify-center cursor-pointer"
             >
-              {isInCart ? <RiCheckLine className="text-lg text-[#D77C84]" /> : <RiShoppingBag3Line className="text-lg text-gray-700" />}
+              {isInCart ? (
+                <RiCheckLine className="text-lg text-[#D77C84]" />
+              ) : (
+                <RiShoppingBag3Line className="text-lg text-gray-700" />
+              )}
             </button>
           </div>
         </div>
       </div>
 
-      <p className="mt-5 text-center text-sm font-[Be Vietnam Pro]">{product?.productName}</p>
+      <p className="mt-5 text-center text-sm font-[Be Vietnam Pro]">
+        {product?.productName}
+      </p>
       <p className="mt-1 text-center text-[#777777] text-sm font-semibold font-[Be Vietnam Pro]">
-        ${product?.price}
+        ${product?.basePrice}
       </p>
     </div>
   );

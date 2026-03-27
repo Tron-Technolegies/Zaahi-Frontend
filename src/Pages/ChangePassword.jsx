@@ -1,80 +1,52 @@
-import Header from "../Components/Header";
-import HeadName from "../Components/myprofile/HeadName";
-import Footer from "../Components/Footer";
-import Sidebar from "../Components/myprofile/Sidebar";
-import { CiLock } from "react-icons/ci";
-import { FaRegEyeSlash } from "react-icons/fa";
-//not responsive
+import React from "react";
+import { useChangePassword } from "../hooks/user/useCurrentUser";
 
-const ChangePassword = () => {
+export default function ChangePassword() {
+  const { isPending, mutateAsync } = useChangePassword();
   return (
-    <div>
-      <Header />
-      <HeadName />
-      <div className="flex flex-col lg:flex-row max-w-6xl mx-auto px-4 gap-8">
-        <Sidebar />
-
-        <div className="flex-1 mt-8 lg:mt-10 lg:px-20">
-          <div className="space-y-6 max-w-2xl w-full">
-            <p className="font-medium mb-6 lg:mb-10">Current Password</p>
-
-            <div>
-              <label className="flex flex-col text-xs">Current Password</label>
-
-              <div className="relative mt-2">
-                <CiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
-
-                <input
-                  type="text"
-                  placeholder="current password"
-                  className="border border-[#E8E8E8] text-sm p-4 pl-10 pr-10 w-full outline-none"
-                />
-
-                <FaRegEyeSlash className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer" />
-              </div>
-            </div>
-
-            <div>
-              <label className="flex flex-col text-xs">New Password</label>
-
-              <div className="relative mt-2">
-                <CiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
-
-                <input
-                  type="text"
-                  placeholder="new password"
-                  className="border border-[#E8E8E8] text-sm p-4 pl-10 pr-10 w-full outline-none"
-                />
-
-                <FaRegEyeSlash className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer" />
-              </div>
-            </div>
-
-            <div>
-              <label className="flex flex-col text-xs">Confirm Password</label>
-
-              <div className="relative mt-2">
-                <CiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
-
-                <input
-                  type="text"
-                  placeholder="confirm password"
-                  className="border border-[#E8E8E8] text-sm p-4 pl-10 pr-10 w-full outline-none"
-                />
-
-                <FaRegEyeSlash className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer" />
-              </div>
-            </div>
-
-            <button className="bg-[#D47784] text-white px-10 py-3 mt-2 hover:bg-[#cd6472] transition w-full sm:w-fit">
-              Change Password
-            </button>
-          </div>
-        </div>
-      </div>
-      <Footer />
+    <div className="flex flex-col gap-5">
+      <h3 className="text-xl my-5">Change Password</h3>
+      <form
+        className="flex flex-col gap-3"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const formdata = new FormData(e.target);
+          const data = Object.fromEntries(formdata);
+          await mutateAsync(data);
+          e.target.reset();
+        }}
+      >
+        <label className="text-xs font-medium">Current Password</label>
+        <input
+          type="password"
+          placeholder="Enter Current Password"
+          name="currentPassword"
+          required
+          className="p-2 border border-[#E8E8E8] outline-none"
+        />
+        <label className="text-xs font-medium">New Password</label>
+        <input
+          type="password"
+          placeholder="Enter New Password"
+          name="newPassword"
+          required
+          className="p-2 border border-[#E8E8E8] outline-none"
+        />
+        <label className="text-xs font-medium">Confirm New Password</label>
+        <input
+          type="password"
+          placeholder="Confirm new Password"
+          name="confirm"
+          required
+          className="p-2 border border-[#E8E8E8] outline-none"
+        />
+        <button
+          disabled={isPending}
+          className="p-2 bg-[#D47784] text-white mt-2 w-fit px-4"
+        >
+          {isPending ? "Updating..." : "Change Password"}
+        </button>
+      </form>
     </div>
   );
-};
-
-export default ChangePassword;
+}
