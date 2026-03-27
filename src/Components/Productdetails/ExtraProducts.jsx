@@ -1,10 +1,10 @@
 import React from "react";
+import { useYouMayLikeProducts } from "../../hooks/productdetail/useYouMayLike";
+import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
 import Card from "../Collections/Card";
-import { useYouMayLikeProducts } from "../../hooks/productdetail/useYouMayLike.js";
-import { Link } from "react-router-dom";
 
-const YouMayLike = () => {
+export default function ExtraProducts() {
   const { data, isLoading } = useYouMayLikeProducts();
   const products = data || [];
 
@@ -38,6 +38,4 @@ const YouMayLike = () => {
       </div>
     </div>
   );
-};
-
-export default YouMayLike;
+}

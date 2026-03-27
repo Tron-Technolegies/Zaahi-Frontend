@@ -1,7 +1,7 @@
 import Header from "../Components/Header";
 import DetailPage from "../Components/Productdetails/DetailPage";
 import Description from "../Components/Productdetails/Description";
-import YouMayLike from "../Components/Productdetails/YoumayLike";
+
 import Footer from "../Components/Footer";
 import AssuranceSection from "../Components/Homepage/Assurance";
 import { useParams } from "react-router-dom";
@@ -9,6 +9,7 @@ import { useGetSingleProduct } from "../hooks/productdetail/useDetailPage";
 import { useEffect, useState } from "react";
 import ProductSpecs from "../Components/Productdetails/ProductSpecs";
 import ReviewSection from "../Components/Productdetails/ReviewSection";
+import ExtraProducts from "../Components/Productdetails/ExtraProducts";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -58,7 +59,7 @@ const ProductDetails = () => {
           </div>
         </div>
       )}
-      <YouMayLike />
+      <ExtraProducts />
       <AssuranceSection />
     </div>
   );
