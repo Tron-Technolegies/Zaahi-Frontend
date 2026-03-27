@@ -8,8 +8,15 @@ import {
   FaEnvelope,
   FaLinkedinIn,
 } from "react-icons/fa";
+import { useGetCategories } from "../hooks/categories/useCategory";
+import { useContext } from "react";
+import { UserContext } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const { isLoading, data } = useGetCategories();
+  const { setCategory } = useContext(UserContext);
+  const navigate = useNavigate();
   return (
     <footer className="rounded-tl-[120px] font-sans text-[#7C7C7C] bg-gradient-to-b from-[#F4F4F4] to-[#FFFFFF]  pt-16 pb-6 mt-20">
       <div className=" max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12">
@@ -17,8 +24,8 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-center h-full text-center">
           <img src="/Logo/Logo.png" alt="Zahi Designs" className="w-30 mb-4" />
           <p className="text-xs leading-6 text-gray-600 mb-6">
-            Celebrating the timeless beauty of Indian ethnic wear with handcrafted collections for
-            the modern woman.
+            Celebrating the timeless beauty of Indian ethnic wear with
+            handcrafted collections for the modern woman.
           </p>
 
           <div className="flex gap-4">
@@ -39,13 +46,21 @@ export default function Footer() {
 
         {/* Collections */}
         <div>
-          <h3 className='text-2xl "text-[#7C7C7C]" font-semibold mb-4'>Collections</h3>
-          <ul className="space-y-3 text-sm">
-            <li className="hover:text-pink-500 cursor-pointer">Kurti</li>
-            <li className="hover:text-pink-500 cursor-pointer">Saree</li>
-            <li className="hover:text-pink-500 cursor-pointer">Lehenga Choli</li>
-            <li className="hover:text-pink-500 cursor-pointer">New Arrivals</li>
-            <li className="hover:text-pink-500 cursor-pointer">Featured</li>
+          <h3 className='text-2xl "text-[#7C7C7C]" font-semibold mb-4'>
+            Collections
+          </h3>
+          <ul className="flex flex-col gap-3 text-sm items-start">
+            {data?.slice(0, 6).map((item) => (
+              <button
+                className="hover:text-pink-500"
+                onClick={() => {
+                  setCategory(item?.categoryName);
+                  navigate("/collections");
+                }}
+              >
+                {item.categoryName}
+              </button>
+            ))}
           </ul>
         </div>
 
@@ -54,9 +69,13 @@ export default function Footer() {
           <h3 className="text-2xl font-semibold mb-4">Services</h3>
           <ul className="space-y-3 text-sm">
             <li className="hover:text-pink-500 cursor-pointer">My Account</li>
-            <li className="hover:text-pink-500 cursor-pointer">Order Tracking</li>
+            <li className="hover:text-pink-500 cursor-pointer">
+              Order Tracking
+            </li>
             <li className="hover:text-pink-500 cursor-pointer">Warranty</li>
-            <li className="hover:text-pink-500 cursor-pointer">Returns & Exchanges</li>
+            <li className="hover:text-pink-500 cursor-pointer">
+              Returns & Exchanges
+            </li>
             <li className="hover:text-pink-500 cursor-pointer">FAQ</li>
           </ul>
         </div>
@@ -92,8 +111,12 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-6 mt-4 md:mt-0 text-[#7C7C7C]">
-              <span className="hover:text-pink-500 cursor-pointer">Privacy Policy</span>
-              <span className="hover:text-pink-500 cursor-pointer">Terms of Service</span>
+              <span className="hover:text-pink-500 cursor-pointer">
+                Privacy Policy
+              </span>
+              <span className="hover:text-pink-500 cursor-pointer">
+                Terms of Service
+              </span>
             </div>
           </div>
         </div>

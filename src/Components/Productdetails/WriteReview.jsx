@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -8,6 +8,7 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { BsUpload } from "react-icons/bs";
 import { useAddReview } from "../../hooks/review/useReview";
 import toast from "react-hot-toast";
+import { UserContext } from "../../UserContext";
 
 const style = {
   position: "absolute",
@@ -31,6 +32,7 @@ export default function WriteReview({
   const [rating, setRating] = useState(0);
   const [image, setImage] = useState("");
   const { isPending, mutateAsync } = useAddReview();
+  const { currentUser } = useContext(UserContext);
 
   useEffect(() => {
     return () => {
@@ -52,6 +54,10 @@ export default function WriteReview({
           className="flex flex-col gap-2 mt-5"
           onSubmit={async (e) => {
             e.preventDefault();
+            if (!currentUser) {
+              toast.error("Please Login to write a review");
+              return;
+            }
             if (rating === 0) {
               toast.error("please give a rating");
               return;

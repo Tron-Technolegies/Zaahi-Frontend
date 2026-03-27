@@ -157,6 +157,11 @@ const Discover = () => {
           </aside>
 
           <section className="w-full px-10">
+            {category !== "ALL" && (
+              <p className="mt-5 font-[Bastoni]">
+                Showing our {category} Collections
+              </p>
+            )}
             <div className="flex justify-end items-center md:gap-3 gap-1 mt-6 text-sm">
               <div className="flex items-center gap-2 border border-[#E6E6E6] md:px-3 px-1 py-1.5">
                 <span className="text-[#777777]">

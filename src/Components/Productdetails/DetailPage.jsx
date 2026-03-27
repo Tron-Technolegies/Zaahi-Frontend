@@ -102,7 +102,7 @@ const DetailPage = ({ product }) => {
           <div className="flex flex-wrap gap-3 my-3">
             {product?.variants?.map((item) => (
               <button
-                className={`p-2 border text-sm hover:bg-gray-500 border-gray-300 ${selectedSize?.size === item.size && "bg-gray-500"}`}
+                className={`w-8 h-8 border text-sm rounded-full hover:bg-gray-500 border-gray-300 ${selectedSize?.size === item.size && "bg-gray-500"}`}
                 onClick={() => setSelectedSize(item)}
               >
                 {item.size}

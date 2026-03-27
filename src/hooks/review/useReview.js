@@ -34,3 +34,15 @@ export const useAddReview = () => {
   });
   return { isPending, mutateAsync };
 };
+
+export const useGetRandomReviews = ({ inView }) => {
+  const { isLoading, isError, error, data } = useQuery({
+    queryKey: ["random-reviews"],
+    queryFn: async () => {
+      const { data } = await api.get(`/review/random`);
+      return data;
+    },
+    enabled: inView,
+  });
+  return { isLoading, isError, error, data };
+};

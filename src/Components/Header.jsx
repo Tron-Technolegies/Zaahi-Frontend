@@ -7,7 +7,7 @@ import {
   FiX,
   FiHeart,
 } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../hooks/user/useCurrentUser";
 import { Menu, MenuItem } from "@mui/material";
 import { useSignOut } from "../hooks/auth/useSignin";
@@ -20,6 +20,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const location = useLocation();
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -49,9 +50,25 @@ const Header = () => {
         <Link to="/categories" className="hover:opacity-70 transition-colors">
           Categories
         </Link>
-        {/* <Link to="/collections" className="hover:opacity-70 transition-colors">
-          New Arrivals
-        </Link> */}
+        <button
+          onClick={() => {
+            if (location.pathname === "/") {
+              document
+                .getElementById("testimonials")
+                .scrollIntoView({ behavior: "smooth" });
+            } else {
+              navigate("/");
+              setTimeout(() => {
+                document
+                  .getElementById("testimonials")
+                  .scrollIntoView({ behavior: "smooth" });
+              }, 300);
+            }
+          }}
+          className="hover:opacity-70 transition-colors"
+        >
+          Testimonials
+        </button>
       </div>
 
       {/* Logo */}
@@ -156,14 +173,9 @@ const Header = () => {
               Collections
             </Link>
             <Link to={"/categories"} onClick={() => setIsMenuOpen(false)}>
-              Shop
+              Categories
             </Link>
-            <Link
-              to={"/collections?filter=new-arrivals"}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              New Arrivals
-            </Link>
+
             <hr />
             {user ? (
               <Link

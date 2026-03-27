@@ -11,9 +11,9 @@ const CategoryCard = ({ category }) => {
         setCategory(category?.categoryName);
         navigate("/collections");
       }}
-      className="flex items-center justify-center py-6 px-4 bg-[#F8F8F8] border border-[#E6E6E6] hover:shadow-lg hover:border-black transition-all duration-300 cursor-pointer group"
+      className="flex items-center justify-center py-6 px-4 bg-[#F8F8F8] border border-[#E6E6E6] hover:shadow-lg hover:bg-[#D47784] hover:text-white transition-all duration-300 cursor-pointer group"
     >
-      <p className="font-[Inter] text-lg font-medium text-gray-800 group-hover:text-black transition-colors">
+      <p className="font-[Bastoni] tracking-wide text-lg font-medium ">
         {category?.categoryName}
       </p>
     </div>
