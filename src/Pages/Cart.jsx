@@ -7,7 +7,7 @@ import { useGetCart, useClearCart } from "../hooks/cart/useCart.js";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext.jsx";
 import Loading from "../Components/Loading.jsx";
-import YouMayLike from "../Components/Productdetails/YoumayLike.jsx";
+import YouMayLike from "../Components/Productdetails/YouMayLike";
 
 const Cart = () => {
   const { data, isLoading } = useGetCart();
