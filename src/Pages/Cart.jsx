@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
 
 import CartCard from "../Components/cart/CartCard";
 import { useGetCart, useClearCart } from "../hooks/cart/useCart.js";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext.jsx";
 import Loading from "../Components/Loading.jsx";
-import YouMayLike from "../Components/Productdetails/YouMayLike";
+import ExtraProducts from "../Components/Productdetails/ExtraProducts.jsx";
 
 const Cart = () => {
   const { data, isLoading } = useGetCart();
@@ -109,7 +107,7 @@ const Cart = () => {
           </div>
         )}
       </div>
-      <YouMayLike />
+      <ExtraProducts />
     </div>
   );
 };
