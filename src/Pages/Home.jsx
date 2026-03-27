@@ -1,4 +1,4 @@
-import HeroSection from "../Components/homepage/HeroSection";
+import HeroSection from "../Components/Homepage/HeroSection";
 import FeaturedSection from "../Components/Homepage/FeaturedSection";
 import NewArrivalsSection from "../Components/Homepage/NewArrivalsSection";
 import Membership from "../Components/Homepage/Membership";
