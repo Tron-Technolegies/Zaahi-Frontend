@@ -1,7 +1,7 @@
 const Description = ({ setCurrent, current }) => {
   return (
-    <div className="max-w-6xl mx-auto mt-40 px-4">
-      <div className="flex gap-10 border-b border-[#DADADA]">
+    <div className="max-w-6xl mx-auto md:mt-40 mt-4 px-6">
+      <div className="flex md:gap-10 gap-2 justify-between border-b border-[#DADADA]">
         <button
           onClick={() => setCurrent("description")}
           className={`pb-3 font-semibold cursor-pointer

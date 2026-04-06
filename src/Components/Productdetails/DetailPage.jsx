@@ -26,8 +26,8 @@ const DetailPage = ({ product }) => {
   const isInCart = cartItem ? true : false;
 
   return (
-    <div className="mt-20 max-w-8xl md:px-30 px-5">
-      <div className="flex  gap-3 text-sm font-[Inter]">
+    <div className="md:mt-20 mt-5 max-w-8xl md:px-30 px-5">
+      <div className="flex gap-2  md:gap-3 text-sm font-[Inter]">
         <Link to="/">
           <button className="text-[#848484] cursor-pointer">Home &gt;</button>
         </Link>

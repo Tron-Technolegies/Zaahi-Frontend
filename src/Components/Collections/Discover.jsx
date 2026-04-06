@@ -46,10 +46,10 @@ const Discover = () => {
     <>
       <div className=" flex flex-col md:mt-10 items-center justify-center">
         <p className="uppercase font-[Inter] text-[18px]">discover</p>
-        <p className="font-[Bastoni] text-[45px] front-medium pt-3">
+        <p className="font-[Bastoni] md:text-[45px] text-4xl front-medium pt-3">
           Our Collection
         </p>
-        <p className="font-[Inter] text-center text-[#848484] text-[20px] pt-4">
+        <p className="font-[Inter] text-center text-[#848484] md:text-[20px] text-lg pt-4">
           Explore exquisite pieces curated for the discerning collector
         </p>
       </div>
@@ -189,7 +189,7 @@ const Discover = () => {
               </button>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-12 mt-10">
+            <div className="grid grid-cols-2 md:grid-cols-2 md:gap-12 gap-2 gap-y-7 mt-10">
               {isLoading ? (
                 <Loading />
               ) : data.products?.length > 0 ? (

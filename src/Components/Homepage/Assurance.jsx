@@ -6,9 +6,9 @@ import AssuranceCard from "./AssuranceCard";
 
 const AssuranceSection = () => {
   return (
-    <section className="w-full py-8 mt-20">
+    <section className="w-full py-8 md:mt-20 mt-3">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="grid gap-3 md:grid-cols-4">
+        <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
           <AssuranceCard
             icon={IoShieldOutline}
             title="Authenticity Guaranteed"
@@ -25,7 +25,11 @@ const AssuranceSection = () => {
             title="30-Day Returns"
             description="No questions asked returns"
           />
-          <AssuranceCard icon={PiMedal} title="Warranty" description="Coverage on all timepieces" />
+          <AssuranceCard
+            icon={PiMedal}
+            title="Warranty"
+            description="Coverage on all timepieces"
+          />
         </div>
       </div>
     </section>

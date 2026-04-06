@@ -38,8 +38,8 @@ export default function ReviewSection({ product }) {
   //   }, [reviews]);
   return (
     <>
-      <div className=" py-10 px-5 w-full">
-        <div className="flex justify-between flex-col shadow-lg px-10 py-5 rounded-md border">
+      <div className=" w-full">
+        <div className="flex justify-between flex-col shadow-lg md:px-10 px-4 py-5 rounded-md border">
           <div className=" w-full">
             <p className="text-xl font-semibold my-5">
               Product Ratings & Reviews

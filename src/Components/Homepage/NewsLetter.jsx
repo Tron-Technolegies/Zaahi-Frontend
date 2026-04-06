@@ -7,18 +7,19 @@ const NewsLetter = () => {
       <p className="font-[Bastoni] text-center text-3xl">
         Join Our Inner Circle
       </p>
-      <p className="text-[#848484] text-[12px]">
+      <p className="text-[#848484] text-center text-[12px]">
         Be the first to know about new acquisitions, private sales, and
         exclusive events.
       </p>
       <div className="flex md:flex-row flex-col gap-2">
-        <input
-          placeholder="Enter your email address"
-          className="py-2 px-6 bg-[#E9E9E9]"
-        />
-        <button className="border border-[#D47784] text-[#D47784] px-6 py-2  font-medium hover:bg-[#D47784] hover:text-white transition duration-300 flex items-center gap-2">
-          <CiLocationArrow1 size={20} /> SUBSCRIBE
-        </button>
+        <a
+          href="https://chat.whatsapp.com/EurJVZmIYrz2HRXf0lI8mW"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border border-[#D47784] text-[#D47784] px-6 py-2 flex gap-2 justify-center items-center  font-medium hover:bg-[#D47784] hover:text-white transition duration-300 "
+        >
+          <CiLocationArrow1 size={20} /> Join
+        </a>
       </div>
       <p className="text-[#848484] text-[10px]">
         By subscribing, you agree to our Privacy Policy and consent to receive
