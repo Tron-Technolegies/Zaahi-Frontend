@@ -18,7 +18,7 @@ const FeaturedSection = () => {
   });
 
   return (
-    <section className="w-full flex justify-center py-16">
+    <section className="w-full flex justify-center md:py-16 py-3">
       <div className="w-full max-w-7xl px-6 lg:px-12">
         <div className="flex md:flex-row flex-col justify-between items-start mb-12">
           <div className="max-w-xl">
@@ -42,7 +42,7 @@ const FeaturedSection = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-10 gap-2 gap-y-7">
           {isLoading ? (
             <Loading />
           ) : data?.products?.length > 0 ? (

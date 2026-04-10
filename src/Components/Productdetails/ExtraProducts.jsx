@@ -21,7 +21,7 @@ export default function ExtraProducts() {
         </Link>
       </div>
 
-      <div className="grid gap-5 mt-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid md:gap-5 gap-2 gap-y-7 mt-10 grid-cols-2 lg:grid-cols-3">
         {isLoading ? (
           <p className="col-span-3 text-center text-gray-400">
             Loading recommendations...

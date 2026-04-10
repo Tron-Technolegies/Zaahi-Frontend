@@ -3,7 +3,7 @@ import { FaStar } from "react-icons/fa";
 
 export default function ReviewCard({ img, review, rating, user }) {
   return (
-    <div className="p-4 rounded-2xl my-3 shadow-lg hover:shadow-[#D47784]/40 transition-all duration-300 mx-3 flex flex-col gap-4 md:max-w-[450px] h-[440px]">
+    <div className="p-4 rounded-2xl my-3 shadow-lg hover:shadow-[#D47784]/40 transition-all duration-300 mx-3 flex flex-col gap-4 md:max-w-[650px] md:h-[600px] h-[400px]">
       {/* Image Container */}
       <div className="flex-1 overflow-hidden rounded-xl relative group">
         <img

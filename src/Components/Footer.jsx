@@ -18,7 +18,7 @@ export default function Footer() {
   const { setCategory } = useContext(UserContext);
   const navigate = useNavigate();
   return (
-    <footer className="rounded-tl-[120px] font-sans text-[#7C7C7C] bg-gradient-to-b from-[#F4F4F4] to-[#FFFFFF]  pt-16 pb-6 mt-20">
+    <footer className="rounded-tl-[120px] font-sans text-[#7C7C7C] bg-gradient-to-b from-[#F4F4F4] to-[#FFFFFF]  pt-16 pb-6 md:mt-20 mt-5">
       <div className=" max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12">
         {/* Brand Section */}
         <div className="flex flex-col items-center justify-center h-full text-center">

@@ -45,9 +45,11 @@ export default function SmallScreenFilter({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Write a review
-        </Typography>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+        ></Typography>
         <aside className=" border-r  border-[#E6E6E6] w-87.5">
           <div className="flex items-center justify-between px-6 py-6">
             <h2 className="text-xl font-[Inter] text-[#181817]  tracking-wide font-medium">
@@ -75,7 +77,7 @@ export default function SmallScreenFilter({
           <div className="border-t border-[#E6E6E6]">
             <div className="px-6 py-6">
               <h3 className="text-xl font-[Inter] text-[#181817]  font-medium mb-4">
-                COLLECTIONS
+                Collections
               </h3>
               <div className="flex flex-wrap gap-2 font-[Inter] text-[#181817] text-sm">
                 <button
@@ -115,7 +117,7 @@ export default function SmallScreenFilter({
           <div className="border-t border-[#E6E6E6]">
             <div className="px-6 py-6">
               <h3 className="text-xl font-[Inter] text-[#181817] font-medium mb-4">
-                PRICE
+                Price
               </h3>
               <div className="flex flex-col gap-2 text-sm mt-2">
                 <label>Min Price</label>

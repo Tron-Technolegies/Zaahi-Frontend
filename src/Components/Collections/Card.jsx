@@ -51,7 +51,7 @@ const Card = ({ product }) => {
 
   return (
     <div>
-      <div className="border border-[#7B7B7B66] p-8 relative group cursor-pointer">
+      <div className="border border-[#7B7B7B66] lg:p-8 p-2 relative group cursor-pointer">
         <button
           onClick={handleWishlistToggle}
           className="absolute top-5 right-5 text-[#D77C84] z-10 transition hover:scale-110"
@@ -62,15 +62,18 @@ const Card = ({ product }) => {
             <PiHeartLight className="text-2xl" />
           )}
         </button>
-        <div className="transition-transform duration-500 hover:scale-102">
-          <Link to={`/product-details/${product?._id}`}>
+        <div className="mx-auto transition-transform duration-500 flex flex-col justify-between items-center md:h-[500px] h-[300px] py-3 hover:scale-102">
+          <Link
+            to={`/product-details/${product?._id}`}
+            className="overflow-hidden"
+          >
             <img
               src={product?.image?.url}
               alt={product?.productName}
-              className="mx-auto h-[340px] object-contain "
+              className="mx-auto object-cover"
             />
           </Link>
-          <div className="mt-6 grid grid-cols-[200px_36px] place-content-center gap-3 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100">
+          <div className="mt-6 w-full flex gap-2 items-center mx-auto opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100">
             <button
               onClick={async () => {
                 if (!currentUser) {
@@ -83,7 +86,7 @@ const Card = ({ product }) => {
                 navigate("/cart");
               }}
               disabled={isAddingToCart}
-              className="w-[200px] bg-[#D77C84] font-[Inter] text-white text-xs py-2 cursor-pointer"
+              className="w-full bg-[#D77C84] font-[Inter] text-white text-xs py-2 cursor-pointer"
             >
               {isAddingToCart ? "ADDING..." : "BUY NOW"}
             </button>
@@ -99,7 +102,7 @@ const Card = ({ product }) => {
                 }
               }}
               disabled={isAddingToCart || isInCart}
-              className="w-9 h-9 border border-[#E6E6E6] bg-[#EAEAEA] text-xs flex items-center justify-center cursor-pointer"
+              className="w-9 h-8 border border-[#E6E6E6] bg-[#EAEAEA] text-xs flex items-center justify-center cursor-pointer"
             >
               {isInCart ? (
                 <RiCheckLine className="text-lg text-[#D77C84]" />
