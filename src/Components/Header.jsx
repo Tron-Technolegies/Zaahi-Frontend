@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FiSearch,
   FiShoppingBag,
@@ -21,6 +21,30 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const location = useLocation();
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
+
+  useEffect(() => {
+    const heroSection = document.getElementById("home");
+
+    if (!heroSection) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.3, // adjust this (0.2–0.5 feels best)
+      },
+    );
+
+    observer.observe(heroSection);
+
+    return () => {
+      if (heroSection) observer.unobserve(heroSection);
+    };
+  }, [location.pathname]);
+
+  const isHomeTop = location.pathname === "/" && isHeroVisible;
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,19 +55,26 @@ const Header = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between px-4 md:px-8 h-18 bg-white border-b border-gray-100 relative">
+    <nav
+      className={`flex items-center justify-between px-4 md:px-8 h-18 fixed left-0 top-0 z-50 w-full 
+  transition-all duration-500 ease-in-out
+  ${isHomeTop ? "bg-transparent text-white" : "bg-white text-black shadow-md"}
+`}
+    >
       {/* Mobile Menu Button */}
       <div className="flex md:hidden flex-1">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="text-[#615226] p-2"
+          className={`${isHomeTop ? "text-white" : "text-black"} p-2`}
         >
           {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </button>
       </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden md:flex flex-1 items-center space-x-8 text-sm font-medium text-[#615226] ml-10">
+      <div
+        className={`hidden md:flex flex-1 items-center space-x-8 text-sm font-medium ml-10 ${isHomeTop ? "text-white" : "text-black"}`}
+      >
         <Link to="/collections" className="hover:opacity-70 transition-colors">
           Collections
         </Link>
@@ -83,7 +114,9 @@ const Header = () => {
       </div>
 
       {/* Right Section */}
-      <div className="flex-1 flex items-center justify-end space-x-3 md:space-x-6 text-[#6B6B6B]">
+      <div
+        className={`${isHomeTop ? "text-white" : "text-black"} flex-1 flex items-center justify-end space-x-3 md:space-x-6 `}
+      >
         <div className="flex items-center space-x-4 md:space-x-6">
           <Link to="/wishlist">
             <button className="hover:opacity-70 transition-colors">

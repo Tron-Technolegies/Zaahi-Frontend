@@ -12,7 +12,7 @@ const Shipping = () => {
   const [active, setActive] = useState("shipping");
   const [clientSecret, setClientSecret] = useState("");
   return (
-    <div>
+    <div className="mt-24">
       <HomeCheckout active={active} />
       <div className="flex flex-col lg:flex-row justify-center gap-10 lg:gap-30 max-w-7xl mx-auto mt-10 px-4">
         {active === "shipping" && (

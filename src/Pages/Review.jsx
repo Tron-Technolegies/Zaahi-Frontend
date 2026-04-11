@@ -10,7 +10,7 @@ const Review = () => {
   return (
     <div>
       <HomeCheckout />
-      <div className="flex flex-col lg:flex-row justify-center gap-10 lg:gap-30 max-w-7xl mx-auto mt-10 px-4">
+      <div className="flex flex-col lg:flex-row justify-center gap-10 lg:gap-30 max-w-7xl mx-auto mt-24 px-4">
         <div className="w-full lg:w-auto">
           <Link to="/payment-details">
             <button className="text-gray-400 hover:border-gray-700 text-sm cursor-pointer">

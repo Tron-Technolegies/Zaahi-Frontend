@@ -73,7 +73,7 @@ const Card = ({ product }) => {
               className="mx-auto object-cover"
             />
           </Link>
-          <div className="mt-6 w-full flex gap-2 items-center mx-auto opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100">
+          <div className="md:mt-6 w-full flex gap-2 items-center mx-auto translate-y-2 transition-all duration-300 group-hover:opacity-100">
             <button
               onClick={async () => {
                 if (!currentUser) {

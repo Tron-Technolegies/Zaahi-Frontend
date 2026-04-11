@@ -37,7 +37,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <div>
+    <div className="mt-24">
       <DetailPage product={product} />
       <Description current={current} setCurrent={setCurrent} />
       {current === "description" && (

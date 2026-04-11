@@ -30,7 +30,7 @@ const Wishlist = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mt-10 px-4 md:px-12 lg:px-24">
+      <div className="flex justify-between items-center mt-24 px-4 md:px-12 lg:px-24">
         <div className="flex gap-3 text-sm font-[Inter]">
           <Link to="/">
             <button className="text-[#848484] cursor-pointer">
