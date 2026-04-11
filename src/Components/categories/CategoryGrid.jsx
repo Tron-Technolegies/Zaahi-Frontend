@@ -46,6 +46,11 @@ export default function CategoryGrid() {
                     {category.name}
                   </p>
                 </div>
+                <div className="md:hidden absolute inset-0 bg-gradient-to-b from-[#D77C84] via-[#D77C84]/10 to-transparent  transition-all duration-500 flex flex-col justify-start p-5">
+                  <p className="text-white font-[Bastoni] text-xl md:text-3xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    {category.name}
+                  </p>
+                </div>
               </div>
             </div>
           );
@@ -77,6 +82,11 @@ export default function CategoryGrid() {
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-[#D77C84] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5">
+                  <p className="text-white font-[Bastoni] text-xl md:text-3xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    {category.name}
+                  </p>
+                </div>
+                <div className="md:hidden absolute inset-0 bg-gradient-to-b from-[#D77C84] via-[#D77C84]/10 to-transparent  transition-all duration-500 flex flex-col justify-start p-5">
                   <p className="text-white font-[Bastoni] text-xl md:text-3xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     {category.name}
                   </p>

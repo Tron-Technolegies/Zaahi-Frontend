@@ -51,18 +51,18 @@ const Card = ({ product }) => {
 
   return (
     <div>
-      <div className="border border-[#7B7B7B66] lg:p-8 p-2 relative group cursor-pointer">
+      <div className="border border-[#7B7B7B66] p-2 relative group cursor-pointer">
         <button
           onClick={handleWishlistToggle}
-          className="absolute top-5 right-5 text-[#D77C84] z-10 transition hover:scale-110"
+          className="absolute top-5 right-5 text-[white] z-10 transition hover:scale-110"
         >
           {isWishlisted ? (
-            <PiHeartFill className="text-2xl text-[#D77C84]" />
+            <PiHeartFill className="text-2xl text-[white]" />
           ) : (
             <PiHeartLight className="text-2xl" />
           )}
         </button>
-        <div className="mx-auto transition-transform duration-500 flex flex-col justify-between items-center md:h-[500px] h-[300px] py-3 hover:scale-102">
+        <div className="mx-auto transition-transform duration-500 flex flex-col aspect-3/4 overflow-hidden justify-between items-center hover:scale-102">
           <Link
             to={`/product-details/${product?._id}`}
             className="overflow-hidden"
@@ -70,10 +70,10 @@ const Card = ({ product }) => {
             <img
               src={product?.image?.url}
               alt={product?.productName}
-              className="mx-auto object-cover"
+              className="mx-auto object-cover w-full"
             />
           </Link>
-          <div className="md:mt-6 w-full flex gap-2 items-center mx-auto translate-y-2 transition-all duration-300 group-hover:opacity-100">
+          {/* <div className="md:mt-6 w-full flex gap-2 items-center mx-auto translate-y-2 transition-all duration-300 group-hover:opacity-100">
             <button
               onClick={async () => {
                 if (!currentUser) {
@@ -110,14 +110,16 @@ const Card = ({ product }) => {
                 <RiShoppingBag3Line className="text-lg text-gray-700" />
               )}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
-
-      <p className="mt-5 text-center text-sm font-[Be Vietnam Pro]">
-        {product?.productName}
+      <p className="mt-5 text-left text-sm font-[Be Vietnam Pro] hidden md:block">
+        {product?.productName?.slice(0, 25)}...
       </p>
-      <p className="mt-1 text-center text-[#777777] text-sm font-semibold font-[Be Vietnam Pro]">
+      <p className="mt-5 text-left text-sm font-[Be Vietnam Pro] md:hidden">
+        {product?.productName?.slice(0, 18)}...
+      </p>
+      <p className="mt-1 text-left  text-sm font-semibold font-[Be Vietnam Pro]">
         ${product?.basePrice}
       </p>
     </div>

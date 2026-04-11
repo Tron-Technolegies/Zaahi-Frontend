@@ -98,7 +98,7 @@ const DetailPage = ({ product }) => {
               ${product?.price ? Number(product.price) + 2500 : ""}
             </p> */}
           </div>
-          <p className="text-sm text-gray-400">{product?.description}</p>
+          <p className="text-sm text-gray-400">Select Size</p>
           <div className="flex flex-wrap gap-3 my-3">
             {product?.variants?.map((item) => (
               <button
@@ -110,7 +110,7 @@ const DetailPage = ({ product }) => {
             ))}
           </div>
 
-          <div className="flex items-center mt-8 gap-5 font-[Inter]">
+          <div className="flex sm:flex-row flex-col items-center mt-8 gap-5 font-[Inter]">
             {/* <div className="flex items-center  border border-[#7B7B7B66] ">
               <button
                 onClick={handleDecrease}
@@ -144,7 +144,7 @@ const DetailPage = ({ product }) => {
                 navigate("/cart");
               }}
               disabled={isPending || isInCart}
-              className="w-75 bg-[#D77C84] font-[Inter] cursor-pointer text-white text-xs py-2"
+              className="w-full px-4 bg-[#D77C84] font-[Inter] cursor-pointer text-white text-xs py-2"
             >
               {isPending ? "ADDING..." : isInCart ? "ADDED TO CART" : "BUY NOW"}
             </button>
@@ -163,13 +163,14 @@ const DetailPage = ({ product }) => {
                 }
               }}
               disabled={isPending || isInCart}
-              className="w-9 h-9 border border-[#7B7B7B66] text-xs flex cursor-pointer items-center justify-center"
+              className="w-full py-2 px-4 border border-[#7B7B7B66] text-xs flex cursor-pointer gap-2 items-center justify-center"
             >
               {isInCart ? (
                 <RiCheckLine className="text-lg text-green-600" />
               ) : (
                 <RiShoppingBag3Line className="text-lg text-gray-700" />
               )}
+              Add To Cart
             </button>
           </div>
           <hr className="my-10  border-px border-[#7B7B7B66]" />
