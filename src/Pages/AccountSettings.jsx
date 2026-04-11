@@ -42,7 +42,7 @@ export default function AccountSettings() {
   const location = useLocation();
   const pathname = location.pathname;
   return (
-    <div className="text-black min-h-screen">
+    <div className="text-black min-h-screen mt-24">
       <p className="bg-[#F5F5F5] py-7 text-center font-semibold">My Account</p>
       <div className="flex md:flex-row flex-col gap-3 items-start md:px-30 px-5 ">
         <div className="flex md:flex-col flex-row justify-between gap-3 md:p-7 p-3 h-full  md:w-1/3 w-full ">

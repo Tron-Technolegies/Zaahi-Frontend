@@ -8,7 +8,7 @@ const Collections = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div>
+    <div className="mt-24">
       <Discover />
     </div>
   );

@@ -2,19 +2,20 @@ import Card from "../Collections/Card";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { api } from "../../services/api";
 
 const NewArrivalsSection = () => {
   const { data: products, isLoading } = useQuery({
     queryKey: ["new-arrivals"],
     queryFn: async () => {
-      const response = await axios.get("http://localhost:3000/api/v1/product");
+      const response = await api.get("/product");
       return response.data.products;
     },
   });
 
   return (
     <section className="w-full flex justify-center py-16 ">
-      <div className="w-full max-w-7xl px-6 lg:px-12">
+      <div className="w-full max-w-7xl px-3 lg:px-12">
         <div className="border-t border-gray-200 mb-16"></div>
         <div className="flex md:flex-row flex-col justify-between items-start mb-12">
           <div className="max-w-xl">

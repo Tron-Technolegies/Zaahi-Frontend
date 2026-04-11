@@ -29,3 +29,7 @@ button {
 html {
   scroll-behavior: smooth;
 }
+
+.fade-background {
+  transition: background-image 1s ease-in-out;
+}
