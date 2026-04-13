@@ -45,7 +45,7 @@ const FeaturedSection = () => {
         {isLoading ? (
           <Loading />
         ) : data?.products?.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 md:gap-6 items-start">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 items-start">
             {/* Left Column */}
             <div className="flex flex-col gap-3 md:gap-6 w-full">
               {/* Top Left - Tall */}
@@ -129,6 +129,51 @@ const FeaturedSection = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-[#D77C84] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5">
                       <p className="text-white font-[Bastoni] md:text-xl text-sm translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                         {data.products[3].productName}
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Third Column */}
+            <div className="col-span-2 md:col-span-1 grid grid-cols-2 md:flex md:flex-col gap-3 md:gap-6 w-full">
+              {/* Top Third - Tall */}
+              {data.products[4] && (
+                <div className="w-full aspect-[2/3] rounded-xl overflow-hidden border border-[#D77C84] bg-white p-1 shadow-sm group">
+                  <Link
+                    to={`/product-details/${data.products[4]._id}`}
+                    className="relative block w-full h-full overflow-hidden rounded-xl"
+                  >
+                    <img
+                      src={data.products[4].image.url}
+                      alt={data.products[4].productName}
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#D77C84] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5">
+                      <p className="text-white font-[Bastoni] md:text-xl text-sm translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        {data.products[4].productName}
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              )}
+
+              {/* Bottom Third - Short */}
+              {data.products[5] && (
+                <div className="w-full aspect-square rounded-xl overflow-hidden border border-[#D77C84] bg-white p-1 shadow-sm group">
+                  <Link
+                    to={`/product-details/${data.products[5]._id}`}
+                    className="relative block w-full h-full overflow-hidden rounded-xl"
+                  >
+                    <img
+                      src={data.products[5].image.url}
+                      alt={data.products[5].productName}
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#D77C84] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5">
+                      <p className="text-white font-[Bastoni] md:text-xl text-sm translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        {data.products[5].productName}
                       </p>
                     </div>
                   </Link>
