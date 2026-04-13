@@ -29,7 +29,7 @@ export default function HeroSection() {
         // First, run the pop-up animation on the h1 when it comes into view
         await h1Controls.start({
           scale: 1,
-          transition: { duration: 1.2, ease: "easeInOut" },
+          transition: { duration: 0.7, ease: "easeInOut" },
         });
       }
     };
@@ -47,7 +47,7 @@ export default function HeroSection() {
         <div className="relative flex flex-col gap-7 items-center">
           <motion.h1
             ref={ref}
-            initial={{ scale: 0 }}
+            initial={{ scale: 0.4 }}
             animate={h1Controls}
             className="md:text-7xl text-3xl font-bold text-white flex flex-col gap-3 items-center text-center font-[Bastoni]"
           >

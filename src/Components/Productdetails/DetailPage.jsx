@@ -36,7 +36,12 @@ const DetailPage = ({ product }) => {
             Collections &gt;
           </button>
         </Link>
-        <button>{product?.productName}</button>
+        <button className="hidden md:inline-block">
+          {product?.productName}
+        </button>
+        <button className="md:hidden">
+          {product?.productName?.slice(0, 15)}...
+        </button>
       </div>
 
       <div className="flex md:flex-row flex-col mt-10 justify-between">
