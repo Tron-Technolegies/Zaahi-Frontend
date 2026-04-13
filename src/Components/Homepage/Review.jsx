@@ -45,7 +45,7 @@ export default function Review() {
       whileInView="visible"
       viewport={{ once: false, amount: 0.2 }} // Triggers when 20% of the section is visible
       variants={sectionVariants}
-      className="main-bg px-5 md:px-10 lg:px-30 xl:px-45 py-10 flex flex-col gap-5 items-center"
+      className="main-bg px-5 md:px-10 lg:px-30 xl:px-45 py-10 flex flex-col gap-5 items-center overflow-hidden"
     >
       <h2 className="font-[Bastoni] md:text-4xl text-3xl font-semibold pb-2">
         Our Testimonials
@@ -60,7 +60,7 @@ export default function Review() {
       ) : isError ? (
         <p>Something went wrong</p>
       ) : (
-        <div className="relative flex justify-center items-center h-150 perspective-distant">
+        <div className="relative flex justify-center items-center h-150 perspective-distant ">
           {data?.map((data, index) => {
             const offset = index - active;
             const abs = Math.abs(offset);
