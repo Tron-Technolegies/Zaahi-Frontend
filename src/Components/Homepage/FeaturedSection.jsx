@@ -50,7 +50,7 @@ const FeaturedSection = () => {
             <div className="flex flex-col gap-3 md:gap-6 w-full">
               {/* Top Left - Tall */}
               {data.products[0] && (
-                <div className="w-full aspect-[2/3] rounded-xl overflow-hidden border border-[#D77C84] bg-white p-1 shadow-sm group">
+                <div className="w-full aspect-2/3 rounded-xl overflow-hidden border border-[#D77C84] bg-white p-1 shadow-sm group">
                   <Link
                     to={`/product-details/${data.products[0]._id}`}
                     className="relative block w-full h-full overflow-hidden rounded-xl"
@@ -60,7 +60,7 @@ const FeaturedSection = () => {
                       alt={data.products[0].productName}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#D77C84] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5">
+                    <div className="absolute inset-0 bg-linear-to-b from-[#D77C84] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5">
                       <p className="text-white font-[Bastoni] md:text-xl text-sm translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                         {data.products[0].productName}
                       </p>
@@ -81,7 +81,7 @@ const FeaturedSection = () => {
                       alt={data.products[2].productName}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#D77C84] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5">
+                    <div className="absolute inset-0 bg-linear-to-b from-[#D77C84] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5">
                       <p className="text-white font-[Bastoni] md:text-xl text-sm translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                         {data.products[2].productName}
                       </p>
