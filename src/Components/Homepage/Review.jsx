@@ -24,17 +24,15 @@ export default function Review() {
     inView: isInView,
   });
 
-  const next = () => {
-    setActive((prev) => (prev === data.length - 1 ? 0 : prev + 1));
-  };
-
-  const prev = () => {
-    setActive((prev) => (prev === 0 ? data.length - 1 : prev - 1));
-  };
-
   useEffect(() => {
-    if (data) {
+    if (data && data.length > 0) {
       setActive(Math.floor(data.length / 2));
+
+      const interval = setInterval(() => {
+        setActive((prev) => (prev === data.length - 1 ? 0 : prev + 1));
+      }, 2000);
+
+      return () => clearInterval(interval);
     }
   }, [data]);
   return (
@@ -114,23 +112,6 @@ export default function Review() {
           })}
         </div>
       )}
-
-      {/* Buttons */}
-      <div className="flex justify-center gap-2 mt-0">
-        <button
-          onClick={prev}
-          className="px-6 py-2 rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-[#246b75] hover:bg-[#D47784] hover:text-white transition-all shadow-lg"
-        >
-          Prev
-        </button>
-
-        <button
-          onClick={next}
-          className="px-6 py-2 rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-[#246b75] hover:bg-[#D47784] hover:text-white transition-all shadow-lg"
-        >
-          Next
-        </button>
-      </div>
     </motion.section>
   );
 }

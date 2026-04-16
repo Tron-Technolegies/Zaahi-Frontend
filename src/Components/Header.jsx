@@ -7,19 +7,24 @@ import {
   FiX,
   FiHeart,
 } from "react-icons/fi";
+import { IoChevronDownOutline } from "react-icons/io5";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../hooks/user/useCurrentUser";
 import { Menu, MenuItem } from "@mui/material";
 import { useSignOut } from "../hooks/auth/useSignin";
 import { UserContext } from "../UserContext";
+import { useGetCategories } from "../hooks/categories/useCategory";
 
 const Header = () => {
   const { isError, isLoading, error, data: user } = useCurrentUser();
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, setCategory } = useContext(UserContext);
+  const { data: categoriesData } = useGetCategories();
   const { mutateAsync: logout } = useSignOut();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileCategoryOpen, setIsMobileCategoryOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [categoryAnchorEl, setCategoryAnchorEl] = useState(null);
   const location = useLocation();
   const [isHeroVisible, setIsHeroVisible] = useState(true);
 
@@ -78,9 +83,40 @@ const Header = () => {
         <Link to="/collections" className="hover:opacity-70 transition-colors">
           Collections
         </Link>
-        <Link to="/categories" className="hover:opacity-70 transition-colors">
-          Categories
-        </Link>
+        <div>
+          <button
+            onClick={(e) => setCategoryAnchorEl(e.currentTarget)}
+            className="flex gap-2 items-center hover:opacity-70 transition-colors cursor-pointer focus:outline-none"
+          >
+            Categories <IoChevronDownOutline />
+          </button>
+          <Menu
+            anchorEl={categoryAnchorEl}
+            open={Boolean(categoryAnchorEl)}
+            onClose={() => setCategoryAnchorEl(null)}
+          >
+            <MenuItem
+              onClick={() => {
+                setCategoryAnchorEl(null);
+                navigate("/categories");
+              }}
+            >
+              All Categories
+            </MenuItem>
+            {categoriesData?.map((cat) => (
+              <MenuItem
+                key={cat._id}
+                onClick={() => {
+                  setCategoryAnchorEl(null);
+                  setCategory(cat.categoryName);
+                  navigate("/collections");
+                }}
+              >
+                {cat.categoryName}
+              </MenuItem>
+            ))}
+          </Menu>
+        </div>
         <button
           onClick={() => {
             if (location.pathname === "/") {
@@ -205,9 +241,38 @@ const Header = () => {
             <Link to={"/collections"} onClick={() => setIsMenuOpen(false)}>
               Collections
             </Link>
-            <Link to={"/categories"} onClick={() => setIsMenuOpen(false)}>
-              Categories
-            </Link>
+            <div className="flex flex-col space-y-4">
+              <button
+                className="text-left font-medium flex justify-between items-center"
+                onClick={() => setIsMobileCategoryOpen(!isMobileCategoryOpen)}
+              >
+                Categories
+                <span className="text-xl leading-none">
+                  {isMobileCategoryOpen ? "-" : "+"}
+                </span>
+              </button>
+
+              {isMobileCategoryOpen && (
+                <div className="flex flex-col space-y-3 pl-4 border-l border-[#D47784]/30 ml-2 text-sm">
+                  <Link to={"/categories"} onClick={() => setIsMenuOpen(false)}>
+                    All Categories
+                  </Link>
+                  {categoriesData?.map((cat) => (
+                    <button
+                      key={cat._id}
+                      className="text-left hover:text-[#D47784] transition-colors"
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setCategory(cat.categoryName);
+                        navigate("/collections");
+                      }}
+                    >
+                      {cat.categoryName}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <hr />
             {user ? (
