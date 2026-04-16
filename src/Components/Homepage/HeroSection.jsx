@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
   const images = [
-    'url("/hero-1.png")',
-    'url("/hero-2.png")',
-    'url("/hero-3.png")',
+    'url("/hero-1.webp")',
+    'url("/hero-2.webp")',
+    'url("/hero-3.webp")',
   ];
   const [activeIndex, setActiveIndex] = useState(0);
 

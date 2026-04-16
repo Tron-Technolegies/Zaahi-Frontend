@@ -6,7 +6,7 @@ import AssuranceCard from "./AssuranceCard";
 
 const AssuranceSection = () => {
   return (
-    <section className="w-full py-8 md:mt-20 mt-3">
+    <section className="w-full py-4 my-5">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
           <AssuranceCard
