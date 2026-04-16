@@ -24,7 +24,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileCategoryOpen, setIsMobileCategoryOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [categoryAnchorEl, setCategoryAnchorEl] = useState(null);
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const location = useLocation();
   const [isHeroVisible, setIsHeroVisible] = useState(true);
 
@@ -49,7 +49,7 @@ const Header = () => {
     };
   }, [location.pathname]);
 
-  const isHomeTop = location.pathname === "/" && isHeroVisible;
+  const isHomeTop = location.pathname === "/" && isHeroVisible && !isMegaMenuOpen;
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,45 +78,100 @@ const Header = () => {
 
       {/* Desktop Navigation */}
       <div
-        className={`hidden md:flex flex-1 items-center space-x-8 text-sm font-medium ml-10 ${isHomeTop ? "text-white" : "text-black"}`}
+        className={`hidden md:flex flex-1 items-center space-x-8 text-sm font-medium ml-10 h-full ${isHomeTop ? "text-white" : "text-black"}`}
       >
-        <Link to="/collections" className="hover:opacity-70 transition-colors">
+        <Link
+          to="/collections"
+          className={`hover:opacity-70 h-full flex items-center border-b-2 border-transparent transition-all ${isHomeTop ? "hover:border-white" : "hover:border-black"}`}
+        >
           Collections
         </Link>
-        <div>
+
+        <div
+          className="h-full flex items-center"
+          onMouseEnter={() => setIsMegaMenuOpen(true)}
+          onMouseLeave={() => setIsMegaMenuOpen(false)}
+        >
           <button
-            onClick={(e) => setCategoryAnchorEl(e.currentTarget)}
-            className="flex gap-2 items-center hover:opacity-70 transition-colors cursor-pointer focus:outline-none"
+            className={`flex gap-2 items-center h-full hover:opacity-70 border-b-2 border-transparent transition-all cursor-pointer focus:outline-none ${isHomeTop ? "hover:border-white" : "hover:border-black"} ${isMegaMenuOpen ? (isHomeTop ? "border-white" : "border-black") : ""}`}
+            onClick={() => {
+              navigate("/categories");
+              setIsMegaMenuOpen(false);
+            }}
           >
-            Categories <IoChevronDownOutline />
+            Categories{" "}
+            <IoChevronDownOutline
+              className={`transition-transform duration-300 ${isMegaMenuOpen ? "rotate-180" : ""}`}
+            />
           </button>
-          <Menu
-            anchorEl={categoryAnchorEl}
-            open={Boolean(categoryAnchorEl)}
-            onClose={() => setCategoryAnchorEl(null)}
+
+          {/* Mega Menu Dropdown */}
+          <div
+            className={`absolute top-18 left-0 w-full bg-white text-black shadow-[0_10px_20px_rgba(0,0,0,0.05)] overflow-hidden transition-all duration-300 ease-in-out cursor-default ${isMegaMenuOpen ? "max-h-[400px] opacity-100 border-t border-gray-100" : "max-h-0 opacity-0 pointer-events-none"}`}
           >
-            <MenuItem
-              onClick={() => {
-                setCategoryAnchorEl(null);
-                navigate("/categories");
-              }}
-            >
-              All Categories
-            </MenuItem>
-            {categoriesData?.map((cat) => (
-              <MenuItem
-                key={cat._id}
-                onClick={() => {
-                  setCategoryAnchorEl(null);
-                  setCategory(cat.categoryName);
-                  navigate("/collections");
-                }}
-              >
-                {cat.categoryName}
-              </MenuItem>
-            ))}
-          </Menu>
+            <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
+              <div className="grid grid-cols-3 gap-8">
+                {/* Column 1 */}
+                <div className="flex flex-col space-y-4">
+                  <h3 className="font-semibold text-gray-400 uppercase tracking-widest text-[11px] mb-2">
+                    Explore
+                  </h3>
+                  <Link
+                    to="/categories"
+                    onClick={() => setIsMegaMenuOpen(false)}
+                    className="text-gray-800 hover:text-[#D47784] transition-colors relative w-fit group"
+                  >
+                    All Categories
+                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#D47784] transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
+                </div>
+
+                {/* Column 2 */}
+                <div className="flex flex-col space-y-4 border-l border-gray-100 pl-8">
+                  <h3 className="font-semibold text-gray-400 uppercase tracking-widest text-[11px] mb-2">
+                    Shop By Category
+                  </h3>
+                  {(categoriesData || []).slice(0, 5).map((cat) => (
+                    <button
+                      key={cat._id}
+                      onClick={() => {
+                        setIsMegaMenuOpen(false);
+                        setCategory(cat.categoryName);
+                        navigate("/collections");
+                      }}
+                      className="text-left text-gray-800 hover:text-[#D47784] transition-colors relative w-fit group"
+                    >
+                      {cat.categoryName}
+                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#D47784] transition-all duration-300 group-hover:w-full"></span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Column 3 */}
+                <div className="flex flex-col space-y-4 pl-8">
+                  <h3 className="font-semibold opacity-0 uppercase tracking-widest text-[11px] mb-2">
+                    More
+                  </h3>
+                  {(categoriesData || []).slice(5, 10).map((cat) => (
+                    <button
+                      key={cat._id}
+                      onClick={() => {
+                        setIsMegaMenuOpen(false);
+                        setCategory(cat.categoryName);
+                        navigate("/collections");
+                      }}
+                      className="text-left text-gray-800 hover:text-[#D47784] transition-colors relative w-fit group"
+                    >
+                      {cat.categoryName}
+                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#D47784] transition-all duration-300 group-hover:w-full"></span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
         <button
           onClick={() => {
             if (location.pathname === "/") {
@@ -132,7 +187,7 @@ const Header = () => {
               }, 300);
             }
           }}
-          className="hover:opacity-70 transition-colors"
+          className={`hover:opacity-70 h-full flex items-center border-b-2 border-transparent transition-all ${isHomeTop ? "hover:border-white" : "hover:border-black"}`}
         >
           Testimonials
         </button>
