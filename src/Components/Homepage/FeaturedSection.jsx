@@ -56,7 +56,7 @@ const FeaturedSection = () => {
                     className="relative block w-full h-full overflow-hidden rounded-xl"
                   >
                     <img
-                      src={data.products[0].image.url}
+                      src={data.products[0].image?.url}
                       alt={data.products[0].productName}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />
