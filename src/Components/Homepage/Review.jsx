@@ -89,7 +89,7 @@ export default function Review() {
                     <img
                       src={data.image?.url}
                       alt={data.review}
-                      className="w-full h-full object-cover object-top rounded-xl"
+                      className="w-full h-full object-cover object-top "
                     />
                   </div>
 
