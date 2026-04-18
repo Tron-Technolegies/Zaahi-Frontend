@@ -51,7 +51,7 @@ const Card = ({ product }) => {
 
   return (
     <div>
-      <div className="border border-[#7B7B7B66] p-2 relative group cursor-pointer">
+      <div className="border border-[#7B7B7B66] relative group cursor-pointer">
         <button
           onClick={handleWishlistToggle}
           className="absolute top-5 right-5 text-[white] z-10 transition hover:scale-110"
