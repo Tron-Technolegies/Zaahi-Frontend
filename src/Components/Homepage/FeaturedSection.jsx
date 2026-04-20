@@ -58,11 +58,17 @@ const FeaturedSection = () => {
                       alt={data.products[0].productName}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />
-                    <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
+                    {/* <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
                       {data.products[0].productName
                         ?.slice(0, 20)
                         ?.toUpperCase()}
-                    </p>
+                    </p> */}
+                    <Link
+                      to={`/product-details/${data.products[0]?._id}`}
+                      className="text-white px-4 py-2 bg-[#d77c84] instrument-font text-sm absolute bottom-7 duration-500 z-10"
+                    >
+                      Shop Now
+                    </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#d77c8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
                 </div>
@@ -80,11 +86,17 @@ const FeaturedSection = () => {
                       alt={data.products[2].productName}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500"
                     />
-                    <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
+                    {/* <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
                       {data.products[2].productName
                         ?.slice(0, 20)
                         ?.toUpperCase()}
-                    </p>
+                    </p> */}
+                    <Link
+                      to={`/product-details/${data.products[2]?._id}`}
+                      className="text-white px-4 py-2 bg-[#d77c84] instrument-font text-sm absolute bottom-7 duration-500 z-10"
+                    >
+                      Shop Now
+                    </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#D77C8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
                 </div>
@@ -105,11 +117,17 @@ const FeaturedSection = () => {
                       alt={data.products[1].productName}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500"
                     />
-                    <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
+                    {/* <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
                       {data.products[1].productName
                         ?.slice(0, 20)
                         ?.toUpperCase()}
-                    </p>
+                    </p> */}
+                    <Link
+                      to={`/product-details/${data.products[1]?._id}`}
+                      className="text-white px-4 py-2 bg-[#d77c84] instrument-font text-sm absolute bottom-7 duration-500 z-10"
+                    >
+                      Shop Now
+                    </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#D77C8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
                 </div>
@@ -127,11 +145,17 @@ const FeaturedSection = () => {
                       alt={data.products[3].productName}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />
-                    <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
+                    {/* <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
                       {data.products[3].productName
                         ?.slice(0, 20)
                         ?.toUpperCase()}
-                    </p>
+                    </p> */}
+                    <Link
+                      to={`/product-details/${data.products[3]?._id}`}
+                      className="text-white px-4 py-2 bg-[#d77c84] instrument-font text-sm absolute bottom-7 duration-500 z-10"
+                    >
+                      Shop Now
+                    </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#D77C8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
                 </div>
@@ -152,11 +176,17 @@ const FeaturedSection = () => {
                       alt={data.products[4].productName}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />
-                    <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
+                    {/* <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
                       {data.products[4].productName
                         ?.slice(0, 20)
                         ?.toUpperCase()}
-                    </p>
+                    </p> */}
+                    <Link
+                      to={`/product-details/${data.products[4]?._id}`}
+                      className="text-white px-4 py-2 bg-[#d77c84] instrument-font text-sm absolute bottom-7 duration-500 z-10"
+                    >
+                      Shop Now
+                    </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#D77C8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
                 </div>
