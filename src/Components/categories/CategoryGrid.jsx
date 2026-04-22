@@ -35,7 +35,7 @@ export default function CategoryGrid() {
           alt={category.name}
           className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
         />
-        <p className="text-white instrument-font text-xl md:text-3xl absolute bottom-7 px-2 z-7 duration-500">
+        <p className="text-white instrument-font text-xl border-b absolute bottom-7 px-2 z-7 duration-500">
           {category.name?.toUpperCase()}
         </p>
         <div className="absolute inset-0 bg-linear-to-t from-[#D77C8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>

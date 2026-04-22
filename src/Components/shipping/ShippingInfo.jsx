@@ -31,7 +31,7 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
       const reqBody = {
         items: JSON.stringify(itemsData),
         address: JSON.stringify(addressData),
-        currency: "aed",
+        currency: "inr",
       };
       const { data } = await api.post(`/payment/payment-intent`, reqBody);
       setClientSecret(data.clientSecret);
