@@ -5,6 +5,7 @@ import Membership from "../Components/Homepage/Membership";
 import Assurance from "../Components/Homepage/Assurance";
 import Review from "../Components/Homepage/Review";
 import NewsLetter from "../Components/Homepage/NewsLetter";
+import ReelsSection from "../Components/Homepage/ReelsSection";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <Review />
       {/* <Membership /> */}
       <Assurance />
+      {/* <ReelsSection /> */}
       <NewsLetter />
     </div>
   );

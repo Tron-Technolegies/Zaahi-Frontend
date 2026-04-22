@@ -65,9 +65,9 @@ const FeaturedSection = () => {
                     </p> */}
                     <Link
                       to={`/product-details/${data.products[0]?._id}`}
-                      className="text-white px-4 py-2 bg-[#d77c84] instrument-font text-sm absolute bottom-7 duration-500 z-10"
+                      className="text-white  border-b instrument-font ml-2 font-semibold absolute bottom-7 duration-500 z-10"
                     >
-                      Shop Now
+                      SHOP NOW
                     </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#d77c8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
@@ -93,9 +93,9 @@ const FeaturedSection = () => {
                     </p> */}
                     <Link
                       to={`/product-details/${data.products[2]?._id}`}
-                      className="text-white px-4 py-2 bg-[#d77c84] instrument-font text-sm absolute bottom-7 duration-500 z-10"
+                      className="text-white  border-b instrument-font ml-2 font-semibold absolute bottom-7 duration-500 z-10"
                     >
-                      Shop Now
+                      SHOP NOW
                     </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#D77C8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
@@ -124,9 +124,9 @@ const FeaturedSection = () => {
                     </p> */}
                     <Link
                       to={`/product-details/${data.products[1]?._id}`}
-                      className="text-white px-4 py-2 bg-[#d77c84] instrument-font text-sm absolute bottom-7 duration-500 z-10"
+                      className="text-white  border-b instrument-font ml-2 font-semibold absolute bottom-7 duration-500 z-10"
                     >
-                      Shop Now
+                      SHOP NOW
                     </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#D77C8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
@@ -152,9 +152,9 @@ const FeaturedSection = () => {
                     </p> */}
                     <Link
                       to={`/product-details/${data.products[3]?._id}`}
-                      className="text-white px-4 py-2 bg-[#d77c84] instrument-font text-sm absolute bottom-7 duration-500 z-10"
+                      className="text-white  border-b instrument-font ml-2 font-semibold absolute bottom-7 duration-500 z-10"
                     >
-                      Shop Now
+                      SHOP NOW
                     </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#D77C8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
@@ -183,9 +183,9 @@ const FeaturedSection = () => {
                     </p> */}
                     <Link
                       to={`/product-details/${data.products[4]?._id}`}
-                      className="text-white px-4 py-2 bg-[#d77c84] instrument-font text-sm absolute bottom-7 duration-500 z-10"
+                      className="text-white  border-b instrument-font ml-2 font-semibold absolute bottom-7 duration-500 z-10"
                     >
-                      Shop Now
+                      SHOP NOW
                     </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#D77C8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
