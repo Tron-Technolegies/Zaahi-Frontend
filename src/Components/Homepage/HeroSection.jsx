@@ -42,7 +42,7 @@ export default function HeroSection() {
         className=" fade-background relative h-screen bg-no-repeat bg-center  bg-cover flex flex-col justify-center items-center"
         style={{ backgroundImage: images[activeIndex] }}
       >
-        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="absolute inset-0 bg-black opacity-70"></div>
         <div className="absolute bottom-0 left-0 w-full h-[40%] bg-linear-to-t from-black to-transparent"></div>
         <div className="relative flex flex-col gap-7 items-center">
           <motion.h1
