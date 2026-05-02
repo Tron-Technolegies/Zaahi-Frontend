@@ -41,7 +41,9 @@ const Cart = () => {
           <button>Cart</button>
         </div>
       </div>
-
+      <p className="text-xs text-red-500 my-5">
+        The website is in test mode. Dont use any real money for transactions
+      </p>
       <div className="mt-10 md:mt-20 px-4 md:px-12 lg:px-24 max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 lg:gap-12 min-h-[40vh]">
         <div className="w-full lg:w-2/3 flex flex-col mx-auto items-center gap-6">
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg w-full">
