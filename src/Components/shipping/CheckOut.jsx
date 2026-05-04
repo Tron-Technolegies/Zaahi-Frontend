@@ -19,7 +19,7 @@ export default function CheckOut() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:5173/order-confirmed",
+        return_url: "https://zaahidesigns.com/order-confirmed",
       },
     });
     queryClient.invalidateQueries({ queryKey: ["orders"] });
