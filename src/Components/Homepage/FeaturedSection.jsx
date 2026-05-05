@@ -63,12 +63,12 @@ const FeaturedSection = () => {
                         ?.slice(0, 20)
                         ?.toUpperCase()}
                     </p> */}
-                    <Link
+                    <p
                       to={`/product-details/${data.products[0]?._id}`}
                       className="text-white  border-b instrument-font ml-2 font-semibold absolute bottom-7 duration-500 z-10"
                     >
                       SHOP NOW
-                    </Link>
+                    </p>
                     <div className="absolute inset-0 bg-linear-to-t from-[#d77c8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
                 </div>

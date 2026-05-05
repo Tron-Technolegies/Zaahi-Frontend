@@ -120,7 +120,7 @@ const Card = ({ product }) => {
         {product?.productName?.slice(0, 18)}...
       </p>
       <p className="mt-1 text-left  text-sm font-semibold font-[Be Vietnam Pro]">
-        ${product?.basePrice}
+        Rs. {product?.basePrice}
       </p>
     </div>
   );

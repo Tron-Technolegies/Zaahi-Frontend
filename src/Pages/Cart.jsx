@@ -87,17 +87,17 @@ const Cart = () => {
 
               <div className="flex justify-between mb-4 font-[Inter] text-[#777777]">
                 <p>Subtotal</p>
-                <p className="font-semibold text-black">${subTotal}</p>
+                <p className="font-semibold text-black">Rs. {subTotal}</p>
               </div>
 
-              <div className="flex justify-between mb-6 font-[Inter] text-[#777777] pb-6 border-b border-gray-100">
+              {/* <div className="flex justify-between mb-6 font-[Inter] text-[#777777] pb-6 border-b border-gray-100">
                 <p>Shipping</p>
                 <p>Calculated at checkout</p>
-              </div>
+              </div> */}
 
               <div className="flex justify-between mb-8 font-[Inter] text-lg font-bold">
                 <p>Total</p>
-                <p>${subTotal}</p>
+                <p>Rs. {subTotal}</p>
               </div>
 
               <Link to="/shipping" className="block w-full">

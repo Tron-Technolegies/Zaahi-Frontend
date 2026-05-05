@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdOutlineLocalShipping } from "react-icons/md";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGetCart } from "../../hooks/cart/useCart";
 import Loading from "../Loading";
 import { useCreatePayment } from "../../hooks/payment/useCreatePaymentIntent";
@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 
 const ShippingInfo = ({ setActive, setClientSecret }) => {
   const { isLoading, data: cartData } = useGetCart();
+  const navigate = useNavigate();
   const [defaultAddress, setDefaultAddress] = useState(null);
   const [paymentLoading, setPaymentLoading] = useState(false);
 
@@ -31,16 +32,75 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
       const reqBody = {
         items: JSON.stringify(itemsData),
         address: JSON.stringify(addressData),
-        currency: "inr",
+        currency: "INR",
       };
-      const { data } = await api.post(`/payment/payment-intent`, reqBody);
-      setClientSecret(data.clientSecret);
-      setActive("checkout");
+      const { data } = await api.post(`/razorpay/create-order`, reqBody);
+      // setClientSecret(data.clientSecret);
+      // setActive("checkout");
+      openRazorpay(data);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.error || error.message);
     } finally {
       setPaymentLoading(false);
     }
+  };
+
+  const openRazorpay = (order) => {
+    const options = {
+      key: order.key,
+      amount: order.amount,
+      currency: order.currency,
+      order_id: order.orderId,
+
+      handler: async function (response) {
+        try {
+          await api.post("/razorpay/verify-payment", response);
+          console.log("RAZORPAY RESPONSE:", response);
+          toast.success("Payment successful");
+          window.location.href = "/order-confirmed";
+        } catch (err) {
+          toast.error("Verification failed");
+        }
+      },
+
+      prefill: {
+        name: defaultAddress?.name,
+        contact: defaultAddress?.phone,
+      },
+
+      theme: {
+        color: "#D47784",
+      },
+      modal: {
+        ondismiss: async function () {
+          try {
+            await api.post("/razorpay/cancel-payment", {
+              razorpay_order_id: order.orderId,
+            });
+
+            toast("Payment cancelled");
+            navigate("/account/orders");
+          } catch (err) {
+            console.error(err);
+          }
+        },
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.on("payment.failed", async function (response) {
+      try {
+        await api.post("/razorpay/failed-payment", {
+          razorpay_order_id: response.error.metadata.order_id,
+        });
+
+        toast.error("Payment failed");
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    rzp.open();
   };
 
   return isLoading ? (

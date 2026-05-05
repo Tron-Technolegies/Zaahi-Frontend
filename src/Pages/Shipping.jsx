@@ -21,11 +21,12 @@ const Shipping = () => {
             setClientSecret={setClientSecret}
           />
         )}
-        {active === "checkout" && clientSecret && (
+        {/* {active === "checkout" && clientSecret && (
           <Elements stripe={stripePromise} options={{ clientSecret }}>
             <CheckOut />
           </Elements>
-        )}
+        )} */}
+        {/* {active === "checkout" && <CheckOut orderData={data} />} */}
         <div className="w-full lg:w-auto">
           <Summarycard />
         </div>
