@@ -28,7 +28,7 @@ const Summarycard = () => {
               </p>
               <p className="text-gray-400 text-sm">Size: {item?.size}</p>
               <p className="text-gray-400 text-sm">Qty: {item?.qty}</p>
-              <p>${item?.price}</p>
+              <p>Rs {item?.price}</p>
             </div>
           </div>
         ))}
@@ -37,7 +37,7 @@ const Summarycard = () => {
           <div className="flex justify-between">
             <span>Subtotal</span>
             <span>
-              ${" "}
+              Rs{" "}
               {data.cart.reduce((sum, item) => sum + item.price * item.qty, 0)}
             </span>
           </div>
@@ -51,7 +51,7 @@ const Summarycard = () => {
         <div className="flex justify-between text-sm font-semibold mt-4">
           <span>Total</span>
           <span>
-            $ {data.cart.reduce((sum, item) => sum + item.price * item.qty, 0)}
+            Rs {data.cart.reduce((sum, item) => sum + item.price * item.qty, 0)}
           </span>
         </div>
       </div>

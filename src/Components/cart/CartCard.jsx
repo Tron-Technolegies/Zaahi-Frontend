@@ -55,7 +55,7 @@ const CartCard = ({ item }) => {
             <p className="text-base text-[#181817] truncate font-medium">
               {item?.productName}
             </p>
-            <p className="font-medium mt-1">${item?.price}</p>
+            <p className="font-medium mt-1">Rs {item?.price}</p>
             <p className="text-sm text-gray-400 font-medium">
               Size: {item?.size}
             </p>
@@ -81,7 +81,7 @@ const CartCard = ({ item }) => {
 
         <div className="flex items-center gap-20 w-full md:w-auto mt-4 md:mt-0 justify-end">
           <p className="font-semibold text-lg hidden md:block">
-            ${item?.price * item?.qty}
+            Rs {item?.price * item?.qty}
           </p>
           <button
             onClick={handleRemove}

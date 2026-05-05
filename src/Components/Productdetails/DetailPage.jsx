@@ -97,7 +97,7 @@ const DetailPage = ({ product }) => {
 
           <div className="flex items-center gap-3 mb-6 font-[Inter]">
             <p className="text-2xl font-semibold">
-              ${selectedSize ? selectedSize.price : product?.basePrice}
+              Rs. {selectedSize ? selectedSize.price : product?.basePrice}
             </p>
             {/* <p className="text-[#9A9A9A] line-through">
               ${product?.price ? Number(product.price) + 2500 : ""}
