@@ -5,10 +5,21 @@ export const UserContext = createContext();
 export default function UserContextProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [category, setCategory] = useState("ALL");
+  const [currency, setCurrency] = useState("INR");
+  const [exchange, setExchange] = useState(null);
 
   return (
     <UserContext.Provider
-      value={{ currentUser, setCurrentUser, category, setCategory }}
+      value={{
+        currentUser,
+        setCurrentUser,
+        category,
+        setCategory,
+        currency,
+        setCurrency,
+        exchange,
+        setExchange,
+      }}
     >
       {children}
     </UserContext.Provider>

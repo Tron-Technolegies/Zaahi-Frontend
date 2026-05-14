@@ -13,7 +13,7 @@ const DetailPage = ({ product }) => {
   const productId = product?._id;
 
   const { isPending, mutateAsync } = useAddToCart();
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, currency, exchange } = useContext(UserContext);
   const navigate = useNavigate();
   const [selected, setSelected] = useState(product?.image);
   const [selectedSize, setSelectedSize] = useState(null);
@@ -97,7 +97,11 @@ const DetailPage = ({ product }) => {
 
           <div className="flex items-center gap-3 mb-6 font-[Inter]">
             <p className="text-2xl font-semibold">
-              Rs. {selectedSize ? selectedSize.price : product?.basePrice}
+              {currency === "INR"
+                ? `Rs. ${selectedSize ? selectedSize.price : product?.basePrice}`
+                : currency === "AED" && exchange
+                  ? `AED ${selectedSize ? (selectedSize.price * exchange?.INRtoAED).toFixed(2) : (product?.basePrice * exchange?.INRtoAED).toFixed(2)}`
+                  : `Rs. ${selectedSize ? selectedSize.price : product?.basePrice}`}
             </p>
             {/* <p className="text-[#9A9A9A] line-through">
               ${product?.price ? Number(product.price) + 2500 : ""}

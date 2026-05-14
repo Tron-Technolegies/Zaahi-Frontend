@@ -10,13 +10,9 @@ import ExtraProducts from "../Components/Productdetails/ExtraProducts.jsx";
 const Cart = () => {
   const { data, isLoading } = useGetCart();
   const { isPending: isClearing, mutateAsync: clearCart } = useClearCart();
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, exchange, currency } = useContext(UserContext);
   const [subTotal, setSubTotal] = useState(0);
   const navigate = useNavigate();
-
-  if (!currentUser) {
-    navigate("/signin");
-  }
 
   useEffect(() => {
     if (data) {
@@ -27,6 +23,7 @@ const Cart = () => {
       setSubTotal(total);
     }
   }, [data]);
+
   return isLoading ? (
     <Loading />
   ) : (
@@ -87,7 +84,14 @@ const Cart = () => {
 
               <div className="flex justify-between mb-4 font-[Inter] text-[#777777]">
                 <p>Subtotal</p>
-                <p className="font-semibold text-black">Rs. {subTotal}</p>
+                <p className="font-semibold text-black">
+                  {" "}
+                  {currency === "INR"
+                    ? ` Rs. ${subTotal}`
+                    : currency === "AED" && exchange
+                      ? `AED ${(subTotal * exchange?.INRtoAED).toFixed(2)}`
+                      : ` Rs. ${subTotal}`}
+                </p>
               </div>
 
               {/* <div className="flex justify-between mb-6 font-[Inter] text-[#777777] pb-6 border-b border-gray-100">
@@ -97,7 +101,13 @@ const Cart = () => {
 
               <div className="flex justify-between mb-8 font-[Inter] text-lg font-bold">
                 <p>Total</p>
-                <p>Rs. {subTotal}</p>
+                <p>
+                  {currency === "INR"
+                    ? ` Rs. ${subTotal}`
+                    : currency === "AED" && exchange
+                      ? `AED ${(subTotal * exchange?.INRtoAED).toFixed(2)}`
+                      : ` Rs. ${subTotal}`}
+                </p>
               </div>
 
               <Link to="/shipping" className="block w-full">

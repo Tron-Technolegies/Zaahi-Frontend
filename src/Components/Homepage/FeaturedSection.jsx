@@ -141,7 +141,7 @@ const FeaturedSection = () => {
                     className="relative block w-full h-full overflow-hidden"
                   >
                     <img
-                      src={data.products[3].image.url}
+                      src={data.products[3]?.image?.url}
                       alt={data.products[3].productName}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />
@@ -204,11 +204,17 @@ const FeaturedSection = () => {
                       alt={data.products[5].productName}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500"
                     />
-                    <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
+                    {/* <p className="text-white px-2 instrument-font md:text-xl text-sm absolute bottom-7 duration-500 z-10">
                       {data.products[5].productName
                         ?.slice(0, 20)
                         ?.toUpperCase()}
-                    </p>
+                    </p> */}
+                    <Link
+                      to={`/product-details/${data.products[5]?._id}`}
+                      className="text-white  border-b instrument-font ml-2 font-semibold absolute bottom-7 duration-500 z-10"
+                    >
+                      SHOP NOW
+                    </Link>
                     <div className="absolute inset-0 bg-linear-to-t from-[#D77C8476] via-[#D77C84]/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-start p-5"></div>
                   </Link>
                 </div>

@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Picture from "../Productdetails/Picture";
 import { useGetCart } from "../../hooks/cart/useCart";
 import Loading from "../Loading";
+import { UserContext } from "../../UserContext";
 
 const Summarycard = () => {
   const { isLoading, isError, error, data } = useGetCart();
+  const { currency, exchange } = useContext(UserContext);
+  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    if (data) {
+      setTotalPrice(
+        data.cart.reduce((sum, item) => sum + item.price * item.qty, 0),
+      );
+    }
+  }, [data]);
   return isLoading ? (
     <Loading />
   ) : isError ? (
@@ -28,7 +38,13 @@ const Summarycard = () => {
               </p>
               <p className="text-gray-400 text-sm">Size: {item?.size}</p>
               <p className="text-gray-400 text-sm">Qty: {item?.qty}</p>
-              <p>Rs {item?.price}</p>
+              <p>
+                {currency === "INR"
+                  ? `Rs ${item?.price}`
+                  : currency === "AED" && exchange
+                    ? `AED ${(item?.price * exchange?.INRtoAED).toFixed(2)}`
+                    : `Rs ${item?.price}`}
+              </p>
             </div>
           </div>
         ))}
@@ -37,8 +53,11 @@ const Summarycard = () => {
           <div className="flex justify-between">
             <span>Subtotal</span>
             <span>
-              Rs{" "}
-              {data.cart.reduce((sum, item) => sum + item.price * item.qty, 0)}
+              {currency === "INR"
+                ? `Rs ${totalPrice}`
+                : currency === "AED" && exchange
+                  ? `AED ${(totalPrice * exchange?.INRtoAED).toFixed(2)}`
+                  : `Rs ${totalPrice}`}
             </span>
           </div>
 
@@ -51,7 +70,11 @@ const Summarycard = () => {
         <div className="flex justify-between text-sm font-semibold mt-4">
           <span>Total</span>
           <span>
-            Rs {data.cart.reduce((sum, item) => sum + item.price * item.qty, 0)}
+            {currency === "INR"
+              ? `Rs ${totalPrice}`
+              : currency === "AED" && exchange
+                ? `AED ${(totalPrice * exchange?.INRtoAED).toFixed(2)}`
+                : `Rs ${totalPrice}`}
           </span>
         </div>
       </div>

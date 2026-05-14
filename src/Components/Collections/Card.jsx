@@ -16,7 +16,7 @@ const Card = ({ product }) => {
 
   const { data } = useCardGetWishlist();
   const wishlistItems = data?.wishlist || [];
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, currency, exchange } = useContext(UserContext);
 
   const wishlistedItem = wishlistItems.find(
     (item) => item === productId || item._id === productId,
@@ -120,7 +120,11 @@ const Card = ({ product }) => {
         {product?.productName?.slice(0, 18)}...
       </p>
       <p className="mt-1 text-left  text-sm font-semibold font-[Be Vietnam Pro]">
-        Rs. {product?.basePrice}
+        {currency === "INR"
+          ? `Rs. ${product?.basePrice}`
+          : currency === "AED" && exchange
+            ? `AED ${(product?.basePrice * exchange?.INRtoAED).toFixed(2)}`
+            : `Rs. ${product?.basePrice}`}
       </p>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { MdOutlineLocalShipping } from "react-icons/md";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -8,9 +8,13 @@ import { useCreatePayment } from "../../hooks/payment/useCreatePaymentIntent";
 import { api } from "../../services/api";
 import AddressInfo from "./AddressInfo";
 import toast from "react-hot-toast";
+import { UserContext } from "../../UserContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ShippingInfo = ({ setActive, setClientSecret }) => {
   const { isLoading, data: cartData } = useGetCart();
+  const queryClient = useQueryClient();
+  const { currency, exchange } = useContext(UserContext);
   const navigate = useNavigate();
   const [defaultAddress, setDefaultAddress] = useState(null);
   const [paymentLoading, setPaymentLoading] = useState(false);
@@ -26,13 +30,18 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
           product: item.productId,
           size: item.size,
           qty: item.qty,
-          price: item?.price,
+          price:
+            currency === "INR"
+              ? item?.price
+              : currency === "AED" && exchange
+                ? item?.price * exchange?.INRtoAED
+                : item?.price,
         };
       });
       const reqBody = {
         items: JSON.stringify(itemsData),
         address: JSON.stringify(addressData),
-        currency: "INR",
+        currency: currency,
       };
       const { data } = await api.post(`/razorpay/create-order`, reqBody);
       // setClientSecret(data.clientSecret);
@@ -58,6 +67,7 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
           console.log("RAZORPAY RESPONSE:", response);
           toast.success("Payment successful");
           window.location.href = "/order-confirmed";
+          queryClient.invalidateQueries({ queryKey: ["cart"] });
         } catch (err) {
           toast.error("Verification failed");
         }

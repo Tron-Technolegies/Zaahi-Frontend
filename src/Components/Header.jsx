@@ -14,10 +14,13 @@ import { Menu, MenuItem } from "@mui/material";
 import { useSignOut } from "../hooks/auth/useSignin";
 import { UserContext } from "../UserContext";
 import { useGetCategories } from "../hooks/categories/useCategory";
+import { useGetCart } from "../hooks/cart/useCart";
 
 const Header = () => {
   const { isError, isLoading, error, data: user } = useCurrentUser();
-  const { currentUser, setCategory } = useContext(UserContext);
+  const { currentUser, setCategory, setCurrency, currency } =
+    useContext(UserContext);
+  const { data: cart } = useGetCart();
   const { data: categoriesData } = useGetCategories();
   const { mutateAsync: logout } = useSignOut();
   const navigate = useNavigate();
@@ -49,7 +52,8 @@ const Header = () => {
     };
   }, [location.pathname]);
 
-  const isHomeTop = location.pathname === "/" && isHeroVisible && !isMegaMenuOpen;
+  const isHomeTop =
+    location.pathname === "/" && isHeroVisible && !isMegaMenuOpen;
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -74,6 +78,14 @@ const Header = () => {
         >
           {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </button>
+        <select
+          className={`outline-none px-2 ${isHomeTop ? "bg-transparent" : "bg-gray-100"}  py-1`}
+          value={currency}
+          onChange={(e) => setCurrency(e.target.value)}
+        >
+          <option value={"INR"}>INR</option>
+          <option value={"AED"}>AED</option>
+        </select>
       </div>
 
       {/* Desktop Navigation */}
@@ -209,6 +221,14 @@ const Header = () => {
         className={`${isHomeTop ? "text-white" : "text-black"} flex-1 flex items-center justify-end space-x-3 md:space-x-6 `}
       >
         <div className="flex items-center space-x-4 md:space-x-6">
+          <select
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+            className={`outline-none px-2 ${isHomeTop ? "bg-transparent" : "bg-gray-100"}  py-1 hidden md:block`}
+          >
+            <option value={"INR"}>INR</option>
+            <option value={"AED"}>AED</option>
+          </select>
           <Link to="/wishlist">
             <button className="hover:opacity-70 transition-colors">
               <FiHeart className="md:size-5.5 mt-2 cursor-pointer" />
@@ -218,9 +238,9 @@ const Header = () => {
             <button className="hover:opacity-70 transition-colors">
               <FiShoppingBag className="md:size-5.5 mt-2 cursor-pointer" />
             </button>
-            {currentUser && (
+            {cart && (
               <p className="w-7 h-7 text-white flex justify-center items-center text-sm -top-3 -right-3 absolute rounded-full bg-[#D47784]">
-                {currentUser.cart?.length || 0}
+                {cart?.cart?.length || 0}
               </p>
             )}
           </Link>
