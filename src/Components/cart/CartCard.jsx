@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRemoveFromCart, useUpdateCart } from "../../hooks/cart/useCart";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { FiTrash2 } from "react-icons/fi";
+import { UserContext } from "../../UserContext";
 
 const CartCard = ({ item }) => {
   // const cartItemId = item?._id;
   // const product = item?.product;
   // const quantity = item?.qty;
+  const { currency, exchange } = useContext(UserContext);
 
   const { isPending: isRemoving, mutateAsync: removeAsync } =
     useRemoveFromCart();
@@ -55,7 +57,13 @@ const CartCard = ({ item }) => {
             <p className="text-base text-[#181817] truncate font-medium">
               {item?.productName}
             </p>
-            <p className="font-medium mt-1">Rs {item?.price}</p>
+            <p className="font-medium mt-1">
+              {currency === "INR"
+                ? `Rs ${item?.price}`
+                : currency === "AED" && exchange
+                  ? `AED ${(item?.price * exchange?.INRtoAED).toFixed(2)} `
+                  : `Rs ${item?.price}`}
+            </p>
             <p className="text-sm text-gray-400 font-medium">
               Size: {item?.size}
             </p>
@@ -81,7 +89,11 @@ const CartCard = ({ item }) => {
 
         <div className="flex items-center gap-20 w-full md:w-auto mt-4 md:mt-0 justify-end">
           <p className="font-semibold text-lg hidden md:block">
-            Rs {item?.price * item?.qty}
+            {currency === "INR"
+              ? ` Rs ${item?.price * item?.qty}`
+              : currency === "AED" && exchange
+                ? `AED ${(item?.price * item?.qty * exchange?.INRtoAED).toFixed(2)}`
+                : ` Rs ${item?.price * item?.qty}`}
           </p>
           <button
             onClick={handleRemove}

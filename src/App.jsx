@@ -29,6 +29,7 @@ import MyOrders from "./Pages/MyOrders";
 import AddressPage from "./Pages/AddressPage";
 import ChangePassword from "./Pages/ChangePassword";
 import UserContextProvider from "./UserContext";
+import { exchangeInfoLoader } from "./loader/CurrencyLoader";
 
 const client = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 3 } },
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
+    loader: exchangeInfoLoader,
     errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
