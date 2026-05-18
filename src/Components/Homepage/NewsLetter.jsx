@@ -20,8 +20,8 @@ const NewsLetter = () => {
         </p>
         <div className="flex md:flex-row flex-col gap-2">
           <a
-            href="https://chat.whatsapp.com/EurJVZmIYrz2HRXf0lI8mW"
-            target="_blank"
+            // href="https://chat.whatsapp.com/EurJVZmIYrz2HRXf0lI8mW"
+            // target="_blank"
             rel="noopener noreferrer"
             className="border border-[#D47784] px-6 py-2 flex gap-2 justify-center items-center  font-medium bg-[#D47784] text-white transition duration-300 "
           >

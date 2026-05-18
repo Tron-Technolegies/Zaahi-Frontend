@@ -11,7 +11,7 @@ import {
 import { useGetCategories } from "../hooks/categories/useCategory";
 import { useContext } from "react";
 import { UserContext } from "../UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Footer() {
   const { isLoading, data } = useGetCategories();
@@ -22,7 +22,7 @@ export default function Footer() {
       <div className=" max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12">
         {/* Brand Section */}
         <div className="flex flex-col items-center justify-center h-full text-center">
-          <img src="/Logo/Logo.png" alt="Zahi Designs" className="w-30 mb-4" />
+          <img src="/zaahi-logo.png" alt="Zahi Designs" className="w-30 mb-4" />
           <p className="text-xs leading-6 text-gray-600 mb-6">
             Celebrating the timeless beauty of Indian ethnic wear with
             handcrafted collections for the modern woman.
@@ -68,15 +68,17 @@ export default function Footer() {
         <div>
           <h3 className="text-2xl font-semibold mb-4">Services</h3>
           <ul className="space-y-3 text-sm">
-            <li className="hover:text-pink-500 cursor-pointer">My Account</li>
             <li className="hover:text-pink-500 cursor-pointer">
-              Order Tracking
+              <Link to={"/account/profile"}>My Account</Link>
+            </li>
+            <li className="hover:text-pink-500 cursor-pointer">
+              White Glove Delivery
+            </li>
+            <li className="hover:text-pink-500 cursor-pointer">
+              30 Day Return
             </li>
             <li className="hover:text-pink-500 cursor-pointer">Warranty</li>
-            <li className="hover:text-pink-500 cursor-pointer">
-              Returns & Exchanges
-            </li>
-            <li className="hover:text-pink-500 cursor-pointer">FAQ</li>
+            <li className="hover:text-pink-500 cursor-pointer">Authenticity</li>
           </ul>
         </div>
 
@@ -86,15 +88,15 @@ export default function Footer() {
           <ul className="space-y-4 text-sm">
             <li className="flex items-center gap-3">
               <FaMapMarkerAlt />
-              abcd_location
+              Chavakkad, Thrissur, Kerala, India
             </li>
             <li className="flex items-center gap-3">
               <FaPhoneAlt />
-              +98 14 741224
+              +91 773604 5120
             </li>
             <li className="flex items-center gap-3">
               <FaEnvelope />
-              zahi@zahidesign.ae
+              zaahidesigns@gmail.com
             </li>
           </ul>
         </div>

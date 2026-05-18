@@ -65,7 +65,7 @@ const Header = () => {
 
   return (
     <nav
-      className={`flex items-center justify-between px-4 md:px-8 h-18 fixed left-0 top-0 z-50 w-full 
+      className={`flex items-center justify-between px-4 md:px-8  fixed left-0 top-0 z-50 w-full 
   transition-all duration-500 ease-in-out
   ${isHomeTop ? "bg-transparent text-white" : "bg-white text-black shadow-md"}
 `}
@@ -209,9 +209,9 @@ const Header = () => {
       <div className="h-full flex items-center shrink-0 z-20">
         <Link to="/">
           <img
-            src="/Logo/Logo.png"
+            src="/zaahi-logo.png"
             alt="Zaahi Designs"
-            className="h-16 md:h-28 w-auto object-contain transform"
+            className=" w-28 py-1 object-cover transform"
           />
         </Link>
       </div>

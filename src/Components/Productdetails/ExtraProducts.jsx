@@ -28,7 +28,7 @@ export default function ExtraProducts() {
           </p>
         ) : products && products.length > 0 ? (
           products
-            .slice(0, 3)
+            .slice(0, 6)
             .map((product) => <Card key={product._id} product={product} />)
         ) : (
           <p className="col-span-3 text-center text-gray-400">
