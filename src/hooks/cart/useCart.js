@@ -9,6 +9,7 @@ export const useGetCart = () => {
       const { data } = await api.get(`/cart`);
       return data;
     },
+    retry: false,
   });
   return { data, isLoading, isError, error };
 };

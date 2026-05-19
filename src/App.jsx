@@ -32,7 +32,7 @@ import UserContextProvider from "./UserContext";
 import { exchangeInfoLoader } from "./loader/CurrencyLoader";
 
 const client = new QueryClient({
-  defaultOptions: { queries: { staleTime: 1000 * 60 * 3 } },
+  defaultOptions: { queries: { staleTime: 1000 * 60 * 3, retry: false } },
 });
 
 const router = createBrowserRouter([

@@ -7,6 +7,7 @@ import {
   FaPhoneAlt,
   FaEnvelope,
   FaLinkedinIn,
+  FaWhatsapp,
 } from "react-icons/fa";
 import { useGetCategories } from "../hooks/categories/useCategory";
 import { useContext } from "react";
@@ -29,18 +30,30 @@ export default function Footer() {
           </p>
 
           <div className="flex gap-4">
-            <div className="w-9 h-9 flex items-center justify-center rounded-full bg-[#B99295] text-white cursor-pointer">
+            <a
+              href="https://www.facebook.com/share/1CTT8MvpYV/"
+              target="_blank"
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-[#B99295] text-white cursor-pointer"
+            >
               <FaFacebookF size={14} />
-            </div>
-            <div className="w-9 h-9 flex items-center justify-center rounded-full bg-[#B99295] text-white cursor-pointer">
-              <FaTwitter size={14} />
-            </div>
-            <div className="w-9 h-9 flex items-center justify-center rounded-full bg-[#B99295] text-white cursor-pointer">
+            </a>
+            <a
+              href="https://chat.whatsapp.com/Ju1C1iGiYVv6Nx8acqLKTu"
+              target="_blank"
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-[#B99295] text-white cursor-pointer"
+            >
+              <FaWhatsapp size={14} />
+            </a>
+            <a
+              href="https://www.instagram.com/zaahi_designs?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              target="_blank"
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-[#B99295] text-white cursor-pointer"
+            >
               <FaInstagram size={14} />
-            </div>
-            <div className="w-9 h-9 flex items-center justify-center rounded-full bg-[#B99295] text-white cursor-pointer">
+            </a>
+            {/* <div className="w-9 h-9 flex items-center justify-center rounded-full bg-[#B99295] text-white cursor-pointer">
               <FaLinkedinIn size={14} />
-            </div>
+            </div> */}
           </div>
         </div>
 

@@ -30,6 +30,7 @@ const Header = () => {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const location = useLocation();
   const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const [cartLength, setCartLength] = useState(0);
 
   useEffect(() => {
     const heroSection = document.getElementById("home");
@@ -51,6 +52,14 @@ const Header = () => {
       if (heroSection) observer.unobserve(heroSection);
     };
   }, [location.pathname]);
+
+  useEffect(() => {
+    const length =
+      cart?.cart?.length ||
+      JSON.parse(localStorage.getItem("zaahi-cart"))?.length ||
+      0;
+    setCartLength(length);
+  }, [cart, localStorage]);
 
   const isHomeTop =
     location.pathname === "/" && isHeroVisible && !isMegaMenuOpen;
@@ -238,11 +247,10 @@ const Header = () => {
             <button className="hover:opacity-70 transition-colors">
               <FiShoppingBag className="md:size-5.5 mt-2 cursor-pointer" />
             </button>
-            {cart && (
-              <p className="w-7 h-7 text-white flex justify-center items-center text-sm -top-3 -right-3 absolute rounded-full bg-[#D47784]">
-                {cart?.cart?.length || 0}
-              </p>
-            )}
+
+            <p className="w-7 h-7 text-white flex justify-center items-center text-sm -top-3 -right-3 absolute rounded-full bg-[#D47784]">
+              {cartLength}
+            </p>
           </Link>
 
           {currentUser ? (
