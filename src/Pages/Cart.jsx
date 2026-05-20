@@ -18,7 +18,10 @@ const Cart = () => {
   useEffect(() => {
     const total =
       data?.cart?.reduce((sum, item) => sum + item.qty * item.price, 0) ||
-      JSON.parse(localStorage.getItem("zaahi-cart"))?.length;
+      JSON.parse(localStorage.getItem("zaahi-cart"))?.reduce(
+        (sum, item) => sum + item.qty * item.variant?.size?.price,
+        0,
+      );
     setSubTotal(total);
     const items =
       data?.cart || JSON.parse(localStorage.getItem("zaahi-cart")) || [];
@@ -46,7 +49,7 @@ const Cart = () => {
         <div className="w-full lg:w-2/3 flex flex-col mx-auto items-center gap-6">
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg w-full">
             <h2 className="text-xl font-medium font-[Bastoni]">
-              Your Cart ({subTotal} items)
+              Your Cart ({cartItems.length} items)
             </h2>
             {cartItems?.length > 0 && (
               <button
@@ -88,7 +91,7 @@ const Cart = () => {
           )}
         </div>
 
-        {data?.cart?.length > 0 && (
+        {cartItems?.length > 0 && (
           <div className="w-full lg:w-1/3 mt-8 lg:mt-0">
             <div className="border border-[#E8E8E8] rounded-2xl p-6 md:p-8 sticky top-24 ">
               <h3 className="text-xl font-medium font-[Bastoni] mb-6">

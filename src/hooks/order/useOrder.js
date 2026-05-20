@@ -13,3 +13,14 @@ export const useGetOrders = ({ currentPage, status }) => {
   });
   return { isError, isLoading, error, data };
 };
+
+export const useGetSingleOrder = ({ id }) => {
+  const { isLoading, isError, error, data } = useQuery({
+    queryKey: ["single-order", id],
+    queryFn: async () => {
+      const { data } = await api.get(`/order/${id}`, {});
+      return data;
+    },
+  });
+  return { isError, isLoading, error, data };
+};

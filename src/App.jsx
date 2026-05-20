@@ -15,6 +15,7 @@ import {
   Wishlist,
   Error,
   Cart,
+  SingleOrderStatus,
 } from "./Pages";
 import HomeLayout from "./Pages/HomeLayout";
 import OrderConfirmed from "./Pages/OrderConfirmed";
@@ -103,6 +104,7 @@ const router = createBrowserRouter([
     path: "/shopping-bag",
     element: <ShoppingBag />,
   },
+  { path: "/orders/order-status/:id", element: <SingleOrderStatus /> },
 ]);
 
 const App = () => {
