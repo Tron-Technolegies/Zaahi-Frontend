@@ -9,6 +9,7 @@ import {
 } from "../../hooks/collections/useCard.js";
 import { useAddToCart, useGetCart } from "../../hooks/cart/useCart.js";
 import { UserContext } from "../../UserContext.jsx";
+import toast from "react-hot-toast";
 
 const Card = ({ product }) => {
   const productId = product?._id;
@@ -26,18 +27,12 @@ const Card = ({ product }) => {
   const { isPending: isAdding, mutateAsync: addAsync } = useCardAddToWishlist();
   const { isPending: isRemoving, mutateAsync: removeAsync } =
     useCardRemoveWishlist();
-  const { isPending: isAddingToCart, mutateAsync: addToCartAsync } =
-    useAddToCart();
-
-  const { data: cartData } = useGetCart();
-  const cartItems = cartData?.cart || [];
-
-  const cartItem = cartItems.find(
-    (item) => item.product?._id === productId || item.product === productId,
-  );
-  const isInCart = cartItem ? true : false;
 
   const handleWishlistToggle = async () => {
+    if (!currentUser) {
+      toast.error("Please Login to use wishlist");
+      return;
+    }
     try {
       if (isWishlisted) {
         await removeAsync(productId);
@@ -73,44 +68,6 @@ const Card = ({ product }) => {
               className="mx-auto object-cover w-full"
             />
           </Link>
-          {/* <div className="md:mt-6 w-full flex gap-2 items-center mx-auto translate-y-2 transition-all duration-300 group-hover:opacity-100">
-            <button
-              onClick={async () => {
-                if (!currentUser) {
-                  navigate("/signin");
-                  return;
-                }
-                if (!isInCart) {
-                  await addToCartAsync({ productId });
-                }
-                navigate("/cart");
-              }}
-              disabled={isAddingToCart}
-              className="w-full bg-[#D77C84] font-[Inter] text-white text-xs py-2 cursor-pointer"
-            >
-              {isAddingToCart ? "ADDING..." : "BUY NOW"}
-            </button>
-
-            <button
-              onClick={() => {
-                if (!currentUser) {
-                  navigate("/signin");
-                  return;
-                }
-                if (!isInCart) {
-                  addToCartAsync({ productId });
-                }
-              }}
-              disabled={isAddingToCart || isInCart}
-              className="w-9 h-8 border border-[#E6E6E6] bg-[#EAEAEA] text-xs flex items-center justify-center cursor-pointer"
-            >
-              {isInCart ? (
-                <RiCheckLine className="text-lg text-[#D77C84]" />
-              ) : (
-                <RiShoppingBag3Line className="text-lg text-gray-700" />
-              )}
-            </button>
-          </div> */}
         </div>
       </div>
       <p className="mt-5 text-left text-sm font-[Be Vietnam Pro] hidden md:block">

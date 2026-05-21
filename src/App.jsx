@@ -15,6 +15,9 @@ import {
   Wishlist,
   Error,
   Cart,
+  SingleOrderStatus,
+  PrivacyPage,
+  TermsPage,
 } from "./Pages";
 import HomeLayout from "./Pages/HomeLayout";
 import OrderConfirmed from "./Pages/OrderConfirmed";
@@ -32,7 +35,7 @@ import UserContextProvider from "./UserContext";
 import { exchangeInfoLoader } from "./loader/CurrencyLoader";
 
 const client = new QueryClient({
-  defaultOptions: { queries: { staleTime: 1000 * 60 * 3 } },
+  defaultOptions: { queries: { staleTime: 1000 * 60 * 3, retry: false } },
 });
 
 const router = createBrowserRouter([
@@ -78,6 +81,14 @@ const router = createBrowserRouter([
         element: <OrderConfirmed />,
       },
       {
+        path: "/privacy",
+        element: <PrivacyPage />,
+      },
+      {
+        path: "/terms",
+        element: <TermsPage />,
+      },
+      {
         path: "account",
         element: <AccountSettings />,
         children: [
@@ -103,6 +114,7 @@ const router = createBrowserRouter([
     path: "/shopping-bag",
     element: <ShoppingBag />,
   },
+  { path: "/orders/order-status/:id", element: <SingleOrderStatus /> },
 ]);
 
 const App = () => {

@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-
 import { useAddToCart, useGetCart } from "../../hooks/cart/useCart.js";
 import Picture from "./Picture";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
@@ -24,6 +23,76 @@ const DetailPage = ({ product }) => {
     (item) => item.product?._id === productId || item.product === productId,
   );
   const isInCart = cartItem ? true : false;
+
+  const handleBuyNow = async () => {
+    if (!selectedSize) {
+      toast.error("Please select a size");
+      return;
+    }
+    if (!currentUser) {
+      let cart = JSON.parse(localStorage.getItem("zaahi-cart"));
+      const current = {
+        product: product,
+        qty: 1,
+        variant: { size: selectedSize },
+      };
+      if (cart) {
+        const item = cart.find(
+          (item) =>
+            item.product?._id === product._id &&
+            item.variant?.size?.size === selectedSize?.size,
+        );
+        if (item) return toast.error("Already in cart");
+        cart.push(current);
+        localStorage.setItem("zaahi-cart", JSON.stringify(cart));
+      } else {
+        cart = [current];
+        localStorage.setItem("zaahi-cart", JSON.stringify(cart));
+      }
+      navigate("/cart");
+      return;
+    }
+    if (!isInCart) {
+      await mutateAsync({ productId, size: selectedSize?.size });
+    }
+    navigate("/cart");
+  };
+
+  const handleAddtoCart = async () => {
+    if (!selectedSize) {
+      toast.error("please select a size");
+      return;
+    }
+    if (!currentUser) {
+      let cart = JSON.parse(localStorage.getItem("zaahi-cart"));
+      const current = {
+        product: product,
+        qty: 1,
+        variant: { size: selectedSize },
+      };
+      if (cart) {
+        const item = cart.find(
+          (item) =>
+            item.product?._id === product._id &&
+            item.variant?.size?.size === selectedSize?.size,
+        );
+        if (item) return toast.error("Already in cart");
+        cart.push(current);
+        localStorage.setItem("zaahi-cart", JSON.stringify(cart));
+        toast.success("Added");
+        window.location.reload();
+      } else {
+        cart = [current];
+        localStorage.setItem("zaahi-cart", JSON.stringify(cart));
+        toast.success("Added");
+        window.location.reload();
+      }
+      return;
+    }
+    if (!isInCart) {
+      mutateAsync({ productId, size: selectedSize?.size });
+    }
+  };
 
   return (
     <div className="md:mt-20 mt-5 max-w-8xl md:px-30 px-5">
@@ -120,57 +189,15 @@ const DetailPage = ({ product }) => {
           </div>
 
           <div className="flex sm:flex-row flex-col items-center mt-8 gap-5 font-[Inter]">
-            {/* <div className="flex items-center  border border-[#7B7B7B66] ">
-              <button
-                onClick={handleDecrease}
-                className={`px-3 py-2 ${quantity <= 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}`}
-                disabled={quantity <= 1}
-              >
-                <AiOutlineMinus />
-              </button>
-              <span className="px-4">{quantity}</span>
-              <button
-                onClick={handleIncrease}
-                className={`px-3 py-2 ${quantity >= product?.stock ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}`}
-                disabled={quantity >= product?.stock}
-              >
-                <AiOutlinePlus />
-              </button>
-            </div> */}
             <button
-              onClick={async () => {
-                if (!currentUser) {
-                  navigate("/signin");
-                  return;
-                }
-                if (!selectedSize) {
-                  toast.error("Please select a size");
-                  return;
-                }
-                if (!isInCart) {
-                  await mutateAsync({ productId, size: selectedSize?.size });
-                }
-                navigate("/cart");
-              }}
+              onClick={handleBuyNow}
               disabled={isPending || isInCart}
               className="w-full px-4 bg-[#D77C84] font-[Inter] cursor-pointer text-white text-xs py-2"
             >
               {isPending ? "ADDING..." : isInCart ? "ADDED TO CART" : "BUY NOW"}
             </button>
             <button
-              onClick={() => {
-                if (!currentUser) {
-                  navigate("/signin");
-                  return;
-                }
-                if (!selectedSize) {
-                  toast.error("please select a size");
-                  return;
-                }
-                if (!isInCart) {
-                  mutateAsync({ productId, size: selectedSize?.size });
-                }
-              }}
+              onClick={handleAddtoCart}
               disabled={isPending || isInCart}
               className="w-full py-2 px-4 border border-[#7B7B7B66] text-xs flex cursor-pointer gap-2 items-center justify-center"
             >

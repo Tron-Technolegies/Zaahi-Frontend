@@ -15,6 +15,7 @@ export const useSignin = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(["currentUser"]);
       navigate("/");
+      localStorage.removeItem("zaahi-cart");
       toast.success("Success");
     },
     onError: (error) => {
@@ -61,6 +62,7 @@ export const useSignOut = () => {
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
       navigate("/");
       setCurrentUser(null);
+      window.location.reload();
       toast.success("Logged Out Successfully");
     },
     onError: (error) => {

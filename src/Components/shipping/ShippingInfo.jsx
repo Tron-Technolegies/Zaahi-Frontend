@@ -13,8 +13,9 @@ import { useQueryClient } from "@tanstack/react-query";
 
 const ShippingInfo = ({ setActive, setClientSecret }) => {
   const { isLoading, data: cartData } = useGetCart();
+  const [payLoading, setPayLoading] = useState(false);
   const queryClient = useQueryClient();
-  const { currency, exchange } = useContext(UserContext);
+  const { currency, exchange, currentUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [defaultAddress, setDefaultAddress] = useState(null);
   const [paymentLoading, setPaymentLoading] = useState(false);
@@ -25,19 +26,38 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
       e.preventDefault();
       const formdata = new FormData(e.target);
       const addressData = Object.fromEntries(formdata);
-      const itemsData = cartData.cart?.map((item) => {
-        return {
-          product: item.productId,
-          size: item.size,
-          qty: item.qty,
-          price:
-            currency === "INR"
-              ? item?.price
-              : currency === "AED" && exchange
-                ? item?.price * exchange?.INRtoAED
-                : item?.price,
-        };
-      });
+      let itemsData = [];
+      if (!currentUser) {
+        const localCart = JSON.parse(localStorage.getItem("zaahi-cart")) || [];
+        if (localCart.length < 1) return toast.error("Cart is Empty");
+        itemsData = localCart.map((item) => {
+          return {
+            product: item?.product?._id,
+            size: item?.variant?.size?.size,
+            qty: item?.qty,
+            price:
+              currency === "INR"
+                ? item?.variant?.size?.price
+                : currency === "AED" && exchange
+                  ? item?.variant?.size?.price * exchange?.INRtoAED
+                  : item?.variant?.size?.price,
+          };
+        });
+      } else {
+        itemsData = cartData.cart?.map((item) => {
+          return {
+            product: item.productId,
+            size: item.size,
+            qty: item.qty,
+            price:
+              currency === "INR"
+                ? item?.price
+                : currency === "AED" && exchange
+                  ? item?.price * exchange?.INRtoAED
+                  : item?.price,
+          };
+        });
+      }
       const reqBody = {
         items: JSON.stringify(itemsData),
         address: JSON.stringify(addressData),
@@ -62,14 +82,22 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
       order_id: order.orderId,
 
       handler: async function (response) {
+        setPayLoading(true);
         try {
           await api.post("/razorpay/verify-payment", response);
           console.log("RAZORPAY RESPONSE:", response);
           toast.success("Payment successful");
-          window.location.href = "/order-confirmed";
-          queryClient.invalidateQueries({ queryKey: ["cart"] });
+          if (currentUser) {
+            window.location.href = "/order-confirmed";
+            queryClient.invalidateQueries({ queryKey: ["cart"] });
+          } else {
+            localStorage.removeItem("zaahi-cart");
+            navigate("/");
+          }
         } catch (err) {
           toast.error("Verification failed");
+        } finally {
+          setPayLoading(false);
         }
       },
 
@@ -89,7 +117,11 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
             });
 
             toast("Payment cancelled");
-            navigate("/account/orders");
+            if (currentUser) {
+              navigate("/account/orders");
+            } else {
+              navigate("/");
+            }
           } catch (err) {
             console.error(err);
           }
@@ -113,11 +145,11 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
     rzp.open();
   };
 
-  return isLoading ? (
+  return isLoading || payLoading || paymentLoading ? (
     <Loading />
   ) : (
     <div className="w-full lg:w-auto">
-      <AddressInfo setDefault={setDefaultAddress} />
+      {currentUser && <AddressInfo setDefault={setDefaultAddress} />}
       <p className="flex items-center gap-3 my-5">
         <MdOutlineLocalShipping className="text-2xl" />
         Shipping Information
@@ -132,6 +164,16 @@ const ShippingInfo = ({ setActive, setClientSecret }) => {
           className="w-full bg-gray-200 p-3 outline-none"
           required
         />
+
+        {!currentUser && (
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            className="w-full bg-gray-200 p-3 outline-none"
+            required
+          />
+        )}
 
         <input
           type="text"

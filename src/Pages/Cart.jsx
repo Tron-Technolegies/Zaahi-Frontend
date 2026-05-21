@@ -10,19 +10,32 @@ import ExtraProducts from "../Components/Productdetails/ExtraProducts.jsx";
 const Cart = () => {
   const { data, isLoading } = useGetCart();
   const { isPending: isClearing, mutateAsync: clearCart } = useClearCart();
-  const { currentUser, exchange, currency } = useContext(UserContext);
+  const { currentUser, exchange, currency, shippingRate } =
+    useContext(UserContext);
   const [subTotal, setSubTotal] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (data) {
-      const total = data.cart.reduce(
-        (sum, item) => sum + item.qty * item.price,
+    const total =
+      data?.cart?.reduce((sum, item) => sum + item.qty * item.price, 0) ||
+      JSON.parse(localStorage.getItem("zaahi-cart"))?.reduce(
+        (sum, item) => sum + item.qty * item.variant?.size?.price,
         0,
       );
-      setSubTotal(total);
-    }
-  }, [data]);
+    setSubTotal(total);
+    const items =
+      data?.cart || JSON.parse(localStorage.getItem("zaahi-cart")) || [];
+    setCartItems(items);
+  }, [data, localStorage]);
+
+  const subtotalAED =
+    currency === "AED" && exchange ? subTotal * exchange.INRtoAED : subTotal;
+
+  const vat = (subtotalAED * (shippingRate?.VAT || 0)) / 100;
+
+  const total = subtotalAED + (shippingRate?.shippingRate || 0) + vat;
 
   return isLoading ? (
     <Loading />
@@ -45,11 +58,18 @@ const Cart = () => {
         <div className="w-full lg:w-2/3 flex flex-col mx-auto items-center gap-6">
           <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg w-full">
             <h2 className="text-xl font-medium font-[Bastoni]">
-              Your Cart ({data.totalItems} items)
+              Your Cart ({cartItems.length} items)
             </h2>
-            {data.cart?.length > 0 && (
+            {cartItems?.length > 0 && (
               <button
-                onClick={() => clearCart()}
+                onClick={async () => {
+                  if (!currentUser) {
+                    localStorage.setItem("zaahi-cart", JSON.stringify([]));
+                    window.location.reload();
+                    return;
+                  }
+                  await clearCart();
+                }}
                 disabled={isClearing}
                 className="text-sm font-[Inter] text-red-500 hover:text-red-700 font-medium cursor-pointer"
               >
@@ -58,8 +78,13 @@ const Cart = () => {
             )}
           </div>
 
-          {data.cart?.length > 0 ? (
-            data.cart?.map((item) => <CartCard key={item._id} item={item} />)
+          {cartItems?.length > 0 ? (
+            cartItems?.map((item) => (
+              <CartCard
+                key={item._id || `${item.product}-${item.variant?.size}`}
+                item={item}
+              />
+            ))
           ) : (
             <div className="py-20 text-center border border-dashed border-gray-300 rounded-xl w-full">
               <p className="text-gray-500 font-[Inter] mb-4">
@@ -75,7 +100,7 @@ const Cart = () => {
           )}
         </div>
 
-        {data.cart?.length > 0 && (
+        {cartItems?.length > 0 && (
           <div className="w-full lg:w-1/3 mt-8 lg:mt-0">
             <div className="border border-[#E8E8E8] rounded-2xl p-6 md:p-8 sticky top-24 ">
               <h3 className="text-xl font-medium font-[Bastoni] mb-6">
@@ -89,15 +114,28 @@ const Cart = () => {
                   {currency === "INR"
                     ? ` Rs. ${subTotal}`
                     : currency === "AED" && exchange
-                      ? `AED ${(subTotal * exchange?.INRtoAED).toFixed(2)}`
+                      ? `AED ${subtotalAED.toFixed(2)}`
                       : ` Rs. ${subTotal}`}
                 </p>
               </div>
-
-              {/* <div className="flex justify-between mb-6 font-[Inter] text-[#777777] pb-6 border-b border-gray-100">
-                <p>Shipping</p>
-                <p>Calculated at checkout</p>
-              </div> */}
+              {currency === "AED" && (
+                <>
+                  <div className="flex flex-col gap-4 text-sm font-[Inter] text-[#777777] pb-6 border-b border-gray-100">
+                    <p className="flex justify-between">
+                      Shipping{" "}
+                      <span className="text-black font-semibold">
+                        AED {shippingRate?.shippingRate}
+                      </span>
+                    </p>
+                    <p className="flex justify-between">
+                      VAT ({shippingRate?.VAT}%)
+                      <span className="text-black font-semibold">
+                        AED {vat.toFixed(2)}
+                      </span>
+                    </p>
+                  </div>
+                </>
+              )}
 
               <div className="flex justify-between mb-8 font-[Inter] text-lg font-bold">
                 <p>Total</p>
@@ -105,7 +143,7 @@ const Cart = () => {
                   {currency === "INR"
                     ? ` Rs. ${subTotal}`
                     : currency === "AED" && exchange
-                      ? `AED ${(subTotal * exchange?.INRtoAED).toFixed(2)}`
+                      ? `AED ${total.toFixed(2)}`
                       : ` Rs. ${subTotal}`}
                 </p>
               </div>

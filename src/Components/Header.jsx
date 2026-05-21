@@ -30,6 +30,7 @@ const Header = () => {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const location = useLocation();
   const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const [cartLength, setCartLength] = useState(0);
 
   useEffect(() => {
     const heroSection = document.getElementById("home");
@@ -52,6 +53,14 @@ const Header = () => {
     };
   }, [location.pathname]);
 
+  useEffect(() => {
+    const length =
+      cart?.cart?.length ||
+      JSON.parse(localStorage.getItem("zaahi-cart"))?.length ||
+      0;
+    setCartLength(length);
+  }, [cart, localStorage]);
+
   const isHomeTop =
     location.pathname === "/" && isHeroVisible && !isMegaMenuOpen;
 
@@ -65,7 +74,7 @@ const Header = () => {
 
   return (
     <nav
-      className={`flex items-center justify-between px-4 md:px-8 h-18 fixed left-0 top-0 z-50 w-full 
+      className={`flex items-center justify-between px-4 md:px-8  fixed left-0 top-0 z-50 w-full 
   transition-all duration-500 ease-in-out
   ${isHomeTop ? "bg-transparent text-white" : "bg-white text-black shadow-md"}
 `}
@@ -209,9 +218,9 @@ const Header = () => {
       <div className="h-full flex items-center shrink-0 z-20">
         <Link to="/">
           <img
-            src="/Logo/Logo.png"
+            src="/zaahi-logo.png"
             alt="Zaahi Designs"
-            className="h-16 md:h-28 w-auto object-contain transform"
+            className=" w-28 py-1 object-cover transform"
           />
         </Link>
       </div>
@@ -238,11 +247,10 @@ const Header = () => {
             <button className="hover:opacity-70 transition-colors">
               <FiShoppingBag className="md:size-5.5 mt-2 cursor-pointer" />
             </button>
-            {cart && (
-              <p className="w-7 h-7 text-white flex justify-center items-center text-sm -top-3 -right-3 absolute rounded-full bg-[#D47784]">
-                {cart?.cart?.length || 0}
-              </p>
-            )}
+
+            <p className="w-7 h-7 text-white flex justify-center items-center text-sm -top-3 -right-3 absolute rounded-full bg-[#D47784]">
+              {cartLength}
+            </p>
           </Link>
 
           {currentUser ? (

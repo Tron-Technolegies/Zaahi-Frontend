@@ -12,3 +12,6 @@ export { default as Wishlist } from "./Wishlist";
 export { default as Error } from "./Error";
 export { default as Cart } from "./Cart";
 export { default as Categories } from "./Categories";
+export { default as SingleOrderStatus } from "./SingleOrderStatus";
+export { default as TermsPage } from "./TermsPage";
+export { default as PrivacyPage } from "./PrivacyPage";

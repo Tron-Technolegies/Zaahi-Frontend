@@ -6,44 +6,67 @@ import { UserContext } from "../../UserContext";
 
 const Summarycard = () => {
   const { isLoading, isError, error, data } = useGetCart();
-  const { currency, exchange } = useContext(UserContext);
+  const { currency, exchange, currentUser, shippingRate } =
+    useContext(UserContext);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
+    if (!currentUser) {
+      const localCart = JSON.parse(localStorage.getItem("zaahi-cart")) || [];
+      setTotalPrice(
+        localCart.reduce(
+          (sum, item) => sum + item.qty * item.variant?.size?.price,
+          0,
+        ),
+      );
+      setCartItems(localCart);
+    }
     if (data) {
       setTotalPrice(
         data.cart.reduce((sum, item) => sum + item.price * item.qty, 0),
       );
+      setCartItems(data.cart);
     }
-  }, [data]);
-  return isLoading ? (
-    <Loading />
-  ) : isError ? (
-    <p>{error.message}</p>
-  ) : (
+  }, [data, currentUser]);
+
+  const subTotalAED =
+    currency === "AED" && exchange
+      ? totalPrice * exchange.INRtoAED
+      : totalPrice;
+  const vat = subTotalAED * ((shippingRate?.VAT || 0) / 100);
+  const total = subTotalAED + vat + (shippingRate?.shippingRate || 0);
+  return (
     <div className="w-full flex justify-center lg:block">
       <div className="border border-gray-400 py-7 px-5 bg-gray-200 w-full max-w-sm lg:w-80">
         <p className="font-[Bastoni] text-sm">Order Summary</p>
-        {data.cart?.map((item) => (
+        {cartItems?.map((item) => (
           <div
             className="flex gap-5 border-b border-gray-500 pb-6 mt-6"
-            key={item._id}
+            key={item._id || `${item.product?._id}-${item.variant?.size?.size}`}
           >
             <div className="w-16 h-20 border border-gray-300 bg-gray-100 flex items-center justify-center">
-              <img src={item?.image} alt="product" className="object-cover" />
+              <img
+                src={item?.image || item?.product?.image?.url}
+                alt="product"
+                className="object-cover"
+              />
             </div>
 
             <div className="flex flex-col text-sm font-[Inter]">
               <p className="tracking-widest font-[Be Vietnam Pro]">
-                {item?.productName}
+                {item?.productName || item?.product?.productName}
               </p>
-              <p className="text-gray-400 text-sm">Size: {item?.size}</p>
+              <p className="text-gray-400 text-sm">
+                Size: {item?.size || item?.variant?.size?.size}
+              </p>
               <p className="text-gray-400 text-sm">Qty: {item?.qty}</p>
               <p>
                 {currency === "INR"
-                  ? `Rs ${item?.price}`
+                  ? `Rs ${item?.price || item?.variant?.size?.price}`
                   : currency === "AED" && exchange
-                    ? `AED ${(item?.price * exchange?.INRtoAED).toFixed(2)}`
-                    : `Rs ${item?.price}`}
+                    ? `AED ${((item?.price || item?.variant?.size?.price) * exchange?.INRtoAED).toFixed(2)}`
+                    : `Rs ${item?.price}`}{" "}
+                x {item.qty}
               </p>
             </div>
           </div>
@@ -61,10 +84,19 @@ const Summarycard = () => {
             </span>
           </div>
 
-          <div className="flex justify-between">
-            <span>Shipping</span>
-            <span>Free</span>
-          </div>
+          {currency === "AED" && (
+            <>
+              {" "}
+              <div className="flex justify-between">
+                <span>Shipping</span>
+                <span>AED {shippingRate?.shippingRate}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>VAT ({shippingRate?.VAT}%)</span>
+                <span>{vat.toFixed(2)}</span>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="flex justify-between text-sm font-semibold mt-4">
@@ -73,7 +105,7 @@ const Summarycard = () => {
             {currency === "INR"
               ? `Rs ${totalPrice}`
               : currency === "AED" && exchange
-                ? `AED ${(totalPrice * exchange?.INRtoAED).toFixed(2)}`
+                ? `AED ${total.toFixed(2)}`
                 : `Rs ${totalPrice}`}
           </span>
         </div>
