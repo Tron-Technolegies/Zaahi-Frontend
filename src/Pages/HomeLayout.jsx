@@ -7,11 +7,14 @@ import { handleChatClick } from "../services/whatsapp";
 
 const HomeLayout = () => {
   const data = useLoaderData();
-  const { setExchange } = useContext(UserContext);
+  const { setExchange, setShippingRate } = useContext(UserContext);
 
   useEffect(() => {
-    if (data) {
-      setExchange(data);
+    if (data.data) {
+      setExchange(data.data);
+    }
+    if (data.data2) {
+      setShippingRate(data.data2);
     }
   }, [data]);
   return (

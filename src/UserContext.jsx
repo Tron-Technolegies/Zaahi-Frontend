@@ -7,6 +7,7 @@ export default function UserContextProvider({ children }) {
   const [category, setCategory] = useState("ALL");
   const [currency, setCurrency] = useState("INR");
   const [exchange, setExchange] = useState(null);
+  const [shippingRate, setShippingRate] = useState(null);
 
   return (
     <UserContext.Provider
@@ -19,6 +20,8 @@ export default function UserContextProvider({ children }) {
         setCurrency,
         exchange,
         setExchange,
+        shippingRate,
+        setShippingRate,
       }}
     >
       {children}

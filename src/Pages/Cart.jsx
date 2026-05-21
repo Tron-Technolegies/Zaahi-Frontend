@@ -10,9 +10,11 @@ import ExtraProducts from "../Components/Productdetails/ExtraProducts.jsx";
 const Cart = () => {
   const { data, isLoading } = useGetCart();
   const { isPending: isClearing, mutateAsync: clearCart } = useClearCart();
-  const { currentUser, exchange, currency } = useContext(UserContext);
+  const { currentUser, exchange, currency, shippingRate } =
+    useContext(UserContext);
   const [subTotal, setSubTotal] = useState(0);
   const [cartItems, setCartItems] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +29,13 @@ const Cart = () => {
       data?.cart || JSON.parse(localStorage.getItem("zaahi-cart")) || [];
     setCartItems(items);
   }, [data, localStorage]);
+
+  const subtotalAED =
+    currency === "AED" && exchange ? subTotal * exchange.INRtoAED : subTotal;
+
+  const vat = (subtotalAED * (shippingRate?.VAT || 0)) / 100;
+
+  const total = subtotalAED + (shippingRate?.shippingRate || 0) + vat;
 
   return isLoading ? (
     <Loading />
@@ -105,15 +114,28 @@ const Cart = () => {
                   {currency === "INR"
                     ? ` Rs. ${subTotal}`
                     : currency === "AED" && exchange
-                      ? `AED ${(subTotal * exchange?.INRtoAED).toFixed(2)}`
+                      ? `AED ${subtotalAED.toFixed(2)}`
                       : ` Rs. ${subTotal}`}
                 </p>
               </div>
-
-              {/* <div className="flex justify-between mb-6 font-[Inter] text-[#777777] pb-6 border-b border-gray-100">
-                <p>Shipping</p>
-                <p>Calculated at checkout</p>
-              </div> */}
+              {currency === "AED" && (
+                <>
+                  <div className="flex flex-col gap-4 text-sm font-[Inter] text-[#777777] pb-6 border-b border-gray-100">
+                    <p className="flex justify-between">
+                      Shipping{" "}
+                      <span className="text-black font-semibold">
+                        AED {shippingRate?.shippingRate}
+                      </span>
+                    </p>
+                    <p className="flex justify-between">
+                      VAT ({shippingRate?.VAT}%)
+                      <span className="text-black font-semibold">
+                        AED {vat.toFixed(2)}
+                      </span>
+                    </p>
+                  </div>
+                </>
+              )}
 
               <div className="flex justify-between mb-8 font-[Inter] text-lg font-bold">
                 <p>Total</p>
@@ -121,7 +143,7 @@ const Cart = () => {
                   {currency === "INR"
                     ? ` Rs. ${subTotal}`
                     : currency === "AED" && exchange
-                      ? `AED ${(subTotal * exchange?.INRtoAED).toFixed(2)}`
+                      ? `AED ${total.toFixed(2)}`
                       : ` Rs. ${subTotal}`}
                 </p>
               </div>

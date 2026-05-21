@@ -16,6 +16,8 @@ import {
   Error,
   Cart,
   SingleOrderStatus,
+  PrivacyPage,
+  TermsPage,
 } from "./Pages";
 import HomeLayout from "./Pages/HomeLayout";
 import OrderConfirmed from "./Pages/OrderConfirmed";
@@ -31,7 +33,6 @@ import AddressPage from "./Pages/AddressPage";
 import ChangePassword from "./Pages/ChangePassword";
 import UserContextProvider from "./UserContext";
 import { exchangeInfoLoader } from "./loader/CurrencyLoader";
-import PrivacyPage from "./Pages/PrivacyPage";
 
 const client = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 3, retry: false } },
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
       {
         path: "/privacy",
         element: <PrivacyPage />,
+      },
+      {
+        path: "/terms",
+        element: <TermsPage />,
       },
       {
         path: "account",

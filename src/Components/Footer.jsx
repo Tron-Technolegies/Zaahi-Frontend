@@ -126,12 +126,18 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-6 mt-4 md:mt-0 text-[#7C7C7C]">
-              <span className="hover:text-pink-500 cursor-pointer">
+              <Link
+                to={"/privacy"}
+                className="hover:text-pink-500 cursor-pointer"
+              >
                 Privacy Policy
-              </span>
-              <span className="hover:text-pink-500 cursor-pointer">
+              </Link>
+              <Link
+                to={"/terms"}
+                className="hover:text-pink-500 cursor-pointer"
+              >
                 Terms of Service
-              </span>
+              </Link>
             </div>
           </div>
         </div>

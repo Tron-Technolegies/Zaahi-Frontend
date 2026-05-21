@@ -6,7 +6,8 @@ import { UserContext } from "../../UserContext";
 
 const Summarycard = () => {
   const { isLoading, isError, error, data } = useGetCart();
-  const { currency, exchange, currentUser } = useContext(UserContext);
+  const { currency, exchange, currentUser, shippingRate } =
+    useContext(UserContext);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
@@ -27,6 +28,13 @@ const Summarycard = () => {
       setCartItems(data.cart);
     }
   }, [data, currentUser]);
+
+  const subTotalAED =
+    currency === "AED" && exchange
+      ? totalPrice * exchange.INRtoAED
+      : totalPrice;
+  const vat = subTotalAED * ((shippingRate?.VAT || 0) / 100);
+  const total = subTotalAED + vat + (shippingRate?.shippingRate || 0);
   return (
     <div className="w-full flex justify-center lg:block">
       <div className="border border-gray-400 py-7 px-5 bg-gray-200 w-full max-w-sm lg:w-80">
@@ -76,10 +84,19 @@ const Summarycard = () => {
             </span>
           </div>
 
-          <div className="flex justify-between">
-            <span>Shipping</span>
-            <span>Free</span>
-          </div>
+          {currency === "AED" && (
+            <>
+              {" "}
+              <div className="flex justify-between">
+                <span>Shipping</span>
+                <span>AED {shippingRate?.shippingRate}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>VAT ({shippingRate?.VAT}%)</span>
+                <span>{vat.toFixed(2)}</span>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="flex justify-between text-sm font-semibold mt-4">
@@ -88,7 +105,7 @@ const Summarycard = () => {
             {currency === "INR"
               ? `Rs ${totalPrice}`
               : currency === "AED" && exchange
-                ? `AED ${(totalPrice * exchange?.INRtoAED).toFixed(2)}`
+                ? `AED ${total.toFixed(2)}`
                 : `Rs ${totalPrice}`}
           </span>
         </div>
