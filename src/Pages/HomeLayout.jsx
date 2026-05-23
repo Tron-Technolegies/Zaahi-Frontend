@@ -1,13 +1,20 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData, useLocation } from "react-router-dom";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../UserContext";
 import { handleChatClick } from "../services/whatsapp";
+import ReactPixel from "../services/pixel";
 
 const HomeLayout = () => {
   const data = useLoaderData();
   const { setExchange, setShippingRate } = useContext(UserContext);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    ReactPixel.pageView();
+  }, [location]);
 
   useEffect(() => {
     if (data.data) {
