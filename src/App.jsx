@@ -1,5 +1,9 @@
-import React, { Children } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React, { Children, useEffect } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useLocation,
+} from "react-router-dom";
 import {
   Categories,
   Collections,
