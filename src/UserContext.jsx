@@ -5,7 +5,7 @@ export const UserContext = createContext();
 export default function UserContextProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [category, setCategory] = useState("ALL");
-  const [currency, setCurrency] = useState("INR");
+  const [currency, setCurrency] = useState("AED");
   const [exchange, setExchange] = useState(null);
   const [shippingRate, setShippingRate] = useState(null);
 
