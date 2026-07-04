@@ -116,10 +116,11 @@ const DetailPage = ({ product }) => {
       <div className="flex md:flex-row flex-col mt-10 justify-between">
         <div className="flex items-start justify-center gap-6 md:w-2/3">
           <div className="flex flex-col max-h-125 overflow-y-scroll gap-5 ">
-            {[product?.image, ...product?.extraImages].map((item) => (
+            {[product?.image, ...product?.extraImages].map((item, index) => (
               <Picture
                 key={item.publicId}
                 product={item}
+                alt={`${product?.productName} - View ${index + 1}`}
                 setSelected={setSelected}
               />
             ))}
@@ -127,7 +128,7 @@ const DetailPage = ({ product }) => {
           <div className="border border-[#D9D9D9] p-10">
             <img
               src={selected?.url}
-              alt={selected?.publicId}
+              alt={product?.productName || "Product image"}
               className="mx-auto max-h-125 object-cover"
             />
           </div>
@@ -137,7 +138,7 @@ const DetailPage = ({ product }) => {
           <button className="w-17.5 bg-[#F42727] text-white px-2 py-1 text-sm mb-7 font-[Inter]">
             SALE
           </button>
-          <p className="font-[Be Vietnam Pro]">{product?.productName}</p>
+          <h1 className="font-[Be Vietnam Pro] text-2xl font-medium">{product?.productName}</h1>
           <p className="text-sm text-gray-400">{product?.category}</p>
           {product.totalReviews > 0 && (
             <div className="text-sm text-[#FFB800] mb-4 flex items-center font-[Inter]">

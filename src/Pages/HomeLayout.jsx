@@ -17,10 +17,10 @@ const HomeLayout = () => {
   }, [location]);
 
   useEffect(() => {
-    if (data.data) {
+    if (data?.data) {
       setExchange(data.data);
     }
-    if (data.data2) {
+    if (data?.data2) {
       setShippingRate(data.data2);
     }
   }, [data]);
@@ -32,7 +32,12 @@ const HomeLayout = () => {
           className="w-fit z-50 fixed bottom-4 right-4"
           onClick={handleChatClick}
         >
-          <img src="/whatsapp_logo.webp" className="w-14" />
+          <img
+            src="/whatsapp_logo.webp"
+            alt="WhatsApp Support Chat"
+            loading="lazy"
+            className="w-14"
+          />
         </button>
         <Outlet />
       </div>

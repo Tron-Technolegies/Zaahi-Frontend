@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext.jsx";
 import Loading from "../Components/Loading.jsx";
 import ExtraProducts from "../Components/Productdetails/ExtraProducts.jsx";
+import SEO from "../Components/SEO";
 
 const Cart = () => {
   const { data, isLoading } = useGetCart();
@@ -41,6 +42,11 @@ const Cart = () => {
     <Loading />
   ) : (
     <div>
+      <SEO 
+        title="Shopping Cart"
+        description="View the items in your shopping cart and proceed to checkout at Zaahi Designs."
+        canonical="https://zaahidesigns.com/cart"
+      />
       <div className="flex justify-between items-center mt-24 px-4 md:px-12 lg:px-24">
         <div className="flex gap-3 text-sm font-[Inter]">
           <Link to="/">
@@ -90,12 +96,12 @@ const Cart = () => {
               <p className="text-gray-500 font-[Inter] mb-4">
                 Your cart is currently empty.
               </p>
-              <a
-                href="/collections"
+              <Link
+                to="/collections"
                 className="bg-[#D77C84] text-white px-8 py-3 font-[Inter] text-sm hover:opacity-90"
               >
                 CONTINUE SHOPPING
-              </a>
+              </Link>
             </div>
           )}
         </div>

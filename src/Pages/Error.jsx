@@ -1,6 +1,15 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import SEO from "../Components/SEO";
+
 function Error() {
   return (
-    <div className="flex flex-col items-center px-4">
+    <div className="flex flex-col items-center px-4 py-12">
+      <SEO 
+        title="Page Not Found"
+        description="The page you are looking for does not exist on Zaahi Designs."
+        canonical="https://zaahidesigns.com/404"
+      />
       <div
         className="w-full max-w-xl bg-contain bg-center bg-no-repeat h-56 sm:h-64 md:h-80 lg:h-[400px]"
         style={{ backgroundImage: "url('/error.png')" }}
@@ -15,11 +24,11 @@ function Error() {
           Page Not Found
         </p>
 
-        <a href="/">
-          <button className="text-white font-bold text-sm mt-8  bg-stone-800 rounded-xl p-2  hover:bg-stone-500">
+        <Link to="/">
+          <button className="text-white font-bold text-sm mt-8  bg-stone-800 rounded-xl p-2  hover:bg-stone-500 cursor-pointer">
             Go Home
           </button>
-        </a>
+        </Link>
       </div>
     </div>
   );

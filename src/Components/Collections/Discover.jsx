@@ -45,10 +45,10 @@ const Discover = () => {
   return (
     <>
       <div className=" flex flex-col md:mt-10 items-center justify-center">
-        <p className="uppercase font-[Inter] text-[18px]">discover</p>
-        <p className="font-[Bastoni] md:text-[45px] text-4xl front-medium pt-3">
+        <span className="uppercase font-[Inter] text-[18px]">discover</span>
+        <h1 className="font-[Bastoni] md:text-[45px] text-4xl font-medium pt-3">
           Our Collection
-        </p>
+        </h1>
         <p className="font-[Inter] text-center text-[#848484] md:text-[20px] text-lg pt-4">
           Explore exquisite pieces curated for the discerning collector
         </p>

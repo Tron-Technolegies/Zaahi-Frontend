@@ -100,6 +100,7 @@ const CartCard = ({ item }) => {
             src={item?.image || item?.product?.image?.url}
             className="h-24 w-20 object-cover rounded-md shrink-0"
             alt={item?.productName || "Product"}
+            loading="lazy"
           />
           <div className="flex flex-col flex-1 min-w-0">
             {/* <p className="font-medium text-xs text-[#777777] mb-1">

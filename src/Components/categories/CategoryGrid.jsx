@@ -33,6 +33,7 @@ export default function CategoryGrid() {
         <img
           src={category.image}
           alt={category.name}
+          loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
         />
         <p className="text-white instrument-font text-xl border-b absolute bottom-7 px-2 z-7 duration-500">

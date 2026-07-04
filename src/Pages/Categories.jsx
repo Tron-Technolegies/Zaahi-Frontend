@@ -1,6 +1,4 @@
-import React from "react";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
+import SEO from "../Components/SEO";
 import OurCategories from "../Components/categories/OurCategories";
 import CategoryCard from "../Components/categories/CategoryCard";
 import { useGetCategories } from "../hooks/categories/useCategory";
@@ -10,6 +8,11 @@ const Categories = () => {
   const { isError, isLoading, error, data } = useGetCategories();
   return (
     <div className="mt-24">
+      <SEO 
+        title="Browse Categories"
+        description="Browse ethnic wear by category at Zaahi Designs. Select from premium sarees, lehengas, kurtis, gowns, dupatta, and salwar suits."
+        canonical="https://zaahidesigns.com/categories"
+      />
       <OurCategories />
       <div className="max-w-7xl mx-auto px-4 py-5 mb-20">
         {isLoading ? (
