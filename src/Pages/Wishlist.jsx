@@ -8,6 +8,7 @@ import {
 import { useContext } from "react";
 import { UserContext } from "../UserContext";
 import { Link, useNavigate } from "react-router-dom";
+import SEO from "../Components/SEO";
 
 const Wishlist = () => {
   const { data, isLoading } = useGetWishlist();
@@ -30,14 +31,19 @@ const Wishlist = () => {
 
   return (
     <div>
+      <SEO 
+        title="My Wishlist"
+        description="View and manage the items you have saved to your wishlist at Zaahi Designs."
+        canonical="https://zaahidesigns.com/wishlist"
+      />
       <div className="flex justify-between items-center mt-24 px-4 md:px-12 lg:px-24">
         <div className="flex gap-3 text-sm font-[Inter]">
           <Link to="/">
             <button className="text-[#848484] cursor-pointer">
               Home &gt; &nbsp;
             </button>
-            <button>Wishlist</button>
           </Link>
+          <button>Wishlist</button>
         </div>
         {wishlistItems.length > 0 && (
           <button
@@ -51,6 +57,9 @@ const Wishlist = () => {
       </div>
 
       <div className="mt-10 md:mt-20 px-4 md:px-12 lg:px-24 max-w-7xl mx-auto flex flex-col gap-6 md:gap-8 min-h-[40vh]">
+        <h1 className="font-[Bastoni] text-3xl md:text-4xl text-left font-medium border-b pb-4 mb-4">
+          My Wishlist
+        </h1>
         {isLoading ? (
           <p className="text-center font-[Inter] text-gray-500">
             Loading wishlist...

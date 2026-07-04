@@ -1,15 +1,22 @@
 import { useSignUp } from "../hooks/auth/useSignin";
+import { Link } from "react-router-dom";
+import SEO from "../Components/SEO";
 
 const SignUp = () => {
   const { isPending, mutateAsync } = useSignUp();
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <SEO 
+        title="Sign Up"
+        description="Create a Zaahi Designs account to start shopping, build your wishlist, and save your addresses."
+        canonical="https://zaahidesigns.com/signup"
+      />
       <div className="bg-white shadow-xl rounded-xl w-96 p-8">
         <div className="flex justify-center mb-6">
           <img src="/Logo/Logo.png" alt="logo" className="h-16" />
         </div>
 
-        <h2 className="text-2xl font-semibold text-center text-[#D47784] mb-6">Sign Up</h2>
+        <h1 className="text-2xl font-semibold text-center text-[#D47784] mb-6">Sign Up</h1>
 
         <form
           onSubmit={async (e) => {
@@ -60,9 +67,9 @@ const SignUp = () => {
           </button>
 
           <div className="flex justify-between mt-4 text-sm">
-            <a href="/signin" className="text-[#D47784] hover:underline">
+            <Link to="/signin" className="text-[#D47784] hover:underline">
               Already have an account?
-            </a>
+            </Link>
           </div>
         </form>
       </div>

@@ -23,7 +23,7 @@ export default function Footer() {
       <div className=" max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12">
         {/* Brand Section */}
         <div className="flex flex-col items-center justify-center h-full text-center">
-          <img src="/zaahi-logo.png" alt="Zahi Designs" className="w-30 mb-4" />
+          <img src="/zaahi-logo.png" alt="Zaahi Designs" className="w-30 mb-4" />
           <p className="text-xs leading-6 text-gray-600 mb-6">
             Celebrating the timeless beauty of Indian ethnic wear with
             handcrafted collections for the modern woman.
@@ -122,7 +122,7 @@ export default function Footer() {
 
           <div className="md:col-span-3 border-t-2 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-[#B99295]">
             <p className="text-[#7C7C7C]">
-              © {new Date().getFullYear()} ZAHIDESIGN. All rights reserved.
+              © {new Date().getFullYear()} Zaahi Designs. All rights reserved.
             </p>
 
             <div className="flex gap-6 mt-4 md:mt-0 text-[#7C7C7C]">

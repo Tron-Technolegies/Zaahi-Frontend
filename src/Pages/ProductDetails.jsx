@@ -1,4 +1,4 @@
-import Header from "../Components/Header";
+import SEO from "../Components/SEO";
 import DetailPage from "../Components/Productdetails/DetailPage";
 import Description from "../Components/Productdetails/Description";
 
@@ -36,8 +36,30 @@ const ProductDetails = () => {
     );
   }
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.productName,
+    "image": product.image?.url || "",
+    "description": product.description || "",
+    "category": product.category || "",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "INR",
+      "price": product.basePrice || 0,
+      "availability": "https://schema.org/InStock",
+      "url": window.location.href
+    }
+  };
+
   return (
     <div className="mt-24">
+      <SEO 
+        title={product.productName}
+        description={product.description ? product.description.slice(0, 160) : `Buy ${product.productName} at Zaahi Designs. Explore our latest styles.`}
+        canonical={`${window.location.origin}/product-details/${product._id}`}
+        schema={productSchema}
+      />
       <DetailPage product={product} />
       <Description current={current} setCurrent={setCurrent} />
       {current === "description" && (

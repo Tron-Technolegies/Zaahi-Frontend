@@ -65,6 +65,7 @@ const Card = ({ product }) => {
             <img
               src={product?.image?.url}
               alt={product?.productName}
+              loading="lazy"
               className="mx-auto object-cover w-full"
             />
           </Link>

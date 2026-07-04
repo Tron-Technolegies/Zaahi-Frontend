@@ -33,6 +33,7 @@ const WishlistCard = ({ item }) => {
           src={item?.image?.url}
           className="h-24 w-20 object-cover rounded-md shrink-0"
           alt={item?.productName || "Product"}
+          loading="lazy"
         />
         <div className="flex flex-col flex-1 min-w-0">
           <p className="text-base text-[#181817] truncate font-medium">

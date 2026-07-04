@@ -1,0 +1,14 @@
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Disallow private user pages
+Disallow: /cart
+Disallow: /wishlist
+Disallow: /account/
+Disallow: /shipping
+Disallow: /order-confirmed
+Disallow: /orders/
+
+Sitemap: https://zaahidesigns.com/sitemap.xml

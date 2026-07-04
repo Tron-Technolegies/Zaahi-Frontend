@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
+import SEO from "../Components/SEO";
 
 const Section = ({ title, children }) => (
   <div className="mb-10">
@@ -20,6 +21,11 @@ const PrivacyPage = () => {
 
   return (
     <div className="min-h-screen inter pt-24 pb-20 px-4">
+      <SEO 
+        title="Privacy Policy"
+        description="Privacy Policy for Zaahi Designs. Learn how we collect, use, disclose, and protect your personal information."
+        canonical="https://zaahidesigns.com/privacy"
+      />
       <div className="max-w-3xl mx-auto">
         {/* Back */}
         <Link

@@ -1,17 +1,24 @@
 import { useSignin } from "../hooks/auth/useSignin";
+import { Link } from "react-router-dom";
+import SEO from "../Components/SEO";
 
 const SignIn = () => {
   const { isPending, mutateAsync } = useSignin();
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <SEO 
+        title="Sign In"
+        description="Sign in to your Zaahi Designs account to manage your profile, view orders, and track your wishlist."
+        canonical="https://zaahidesigns.com/signin"
+      />
       <div className="bg-white shadow-xl rounded-xl w-96 p-8">
         <div className="flex justify-center mb-6">
           <img src="/Logo/Logo.png" alt="logo" className="h-16" />
         </div>
 
-        <h2 className="text-2xl font-semibold text-center text-[#D47784] mb-6">
-          SignIn
-        </h2>
+        <h1 className="text-2xl font-semibold text-center text-[#D47784] mb-6">
+          Sign In
+        </h1>
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -45,9 +52,9 @@ const SignIn = () => {
           </button>
 
           <div className="flex justify-between mt-4 text-sm">
-            <a href="/signup" className="text-[#D47784] hover:underline">
+            <Link to="/signup" className="text-[#D47784] hover:underline">
               Sign Up
-            </a>
+            </Link>
 
             <a href="#" className="text-[#D47784] hover:underline">
               Forgot Password?

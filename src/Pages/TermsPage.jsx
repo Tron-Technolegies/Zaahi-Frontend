@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
+import SEO from "../Components/SEO";
 
 const Section = ({ title, children }) => (
   <div className="mb-10">
@@ -20,6 +21,11 @@ const TermsPage = () => {
 
   return (
     <div className="min-h-screen inter pt-24 pb-20 px-4">
+      <SEO 
+        title="Terms of Service"
+        description="Terms of Service for Zaahi Designs. Read the rules, terms, and guidelines for using our website and services."
+        canonical="https://zaahidesigns.com/terms"
+      />
       <div className="max-w-3xl mx-auto">
         {/* Back */}
         <Link
